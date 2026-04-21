@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+
+# Customer data (sensitive - don't commit raw customer data)
+# Uncomment these if you store sensitive data locally:
+# customers/*/notes/
+# customers/_daily-briefings/
+# customers/_weekly-reviews/
+
+# MCP settings (may contain tokens)
+# .kiro/settings/mcp.json

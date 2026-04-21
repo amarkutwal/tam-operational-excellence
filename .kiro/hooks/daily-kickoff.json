@@ -1,0 +1,12 @@
+{
+  "name": "Daily Kickoff",
+  "version": "1.0.0",
+  "description": "Manually trigger your morning kickoff SOP. Click the play button to start your daily briefing — it will check emails, tickets, calendar, health events, and generate your priority list.",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the Daily Kickoff SOP. Read the SOP from sops/daily-kickoff.md and execute each step using available MCP tools (Outlook for emails, SIM/support for tickets, calendar for meetings). Generate a daily briefing and save it to customers/_daily-briefings/ with today's date. If any MCP servers are not available, skip that step and note it in the output."
+  }
+}

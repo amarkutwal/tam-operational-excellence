@@ -1,0 +1,12 @@
+{
+  "name": "Weekly Review",
+  "version": "1.0.0",
+  "description": "Manually trigger your end-of-week review. Summarizes the week, checks SSP progress, creates customer health scorecards, and plans next week.",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the Weekly Review SOP. Read the SOP from sops/weekly-review.md and execute each step. Summarize the week's activity, check SSP progress for each customer, create health scorecards, and generate next week's plan. Save the output to customers/_weekly-reviews/ with the current week number."
+  }
+}
