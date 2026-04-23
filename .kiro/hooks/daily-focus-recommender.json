@@ -1,0 +1,12 @@
+{
+  "name": "Daily Focus Recommender",
+  "version": "1.0.0",
+  "description": "Manually trigger the daily focus recommender. Analyzes all customers' current status, scores priorities, checks your calendar, and generates a focused action plan for the day with TAM goal mapping.",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the Daily Focus Recommender SOP. Read the SOP from sops/daily-focus-recommender.md. Scan all customer folders in customers/ for context, check my calendar and emails for today, score each customer's urgency, and generate today's prioritized focus plan with time allocation recommendations and TAM goal mapping."
+  }
+}

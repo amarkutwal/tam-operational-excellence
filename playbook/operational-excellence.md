@@ -2,8 +2,10 @@
 ### Using Kiro and GenAI Tools
 
 **Author:** Amar Kutwal (akkutwal)  
-**Version:** 0.1 (Draft)  
-**Last Updated:** April 21, 2026
+**Version:** 0.2 (Draft)  
+**Last Updated:** April 23, 2026  
+**Project:** Ulduz  
+**Stakeholders:** Nick Majedi (Manager), Diego (Coach)
 
 ---
 
@@ -23,7 +25,7 @@ TAMs juggle multiple customers, each with their own:
 - Cost optimization opportunities
 - Health events and maintenance windows
 
-With 5-6 customers per TAM (and growing), doing this manually doesn't scale.
+With an unprecedented number of new customers expected by end of 2026 — including EOP (Enterprise On-Ramp Plus) customers merging into full Enterprise Support — TAMs may handle up to 8-12 customers with only 8% time allocation each. That's roughly 3-4 hours per customer per week. Doing this manually doesn't scale.
 
 ## 2. The Solution: AI-Assisted Workflows
 
@@ -41,6 +43,21 @@ With 5-6 customers per TAM (and growing), doing this manually doesn't scale.
 - **Custom workflows** → Kiro (build your own SOPs, steering, hooks)
 - **Customer deep dives** → UNO + TamTools (workload discovery, case analysis)
 - **Documentation & presentations** → Kiro (structured workspace, version control)
+
+### Diego's Approach: Obsidian + Kiro Dashboard
+Diego (project coach) uses Obsidian alongside Kiro to create a morning dashboard that provides unified customer visibility. His system:
+- Integrates with Command Center and other AWS tools to pull live data
+- Tracks TAM goals and maps daily activities to those goals
+- Provides a single-pane view: calendar, open cases, customer events, action items
+- Enables strategic focus over operational overhead
+
+**Our approach achieves the same outcome using Kiro natively:**
+- Steering files provide persistent customer context (like Obsidian's vault)
+- Hooks trigger automated morning dashboards (like Diego's morning SOP)
+- Customer folders maintain structured knowledge per customer
+- The Daily Focus Recommender maps activities to TAM goals (Diego's goal-mapping feature)
+
+The advantage of the Kiro-native approach: everything lives in one tool, is version-controlled via Git, and is shareable with other TAMs without requiring them to learn Obsidian.
 
 ## 3. Time Blocking Strategy
 
@@ -74,18 +91,48 @@ With 5-6 customers per TAM (and growing), doing this manually doesn't scale.
 - Health event check
 - Priority list generation
 
-### 4.2 Weekly Review (see `sops/weekly-review.md`)
+### 4.2 Daily Focus Recommender (see `sops/daily-focus-recommender.md`)
+- Cross-customer priority scoring (urgency-based, not gut-feel)
+- Time budget calculation based on calendar and allocations
+- Prioritized action plan: Must Do → Should Do → Proactive → Defer
+- TAM goal mapping for every action (tracks where your time goes)
+- End-of-day review option
+
+### 4.3 Weekly Review (see `sops/weekly-review.md`)
 - Week summary metrics
 - SSP progress tracking
 - Customer health scorecards
 - Trend analysis
 - Next week planning
 
-### 4.3 Cadence Call Prep (see `sops/cadence-call-prep.md`)
+### 4.4 Cadence Call Prep (see `sops/cadence-call-prep.md`)
 - Case summary with severity highlighting
 - Action item tracking
 - Cost trends
 - AI-generated talking points
+
+### 4.5 Customer Onboarding (see `sops/customer-onboarding.md`)
+- Automated folder and profile creation
+- CMC data pull (account IDs, contacts, support plan)
+- Internal admin checklist (Slack channel, email alias, calendar)
+- Historical context gathering (cases, escalations, health events)
+- Infrastructure overview and initial SSP draft
+- Critical for scaling: onboard 25+ new EOP→Enterprise customers efficiently
+
+### 4.6 Infrastructure Discovery (see `sops/infrastructure-discovery.md`)
+- Service inventory ranked by spend
+- Compute, data, networking, and security landscape
+- Cost analysis with savings opportunities
+- EOL/EOS timeline
+- Resilience assessment
+- Complements UNO's `@agent-sop:workload-discovery`
+
+### 4.7 Support Plan Builder (see `sops/support-plan-builder.md`)
+- Automated SSP milestone suggestions based on real customer data
+- Well-Architected pillar alignment
+- Time allocation feasibility check (can you actually deliver this SSP?)
+- Monthly check-in version for ongoing tracking
+- Essential when managing 8-12 customers with limited time per customer
 
 ## 5. Template Utilization
 
@@ -124,7 +171,11 @@ All SOPs follow a consistent format (see `.kiro/steering/workflow-standards.md`)
 | Morning prep time | 30-45 min | 10-15 min |
 | Cadence call prep | 20-30 min | 5 min |
 | Weekly review | 1-2 hours | 30 min |
+| New customer onboarding | 2-3 hours | 30 min |
+| SSP creation | 3-4 hours | 1 hour |
 | Context switching between tools | High | Low (single workspace) |
+| Customers manageable per TAM | 5-6 | 8-12 |
+| Proactive vs reactive time | 20/80 | 50/50 |
 
 ---
 

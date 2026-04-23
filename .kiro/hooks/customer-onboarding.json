@@ -1,0 +1,12 @@
+{
+  "name": "Customer Onboarding",
+  "version": "1.0.0",
+  "description": "Manually trigger the customer onboarding workflow. Sets up folder structure, pulls customer data from CMC, generates admin checklist, runs infrastructure overview, and drafts initial SSP milestones.",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the Customer Onboarding SOP. Read the SOP from sops/customer-onboarding.md. Ask me for the customer name and account ID, then execute each step. Create the customer folder from the template, pull available data using MCP tools, generate the admin checklist, and create the onboarding summary. If any MCP servers are not available, skip that step and note it."
+  }
+}

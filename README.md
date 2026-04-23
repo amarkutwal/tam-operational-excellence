@@ -23,8 +23,12 @@ tam-operational-excellence/
 │   └── README.md              ← How to use customer folders
 ├── sops/
 │   ├── daily-kickoff.md       ← Morning SOP - run every day
+│   ├── daily-focus-recommender.md ← AI-powered daily priority planner
 │   ├── weekly-review.md       ← Weekly review SOP
-│   └── cadence-call-prep.md   ← Pre-meeting prep SOP
+│   ├── cadence-call-prep.md   ← Pre-meeting prep SOP
+│   ├── customer-onboarding.md ← New customer setup automation
+│   ├── infrastructure-discovery.md ← Customer workload mapping
+│   └── support-plan-builder.md ← Automated SSP creation
 ├── playbook/
 │   └── operational-excellence.md ← The deliverable playbook for other TAMs
 ├── presentations/
