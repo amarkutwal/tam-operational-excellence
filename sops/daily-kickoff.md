@@ -22,11 +22,26 @@ Group them by customer and flag anything urgent (escalations, executive emails, 
 
 ### Step 2: Open Tickets Review
 ```
-Show me all open/in-progress SIM tickets for my customers. 
+From the Case Summary Report email, filter ONLY for cases belonging to my primary customers:
+- cycleon.com = ReBound (Cycleon)
+- (Add new customer domains here as they transfer)
+
+EXCLUDE all other customer cases — those are backup coverage only.
+
+For each case belonging to my customers, note:
+- Case ID, Account ID, Severity, Status, Age, SLA Expiration, Owner, Resolver, Topic
+
+Then look up each Case ID in the support tools for full details:
+- What is the issue about?
+- What's the current status/progress?
+- Is there anything blocking resolution?
+- Does it need TAM follow-up?
+
 Highlight any that are:
-- Sev-1 or Sev-2
+- Sev-1 or Sev-2 (critical/urgent)
 - Stale (no update in 3+ days)
 - Approaching SLA breach
+- In PMA status for too long
 ```
 
 ### Step 3: Calendar Check

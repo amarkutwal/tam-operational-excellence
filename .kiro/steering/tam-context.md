@@ -23,12 +23,36 @@ inclusion: auto
 - Workflow development starts: April 23, 2026
 - Executive Presence Training: June 15 week, 2026
 
-## Customers
-<!-- Add your customers here as you onboard them -->
-<!-- Example:
-- **Customer A** — Account ID: 123456789012, Primary contact: [name]
-- **Customer B** — Account ID: 987654321098, Primary contact: [name]
--->
+## Customers (Primary TAM)
+
+**IMPORTANT: Only include these customers in daily briefings and SOPs. Exclude all others.**
+
+### ReBound (Cycleon)
+- **Domain:** cycleon.com
+- **SFDC Account ID:** 0015000000VBZMnAAP
+- **AWS Accounts (27 total, key ones):**
+  - 994149324911 — Production (aws.prd@cycleon.com)
+  - 586512688895 — Test (aws.tst@cycleon.com)
+  - 535135732637 — Preproduction (aws.pre@cycleon.com)
+  - 193782974826 — (VPN notifications)
+  - 374893476199 — Master/Payer (aws.master@cycleon.com)
+- **Industry:** Transportation & Logistics
+- **Location:** Amsterdam, Netherlands
+- **AM:** Marcela Cazacu Alotleh (mcalot)
+- **Health Score:** 42.75 (below average — needs attention)
+- **Spend:** ~$989K TTM, growing 5.3% WoW
+- **Top Services:** ECS, RDS (PostgreSQL, MySQL, SQL Server), CloudWatch, S3 Backup
+
+### Incoming EOP → Enterprise Transfers (NOT YET ACTIVE)
+- **BlockTech B.V.** — Handover from haffejs (Suleman), meeting May 12
+- **P & V Assurances** — Previous TAM (kbbhador) left org, reaching out to AM
+- **Vopak** — Handover from tmanyam@, waiting for reply
+- **Yenlo Cloud Services BV** — Fresh start, new team at customer, AM is Nate Baca (natebaca)
+
+### NOT My Customers (Backup Coverage Only — EXCLUDE from SOPs)
+- All other customers in Case Summary Report emails are backup coverage during holidays
+- Only include cycleon.com cases in daily briefings
+- When new customers are officially transferred, I will update this list
 
 ## Preferences
 - Always address me as Amar
