@@ -7,11 +7,20 @@ Thumbs.db
 *.swp
 *.swo
 
-# Customer data (sensitive - don't commit raw customer data)
-# Uncomment these if you store sensitive data locally:
-# customers/*/notes/
-# customers/_daily-briefings/
-# customers/_weekly-reviews/
+# Customer data (CONFIDENTIAL - do not push to shared repo)
+customers/rebound-cycleon/
+customers/blocktech-bv/
+customers/vopak/
+customers/allied-publicity/
+customers/_daily-briefings/
+customers/_weekly-reviews/
+
+# Keep templates visible (they're generic)
+!customers/_template/
+!customers/README.md
 
 # MCP settings (may contain tokens)
 # .kiro/settings/mcp.json
+
+# Steering files with personal info
+.kiro/steering/tam-context.md
