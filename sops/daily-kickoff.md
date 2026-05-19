@@ -73,7 +73,10 @@ Based on everything above, create my priority list for today:
 
 ### Step 7: SSP Milestone Mapping
 ```
-For each priority item in today's list, map it to the relevant SSP milestone:
+For each CUSTOMER-SPECIFIC priority item in today's list, map it to the relevant SSP milestone.
+
+IMPORTANT: Only include customer-facing work. EXCLUDE internal projects, initiatives, 
+certifications, presentations, and team meetings from this mapping. SSPs are customer-specific.
 
 | Priority Item | Customer | SSP Milestone | Pillar |
 |---|---|---|---|
@@ -90,7 +93,7 @@ Pillars:
 This mapping shows:
 1. Which SSP milestones are being actively worked on today
 2. Which milestones have no activity (may need attention)
-3. How daily work connects to strategic goals
+3. How daily work connects to customer strategic goals
 
 Flag any SSP milestones that haven't had activity in 2+ weeks.
 ```
@@ -102,7 +105,7 @@ A daily briefing document saved to `customers/_daily-briefings/YYYY-MM-DD.md` co
 - Today's meetings with prep notes
 - Active health events
 - Priority action list
-- **SSP milestone mapping table** (NEW — shows how today's work connects to strategic goals)
+- **SSP milestone mapping table** (customer-specific items only)
 
 ## Customization
 - Adjust the email lookback window (24h, weekend = 72h)
@@ -114,4 +117,4 @@ A daily briefing document saved to `customers/_daily-briefings/YYYY-MM-DD.md` co
 - On Mondays, change the email lookback to "since Friday"
 - Before PTO, run this for the next 5 days to prep your backup
 - Save the output as a reference for your weekly review
-- Use the SSP mapping to show Nick/leadership how daily work drives strategic outcomes
+- Use the SSP mapping to show leadership how daily work drives customer outcomes
