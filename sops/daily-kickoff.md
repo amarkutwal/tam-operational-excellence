@@ -1,7 +1,7 @@
 # SOP: Daily Kickoff
 
 ## Purpose
-Start your day with a clear picture of what needs attention across all your customers. This SOP pulls together emails, tickets, health events, and action items into a single morning briefing.
+Start your day with a clear picture of what needs attention across all your customers. This SOP pulls together emails, tickets, health events, and action items into a single morning briefing — with priorities mapped to SSP milestones.
 
 ## When to Run
 - **Frequency:** Every morning, first thing
@@ -10,11 +10,11 @@ Start your day with a clear picture of what needs attention across all your cust
 ## Prerequisites
 - MCP servers configured: Outlook, SIM/Support, Slack (via UNO or manual setup)
 - Customer folders set up in `customers/` directory with account IDs
+- SSP tracker populated for each customer (in `customers/[name]/ssp-tracker.md`)
 
 ## Steps
 
 ### Step 1: Email Triage
-Ask Kiro or UNO:
 ```
 Summarize my unread emails from the last 24 hours. 
 Group them by customer and flag anything urgent (escalations, executive emails, health events).
@@ -24,7 +24,9 @@ Group them by customer and flag anything urgent (escalations, executive emails, 
 ```
 From the Case Summary Report email, filter ONLY for cases belonging to my primary customers:
 - cycleon.com = ReBound (Cycleon)
-- (Add new customer domains here as they transfer)
+- block-tech.io = BlockTech B.V.
+- vopak.com / inqdo.com = Vopak
+- theapsgroup.com = Allied Publicity Services (APS)
 
 EXCLUDE all other customer cases — those are backup coverage only.
 
@@ -69,6 +71,30 @@ Based on everything above, create my priority list for today:
 3. Follow-ups (can wait but track)
 ```
 
+### Step 7: SSP Milestone Mapping
+```
+For each priority item in today's list, map it to the relevant SSP milestone:
+
+| Priority Item | Customer | SSP Milestone | Pillar |
+|---|---|---|---|
+| [action] | [customer] | [milestone from ssp-tracker] | [Well-Architected pillar] |
+
+Pillars:
+- Cost Optimization
+- Security
+- Reliability / Fault Tolerance
+- Performance Efficiency
+- Operational Excellence
+- Sustainability
+
+This mapping shows:
+1. Which SSP milestones are being actively worked on today
+2. Which milestones have no activity (may need attention)
+3. How daily work connects to strategic goals
+
+Flag any SSP milestones that haven't had activity in 2+ weeks.
+```
+
 ## Expected Output
 A daily briefing document saved to `customers/_daily-briefings/YYYY-MM-DD.md` containing:
 - Email summary by customer
@@ -76,13 +102,16 @@ A daily briefing document saved to `customers/_daily-briefings/YYYY-MM-DD.md` co
 - Today's meetings with prep notes
 - Active health events
 - Priority action list
+- **SSP milestone mapping table** (NEW — shows how today's work connects to strategic goals)
 
 ## Customization
 - Adjust the email lookback window (24h, weekend = 72h)
 - Add/remove data sources based on your MCP server setup
 - Modify priority criteria based on your customer portfolio size
+- Add customer-specific SSP milestones as they're created
 
 ## Tips
 - On Mondays, change the email lookback to "since Friday"
 - Before PTO, run this for the next 5 days to prep your backup
 - Save the output as a reference for your weekly review
+- Use the SSP mapping to show Nick/leadership how daily work drives strategic outcomes
