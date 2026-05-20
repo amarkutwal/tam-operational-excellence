@@ -1,117 +1,160 @@
-# SOP: Infrastructure Discovery
+---
+name: tam-infrastructure-discovery
+display_name: TAM Infrastructure Discovery
+trigger: "infrastructure discovery, what is this customer running, map customer infrastructure, workload discovery"
+icon: "🏗️"
+description: "Build a comprehensive picture of what a customer is running on AWS. Maps services, compute, data, networking, security, cost, EOL/EOS items, and resilience posture."
+---
 
-## Purpose
-Build a comprehensive picture of what a customer is running on AWS. This feeds into SSP planning, proactive recommendations, and helps you speak intelligently about their environment without manually clicking through consoles.
+# TAM Infrastructure Discovery
 
-## When to Run
-- **Frequency:** Once during onboarding, then quarterly refresh
-- **Estimated Time:** 3-5 minutes (automated data pull), 20-30 minutes (analysis and documentation)
+## Overview
+Build a comprehensive map of a customer's AWS infrastructure across all accounts. Covers services, compute, data, networking, security, cost, EOL/EOS, and resilience. Output is structured to feed directly into tam-support-plan-builder for SSP milestone generation. Run during onboarding (week 2), then quarterly refresh.
 
-## Prerequisites
-- Customer account ID(s) configured in their profile
-- MCP servers: Support/SIM, CMC, Cost Explorer (if available via UNO)
+## Workflow
 
-## Steps
+### Step 1: Identify Scope
+- **Mode**: `agentic`
+- **Input**: Customer name or account ID from user
+- **Output**: Scope definition (single vs multi-account, priority accounts)
+- **Validate**: Payer account identified, scope agreed
+- **On failure**: Ask user for account details
 
-### Step 1: Service Inventory
-```
-For [Customer Name] (Account IDs: [list]), generate a service inventory:
-- List all AWS services actively in use (based on billing data)
-- Rank by monthly spend (top 10 services)
-- Identify any services with zero spend in last 30 days (potential cleanup)
+For multi-account customers (e.g., ReBound=27, Vopak=31, APS=49): start with payer for consolidated view, identify top 5-10 by spend for detail. Full discovery on 49 accounts requires multiple sessions.
+
+### Step 2: Service Inventory (~3 minutes)
+- **Mode**: `agentic`
+- **Tool**: Knowledge Graph `kg_search`
+- **Input**: Customer accounts
+- **Output**: Ranked service list (top 15-20) grouped by category
+- **Validate**: Services grouped into Compute/Storage/Database/Networking/Security/Analytics/Other
+- **On failure**: Use available data, note gaps
+
+### Step 3: Compute Footprint
+- **Mode**: `agentic`
+- **Input**: Account data
+- **Output**: Compute inventory with best practice comparison
+- **Validate**: Major compute services covered (EC2, EKS, ECS, Lambda, Fargate)
+
+Capture: instance types/counts/regions, cluster versions, runtimes. Compare to best practices: current-gen instances? Graviton opportunity? Right-sizing?
+
+### Step 4: Data Landscape
+- **Mode**: `agentic`
+- **Input**: Account data
+- **Output**: Data service inventory with version/backup status
+- **Validate**: RDS, DynamoDB, S3 covered at minimum
+
+Capture: engines/versions, Multi-AZ, capacity modes, storage classes. Check: version currency, backup enabled, encryption at rest.
+
+### Step 5: Networking
+- **Mode**: `agentic`
+- **Input**: Account data
+- **Output**: Network topology summary
+- **Validate**: VPCs, connectivity (DX/VPN), security (WAF/Shield) covered
+
+Check: single points of failure, network segmentation, DDoS protection.
+
+### Step 6: Security Posture
+- **Mode**: `agentic`
+- **Input**: Account data
+- **Output**: Security assessment with findings
+- **Validate**: GuardDuty, Security Hub, Config, IAM, CloudTrail covered
+
+Assess: AWS Security Baseline coverage, cross-account standards, incident response readiness.
+
+### Step 7: Cost Analysis
+- **Mode**: `agentic`
+- **Input**: Customer name + partner status
+- **Output**: Cost analysis OR skip notice
+- **Validate**: Partner-resold check applied
+
+**⚠️ Skip entirely for partner-resold customers (Vopak).** For direct: MoM trend, top drivers, RI/SP coverage, savings opportunities, expirations in 90 days.
+
+### Step 8: EOL/EOS Assessment
+- **Mode**: `agentic`
+- **Input**: Version data from Steps 3-4
+- **Output**: EOL timeline table with risk and action
+- **Validate**: Items have dates and risk levels
+
+Build timeline: RDS versions, EKS versions, Lambda runtimes, instance generations. Flag anything within 12 months.
+
+### Step 9: Resilience Assessment
+- **Mode**: `agentic`
+- **Input**: Infrastructure data from Steps 3-5
+- **Output**: Resilience scorecard
+- **Validate**: Multi-AZ, backups, DR, scaling, SPOFs assessed
+
+Assess: Multi-AZ %, multi-region DR, backups, auto-scaling, single points of failure, RTO/RPO documentation.
+
+### Step 10: Compile Report & SSP Recommendations
+- **Mode**: `agentic`
+- **Input**: All data from Steps 2-9
+- **Output**: Complete infrastructure report + top 5-10 SSP recommendations
+- **Validate**: Recommendations are specific, prioritized, and actionable
+
+Structure output so tam-support-plan-builder can consume it directly. Generate recommendations based on: EOL items, security gaps, cost savings >$5K/yr, resilience improvements, modernization.
+
+## Output
+
+```markdown
+# 🏗️ Infrastructure Discovery — [Customer Name]
+**Date**: [Date] | **Accounts Scanned**: X of Y | **Region Focus**: [Regions]
+
+## Executive Summary
+[1-2 paragraph overview]
+
+## 📊 Service Inventory (Top 15)
+| # | Service | Category | Monthly Spend | % Total | Accounts |
+|---|---------|----------|--------------|---------|----------|
+
+## 💻 Compute
+[Details]
+
+## 💾 Data
+[Details]
+
+## 🌐 Networking
+[Details]
+
+## 🔒 Security
+[Details]
+
+## 💰 Cost Overview
+[OMIT for partner-resold]
+
+## ⏰ EOL/EOS Timeline
+| Resource | Current Version | EOL Date | Risk | Action |
+|----------|----------------|----------|------|--------|
+
+## 🛡️ Resilience Assessment
+[Details]
+
+## 🎯 Top SSP Recommendations
+| # | Recommendation | Pillar | Priority | Est. Effort | Potential Impact |
+|---|---------------|--------|----------|-------------|-----------------|
+
+## 📎 Data for Support Plan Builder
+[Structured summary for tam-support-plan-builder]
 ```
 
-### Step 2: Compute & Container Landscape
-```
-For [Customer Name], map their compute footprint:
-- EC2: Instance types, counts, regions, OS distribution
-- EKS/ECS: Cluster count, node groups, container workloads
-- Lambda: Function count, invocation volume, top functions by cost
-- Fargate: Task counts and configurations
-Flag any:
-- Instances running outdated AMIs
-- Over-provisioned or under-utilized resources
-- Single-AZ deployments (resilience risk)
-```
+## Lessons Learned
 
-### Step 3: Data & Storage Overview
-```
-For [Customer Name], map their data landscape:
-- RDS: Engine types, versions, instance sizes, Multi-AZ status
-- DynamoDB: Table count, capacity mode (on-demand vs provisioned)
-- S3: Bucket count, total storage, lifecycle policies in place?
-- ElastiCache/MemoryDB: Engine, node types
-- Redshift: Cluster details
-Flag any:
-- Database engines approaching EOL/EOS
-- Missing backups or point-in-time recovery
-- S3 buckets without encryption
-```
+### Do
+- For customers with 20+ accounts: do phased discovery (payer → top accounts → long tail)
+- Save output to workspace for tam-support-plan-builder to reference
+- Complement with UNO's @agent-sop:workload-discovery for comprehensive view
+- Create visualizations after discovery (architecture diagrams, cost pie charts)
 
-### Step 4: Networking & Security
-```
-For [Customer Name], review networking and security posture:
-- VPC count and architecture (hub-spoke, transit gateway?)
-- Direct Connect or VPN connections
-- WAF/Shield status
-- GuardDuty, Security Hub, Config rules enabled?
-- IAM: Any Trusted Advisor findings on IAM?
-```
+### Don't
+- Don't try to cover all 49 accounts in one session — phase it
+- Don't include cost analysis for partner-resold customers (Vopak)
+- Don't present findings as definitive without verifying data freshness
 
-### Step 5: Cost Analysis
-```
-For [Customer Name], generate a cost analysis:
-- Month-over-month spend trend (last 6 months)
-- Top 5 cost drivers by service
-- Reserved Instance / Savings Plan coverage and utilization
-- Spot usage percentage
-- Cost anomalies in the last 30 days
-- Estimated savings opportunities
-```
+### Common Failures
+- API access may be limited for some accounts — note gaps
+- Cost data may lag by 24-48 hours — note timestamps
+- Some services may not be visible without specific permissions
 
-### Step 6: EOL/EOS Check
-```
-For [Customer Name], check for end-of-life / end-of-support items:
-- RDS engine versions approaching EOL
-- EKS cluster versions nearing end of support
-- Lambda runtimes being deprecated
-- EC2 instance types being retired
-- Any other AWS service deprecations affecting them
-Create a timeline of upcoming EOL dates.
-```
-
-### Step 7: Resilience Assessment
-```
-For [Customer Name], assess resilience posture:
-- Multi-AZ deployments: what percentage of workloads?
-- Multi-Region: any DR setup?
-- Backup status: RDS snapshots, S3 versioning, EBS snapshots
-- Auto-scaling configured for key workloads?
-- Any single points of failure identified?
-```
-
-### Step 8: Generate Infrastructure Report
-```
-Compile all findings into an infrastructure discovery report for [Customer Name].
-Save to customers/[customer-name]/infra-discovery-YYYY-MM-DD.md
-
-Include:
-- Executive summary (1 paragraph)
-- Service inventory table
-- Cost overview with trends
-- Risk items (EOL, single-AZ, security gaps)
-- Top 5 recommendations for SSP milestones
-```
-
-## Expected Output
-- Infrastructure report: `customers/[customer-name]/infra-discovery-YYYY-MM-DD.md`
-- Updated profile.md with key workloads section filled in
-- Input for SSP milestone planning
-
-## Relationship to UNO
-UNO's `@agent-sop:workload-discovery` does something very similar. If you have UNO + TamTools installed, use that for the automated data pull. This SOP is the manual/Kiro version and also serves as documentation of what to look for.
-
-## Customization
-- For small customers (low spend), skip Steps 4 and 7 — focus on cost and core services
-- For large customers, break this into multiple sessions
-- Add industry-specific checks (e.g., HIPAA compliance for healthcare customers)
+### When to Ask the User
+- If scope is unclear (which accounts to cover), ask before starting
+- If significant gaps in data, ask whether to proceed or pause for access

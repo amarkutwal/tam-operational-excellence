@@ -1,108 +1,184 @@
-# SOP: Customer Onboarding
+---
+name: tam-customer-onboarding
+display_name: TAM Customer Onboarding
+trigger: "onboard new customer, customer onboarding, set up new customer, new customer transfer"
+icon: "🆕"
+description: "Automate new customer setup when they join your portfolio (especially EOP → Enterprise transitions). Creates profiles, pulls account data, generates admin checklists, and drafts initial SSP milestones."
+---
 
-## Purpose
-When a new customer joins your portfolio (especially EOP → Enterprise transitions), this SOP automates the initial setup so you're ready to engage from day one. No more forgetting to create a Slack channel or missing an email alias.
+# TAM Customer Onboarding
 
-## When to Run
-- **Frequency:** Once per new customer
-- **Estimated Time:** 5 minutes (automated), 15-20 minutes (review + manual steps)
+## Overview
+Automate new customer setup when they join your portfolio — whether EOP → Enterprise transition or handover from another TAM. Creates profiles, pulls account data, generates admin checklists, handover checklist, and drafts initial SSP milestones. Integrates with tam-infrastructure-discovery for the technical assessment. Total time: ~30 minutes vs 2-3 hours manual.
 
-## Prerequisites
-- Customer name, account ID(s), and primary contact info
-- MCP servers: Outlook, SIM/Support, Slack, CMC
+## Workflow
 
-## Steps
+### Step 1: Gather Basic Info
+- **Mode**: `agentic`
+- **Input**: User context or direct specification
+- **Output**: Customer name, account ID, assignment type, previous TAM, partner status
+- **Validate**: At minimum customer name and assignment reason identified
+- **On failure**: Ask user for missing details
 
-### Step 1: Create Customer Folder
+Ask for (or detect from context): customer name, account ID (payer), reason (EOP → Enterprise | TAM handover | New | Other), previous TAM, partner involvement.
+
+### Step 2: Account Data Pull (~3 minutes)
+- **Mode**: `agentic`
+- **Tool**: Knowledge Graph `kg_search`
+- **Input**: Customer name/account ID
+- **Output**: Customer profile with industry, spend, contacts, territory, account mappings, team
+- **Validate**: Payer account identified, team members listed
+- **On failure**: Note missing data, proceed with available info
+
+Search Sentral for account details. Pull AWS account mappings (payer + linked). Get account team (AM, SA, ESM, specialists). Get spend breakdown (top 10 services).
+
+### Step 3: Handover Checklist (if TAM transfer)
+- **Mode**: `agentic`
+- **Tool**: Outlook `email_search`, Slack `search_messages`
+- **Input**: Previous TAM name, customer name
+- **Output**: Completed handover checklist
+- **Validate**: Key items addressed (cases, SSP, contacts)
+- **On failure**: Flag missing items for follow-up with previous TAM
+
+Checklist items:
+| Item | Status |
+|------|--------|
+| Warm introduction email sent | ⬜ |
+| Open cases transferred/briefed | ⬜ |
+| SSP document shared | ⬜ |
+| Customer priorities communicated | ⬜ |
+| Partner rules documented | ⬜ |
+| Slack channel access | ⬜ |
+| Calendar events transferred | ⬜ |
+| Key contacts identified | ⬜ |
+
+### Step 4: EOP → Enterprise Specifics (if applicable)
+- **Mode**: `agentic`
+- **Input**: Account history
+- **Output**: Transition context and communication plan
+- **Validate**: Previous engagement documented
+
+Check previous EOP engagement history, review Trusted Advisor findings, assess upgrade implications, plan communication of new service level.
+
+### Step 5: Partner-Resold Handling (if applicable)
+- **Mode**: `agentic`
+- **Input**: Partner information
+- **Output**: Documented partner rules
+- **Validate**: Cost sharing rules explicitly stated
+
+Document: partner name, pricing/cost rules (e.g., NEVER share cost data), communication rules, billing relationship, partner domains for monitoring.
+
+### Step 6: Admin Setup Checklist
+- **Mode**: `agentic`
+- **Input**: Customer name
+- **Output**: Setup checklist with conventions
+- **Validate**: All admin items listed
+
+| Item | Convention | Status |
+|------|-----------|--------|
+| Slack channel | #tam-[customer-short-name] | ⬜ |
+| Email label/folder | [Customer Name] | ⬜ |
+| Calendar cadence | [Frequency] [Day] [Time] | ⬜ |
+| Case monitoring | Add to Case Summary Report filter | ⬜ |
+| Knowledge Graph | Add customer entity + relationships | ⬜ |
+| Customer profile doc | Save to workspace | ⬜ |
+
+### Step 7: Historical Context (~2 minutes)
+- **Mode**: `agentic`
+- **Tool**: Knowledge Graph `kg_search`
+- **Input**: Customer name, last 30 days
+- **Output**: Cases, escalations, health events, patterns
+- **Validate**: Historical data retrieved or confirmed empty
+- **On failure**: Note "No historical data — fresh start"
+
+### Step 8: Infrastructure Overview
+- **Mode**: `agentic`
+- **Input**: Account data from Step 2
+- **Output**: High-level infrastructure snapshot
+- **Validate**: Top services and regions identified
+
+Run lightweight version of tam-infrastructure-discovery (top services, regions, major workloads). Note: "Run full infrastructure-discovery separately in week 2 for deep dive."
+
+### Step 9: Draft Initial SSP Milestones
+- **Mode**: `agentic`
+- **Input**: Infrastructure overview + historical context + customer priorities
+- **Output**: 3-5 draft milestones
+- **Validate**: Milestones are actionable and time-bound
+
+Quick wins (first 30 days) + medium-term (60-90 days). Align with customer's stated priorities if known from handover.
+
+### Step 10: First-Call Talking Points & 30-Day Timeline
+- **Mode**: `agentic`
+- **Input**: All gathered data
+- **Output**: Talking points + 4-week timeline
+- **Validate**: Timeline has deliverables per week
+
+30-day timeline:
+| Week | Focus | Deliverable |
+|------|-------|-------------|
+| 1 | Introductions + access | First call, admin setup |
+| 2 | Discovery | Infrastructure review, case scan |
+| 3 | Planning | Draft SSP, prioritize |
+| 4 | Delivery starts | First milestone kicked off |
+
+## Output
+
+```markdown
+# 🆕 Customer Onboarding — [Customer Name]
+**Date**: [Date] | **Assignment Type**: [EOP/Handover/New]
+**Previous TAM**: [Name or N/A]
+
+## 👤 Customer Profile
+| Field | Value |
+|-------|-------|
+
+## 👥 Account Team
+| Role | Name | Contact |
+|------|------|---------|
+
+## 💰 Top Services by Spend
+| # | Service | Monthly | % of Total |
+|---|---------|---------|-----------|
+
+## 🔄 Handover Status
+[Checklist]
+
+## 🏗️ Infrastructure Snapshot
+[Overview]
+
+## 📋 Admin Checklist
+[Setup items]
+
+## 🎯 Draft SSP Milestones
+| # | Milestone | Pillar | Priority | Target |
+|---|-----------|--------|----------|--------|
+
+## 📅 First 30 Days
+[Timeline]
+
+## 💬 First-Call Talking Points
+1. [Introduction approach]
+2. [What Enterprise support means for them]
+3. [Quick wins you can offer]
+4. [Ask about their priorities]
 ```
-Create a new customer folder for [Customer Name].
-Copy the template from customers/_template/ and populate:
-- profile.md with the customer name, account IDs, support plan, and primary contact
-- ssp-tracker.md with empty milestones (we'll fill these in Step 6)
-- action-items.md with a clean slate
-```
 
-### Step 2: Pull Customer Identity from CMC
-```
-Look up [Customer Name] or account ID [XXXXXXXXXXXX] in the Customer Management Console.
-Pull:
-- Payer account and all linked accounts
-- Support plan details and entitlements
-- Assigned TAM history (am I the first TAM or a replacement?)
-- Customer segment and industry
-Save this to the customer's profile.md
-```
+## Lessons Learned
 
-### Step 3: Internal Admin Setup
-These may need manual action — the SOP generates the checklist:
+### Do
+- Reach out to previous TAM within 24 hours of assignment
+- Document ALL partner rules in customer profile — prevents costly mistakes
+- Save onboarding output to knowledge graph for future reference
+- Run tam-infrastructure-discovery as follow-up in week 2
 
-```
-For [Customer Name], generate my onboarding admin checklist:
-1. Slack channel: Does #es-[customer-short-name] exist? If not, note to create it.
-2. Email alias: Is there a distribution list for this customer's TAM team?
-3. Calendar: Are recurring cadence calls already scheduled?
-4. SIM: Are there any existing open tickets I should be aware of?
-5. Sentral: Check for any existing PFRs or opportunities linked to this customer.
-```
+### Don't
+- Don't skip the handover checklist for TAM transfers — gaps cause dropped balls
+- Don't share cost data with partner-resold customers from day one — document the rule early
 
-**Manual actions you'll need to do yourself:**
-- [ ] Create Slack channel (if needed)
-- [ ] Request email alias (if needed)
-- [ ] Schedule intro/cadence call with customer
-- [ ] Introduce yourself via email
+### Common Failures
+- Previous TAM may have already left org — use their last emails/Slack for context
+- Account data may be incomplete for new EOP customers — fill gaps during discovery
 
-### Step 4: Historical Context Gathering
-```
-For [Customer Name], pull historical context:
-- Last 30 days of support cases (open and recently closed)
-- Any escalations in the last 90 days
-- Recent health events affecting their accounts
-- Any existing SSP or support plan documents
-- Previous TAM's notes (if available in knowledge base)
-```
-
-### Step 5: Infrastructure Overview
-```
-For [Customer Name], generate a high-level infrastructure overview:
-- Top AWS services by spend (last 3 months)
-- Key workloads and architectures (if discoverable)
-- Any Well-Architected reviews on file
-- Trusted Advisor findings summary
-- Service enrollment status (SIP, IEM, etc.)
-```
-
-### Step 6: Initial SSP Draft
-```
-Based on the infrastructure overview and historical context, suggest 3-5 initial SSP milestones for [Customer Name].
-Consider:
-- Any recurring issues from case history
-- Cost optimization opportunities
-- Security and compliance gaps
-- Operational excellence improvements
-- Reliability and resilience recommendations
-Save draft milestones to ssp-tracker.md
-```
-
-### Step 7: Onboarding Summary
-```
-Generate a one-page onboarding summary for [Customer Name] that I can reference before my first call.
-Include:
-- Customer overview (who they are, what they run)
-- Current state (open issues, recent activity)
-- Suggested talking points for intro call
-- Proposed SSP milestones to discuss
-```
-
-## Expected Output
-- Populated customer folder: `customers/[customer-name]/`
-- Onboarding summary: `customers/[customer-name]/onboarding-summary.md`
-- Admin checklist with manual action items
-- Draft SSP milestones
-
-## Scaling Note
-When onboarding multiple customers (e.g., batch EOP transitions), run this SOP for each customer sequentially. The folder structure ensures nothing gets mixed up. With 8-12 customers, having this automated saves hours compared to manual onboarding.
-
-## Customization
-- For EOP → Enterprise transitions, add a step to review their previous EOP engagement history
-- For brand new AWS customers, skip the historical context step
-- Adjust SSP milestone suggestions based on your team's standard templates
+### When to Ask the User
+- If assignment reason is unclear, ask before proceeding
+- If partner rules are ambiguous, confirm before documenting
