@@ -20,45 +20,60 @@
 
 ---
 
-### Slide 2: Why This Matters for TAMs (3 min)
+### Slide 2: What I Will Cover (1 min)
+
+**Today's roadmap:**
+
+1. Why this matters for TAMs
+2. What DevOps Agent is (quick intro)
+3. The setup — a retail app on EKS
+4. **Live demo** — break it, investigate it, fix it
+5. How you can use this with your customers
+6. How to get started yourself
+
+**By the end:** You'll see a real troubleshooting scenario solved in under 5 minutes.
+
+---
+
+### Slide 3: Why This Matters for TAMs (3 min)
 
 **The scenario:**
-> Your customer calls: "Our application is down. The product catalog isn't loading. We think it's a database issue."
+> Your customer calls: "Our app is down. The product catalog won't load. We think it's a database issue."
 
 **Without DevOps Agent:**
-- SSH into instances, check security groups manually
-- Review CloudWatch logs across multiple services
-- Cross-reference VPC configs, NACLs, route tables
-- Time to resolution: 30-60 minutes of manual investigation
+- SSH into instances, check security groups by hand
+- Look through CloudWatch logs across many services
+- Compare VPC configs, NACLs, route tables
+- Time to fix: 30-60 minutes of manual work
 
 **With DevOps Agent:**
 - Ask: "Why can't the catalog connect to the database?"
-- Agent investigates automatically: pods, logs, security groups, network configs
-- Time to resolution: 2-5 minutes
+- The agent checks pods, logs, security groups, network configs — automatically
+- Time to fix: 2-5 minutes
 
-**TAM value:** You can guide customers to faster resolution, or even troubleshoot during a cadence call in real-time.
+**TAM value:** You help customers fix things faster. You can even troubleshoot live during a cadence call.
 
 ---
 
-### Slide 3: What is DevOps Agent? (3 min)
+### Slide 4: What is DevOps Agent? (3 min)
 
-- AI-powered troubleshooting assistant for AWS infrastructure
+- AI-powered troubleshooting tool for AWS infrastructure
 - Understands ECS, EKS, Lambda, RDS, and more
-- Investigates by analyzing: pod status, logs, metrics, security groups, network policies
+- Checks: pod status, logs, metrics, security groups, network policies
 - Available via Agent Spaces or Cloud IDE
-- Not a replacement for TAM expertise — it's a force multiplier
+- Not a replacement for TAM skills — it's a force multiplier
 
-**Key capabilities:**
-- Natural language queries ("Why is my service slow?")
-- Cross-service correlation (connects pod failures to security group rules)
-- Root cause identification with evidence
-- Suggested remediation steps
+**What it can do:**
+- Answer plain-English questions ("Why is my service slow?")
+- Connect findings across services (links pod failures to security group rules)
+- Find the root cause with evidence
+- Suggest a fix
 
 ---
 
-### Slide 4: Architecture Overview (2 min)
+### Slide 5: Architecture Overview (2 min)
 
-**The retail store application (workshop environment):**
+**The retail store app (workshop environment):**
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -74,73 +89,73 @@
 
 - EKS cluster running a microservices retail app
 - Catalog service needs to connect to RDS PostgreSQL
-- Security group controls network access between EKS pods and RDS
+- A security group controls network access between EKS pods and RDS
 
 ---
 
-### Slide 5: The Problem — What the Customer Sees (2 min)
+### Slide 6: The Problem — What the Customer Sees (2 min)
 
 **Symptoms:**
-- Product catalog page returns errors or timeouts
-- Application partially works (UI loads, but no products displayed)
-- Other services (cart, checkout) may still work
+- Product catalog page shows errors or timeouts
+- App partly works (UI loads, but no products show up)
+- Other services (cart, checkout) may still work fine
 
 **What kubectl shows:**
 ```bash
 kubectl get pods -n catalog
-# Pods are RUNNING (not crashed) — so it's not an application code issue
+# Pods are RUNNING (not crashed) — so it's not a code problem
 
 kubectl logs -n catalog deployment/catalog
 # Connection timeout to RDS endpoint
 # "could not connect to server: Connection timed out"
 ```
 
-**The misleading part:** Pods are running, no OOMKill, no CrashLoop — so where's the problem?
+**The tricky part:** Pods are running. No OOMKill. No CrashLoop. So where's the problem?
 
 ---
 
-### Slide 6: LIVE DEMO — Injecting the Fault (2 min)
+### Slide 7: LIVE DEMO — Injecting the Fault (2 min)
 
 **[LIVE DEMO STARTS]**
 
 ```bash
-# Show the healthy application first
+# Show the healthy app first
 get-eks-url
 # Open in browser — catalog loads fine
 
-# Now inject the fault
+# Now break it
 eks-lab3-start
 # This runs inject-rds-sg-block.sh
-# Modifies the security group to block EKS → RDS traffic
+# It changes the security group to block EKS → RDS traffic
 ```
 
 **Show the broken state:**
 - Refresh the app — catalog fails to load products
-- Show kubectl: pods are running but catalog can't reach DB
+- Show kubectl: pods are running, but catalog can't reach the DB
 
 ---
 
-### Slide 7: LIVE DEMO — DevOps Agent Investigation (10 min)
+### Slide 8: LIVE DEMO — DevOps Agent Investigation (10 min)
 
 **Ask DevOps Agent:**
 ```
 Why can't the catalog service connect to the database?
 ```
 
-**What the agent does (narrate as it runs):**
+**What the agent does (talk through it as it runs):**
 1. ✅ Checks pod status — pods are running, no restarts
 2. ✅ Checks pod logs — finds connection timeout errors to RDS
-3. ✅ Identifies the RDS endpoint from pod environment/config
+3. ✅ Finds the RDS endpoint from pod config
 4. ✅ Checks security group rules on the RDS instance
-5. ✅ **Finds the root cause:** Security group inbound rule doesn't allow traffic from EKS pod CIDR/security group
+5. ✅ **Finds the root cause:** Security group doesn't allow traffic from EKS on port 5432
 6. ✅ Suggests fix: Add inbound rule allowing port 5432 from EKS node security group
 
 **Key talking point:**
-> "Notice how the agent correlated the pod logs (connection timeout) with the security group configuration (missing inbound rule). This cross-service correlation is what takes humans 30+ minutes to do manually."
+> "See how the agent connected the pod logs (connection timeout) with the security group config (missing rule). This is what takes humans 30+ minutes to do by hand."
 
 ---
 
-### Slide 8: LIVE DEMO — Applying the Fix (2 min)
+### Slide 9: LIVE DEMO — Applying the Fix (2 min)
 
 ```bash
 # Fix the issue
@@ -151,30 +166,30 @@ eks-lab3-fix
 
 **Show recovery:**
 - Refresh the app — catalog loads again
-- Show kubectl logs — connections succeeding
+- Show kubectl logs — connections working
 
 ---
 
-### Slide 9: What the Agent Found — Summary (3 min)
+### Slide 10: What the Agent Found — Summary (3 min)
 
 | Investigation Step | Finding |
 |---|---|
 | Pod Status | Running (no crashes) |
 | Pod Logs | `Connection timed out` to RDS endpoint |
-| RDS Endpoint | Identified from service configuration |
+| RDS Endpoint | Found from service config |
 | Security Group | **Missing inbound rule** for port 5432 from EKS |
-| Root Cause | Security group blocking EKS → RDS connectivity |
+| Root Cause | Security group blocking EKS → RDS traffic |
 | Fix | Add inbound rule: TCP 5432 from EKS node SG |
 
-**Why this is hard to find manually:**
-- Pods are running — no obvious Kubernetes issue
-- The problem is at the AWS networking layer, not the application layer
-- You need to cross-reference K8s configs with VPC security groups
+**Why this is hard to find by hand:**
+- Pods are running — no obvious Kubernetes problem
+- The real issue is at the AWS networking layer, not the app layer
+- You need to compare K8s configs with VPC security groups
 - DevOps Agent does this automatically
 
 ---
 
-### Slide 10: ECS Comparison (Optional — 2 min)
+### Slide 11: ECS Comparison (Optional — 2 min) ⏩ *Can shorten or skip if running late*
 
 **Same problem, different platform:**
 
@@ -183,33 +198,34 @@ eks-lab3-fix
 | Root cause | Security group blocking access | Service discovery misconfiguration |
 | Symptom | Connection timeout | Connection refused / DNS failure |
 | Agent approach | Checks SG rules | Checks Cloud Map / service discovery |
-| Fix | Add SG inbound rule | Fix service discovery configuration |
+| Fix | Add SG inbound rule | Fix service discovery config |
 
-**Takeaway:** DevOps Agent adapts its investigation based on the platform. Same question, different investigation path.
+**Takeaway:** DevOps Agent adapts its investigation based on the platform. Same question, different path.
 
 ---
 
-### Slide 11: How TAMs Can Use This (3 min)
+### Slide 12: How TAMs Can Use This (3 min) ⏩ *Can shorten to 1.5 min if running late*
 
 **During customer calls:**
-- Customer reports connectivity issues → run DevOps Agent live
-- Demonstrate value by resolving in minutes, not hours
+- Customer reports connection issues → run DevOps Agent live
+- Fix it in minutes, not hours. That's a wow moment.
 
-**Proactive engagement:**
-- Run periodic health checks on customer EKS clusters
-- Identify security group misconfigurations before they cause outages
+**Proactive work:**
+- Run health checks on customer EKS clusters regularly
+- Find security group problems before they cause outages
 
 **Customer enablement:**
 - Show customers how to use DevOps Agent themselves
-- Reduces case volume for common troubleshooting scenarios
+- Fewer support cases for common issues
+- Run a guided workshop as part of your SSP delivery
 
 **Workshop enrollment:**
 - Point customers to the DevOps Agent Workshop
-- Offer to run a guided session as part of SSP delivery
+- Offer to run a guided session with them
 
 ---
 
-### Slide 12: Getting Started (2 min)
+### Slide 13: Getting Started (2 min)
 
 **For TAMs who want to try this:**
 1. Access DevOps Agent via Agent Spaces: [agentspaces.amazon.dev](https://agentspaces.amazon.dev)
@@ -227,23 +243,49 @@ eks-lab3-fix
 
 ---
 
-### Slide 13: Q&A (5 min)
+### Slide 14: One Thing to Remember
 
-**Anticipated questions:**
+**If you take away one thing from this talk:**
+
+> DevOps Agent connects the dots across services — that's the hard part of troubleshooting. The agent does it in 2 minutes. Use it during customer calls to show real value, fast.
+
+**Try Scenario 3 this week.** It takes 15 minutes. Then you'll be ready to demo it for your customers.
+
+---
+
+### Slide 15: Q&A (5 min) ⏩ *Can shorten to 2 min if running late*
+
+**Common questions:**
 - "Does this work with customer accounts?" → Yes, with proper access
 - "What about non-EKS workloads?" → Also supports ECS, Lambda, AI/ML
-- "Is it safe to run in production?" → Read-only investigation, no changes without approval
+- "Is it safe in production?" → Read-only investigation. No changes without approval.
 - "How do I become a DevOps Agent Ambassador?" → Talk to me after!
+
+---
+
+## Backup Plan (If Live Demo Fails)
+
+⚠️ **This is important — always have a backup.**
+
+Record a screen capture of the demo beforehand. If the live environment has issues:
+1. Switch to the recording immediately — don't waste time debugging
+2. Narrate over it as if it were live
+3. Offer a live follow-up session for anyone interested
+
+**Signals to switch to backup:**
+- Workshop environment not loading after 30 seconds
+- Agent not responding after 1 minute
+- Any unexpected error during fault injection
 
 ---
 
 ## Demo Prep Checklist
 
-- [ ] Workshop environment provisioned (Cloud IDE access)
+- [ ] Workshop environment set up (Cloud IDE access)
 - [ ] EKS cluster running with retail store app
 - [ ] Verify `eks-lab3-start` and `eks-lab3-fix` scripts work
 - [ ] Test DevOps Agent prompt: "Why can't the catalog connect to the database?"
-- [ ] Backup plan: screenshots/recording in case live demo fails
+- [ ] Backup plan: screenshots/recording ready
 - [ ] Practice run: time the full demo (should be ~15 min)
 
 ## Pre-Presentation Setup
@@ -257,20 +299,13 @@ eks-lab3-start       # Inject fault
 eks-lab3-fix         # Restore
 ```
 
-## Backup Plan (If Live Demo Fails)
-
-Record a screen capture of the demo beforehand. If the live environment has issues:
-1. Switch to the recording
-2. Narrate over it
-3. Offer to do a live follow-up session for anyone interested
-
 ---
 
 ## Timeline to Deliver
 
 | Week | Task |
 |------|------|
-| Week 1 (May 5-9) | Provision workshop environment, test all scripts |
+| Week 1 (May 5-9) | Set up workshop environment, test all scripts |
 | Week 2 (May 12-16) | Build slides, practice demo 2-3 times |
 | May 14-16 | Deliver presentation |
 

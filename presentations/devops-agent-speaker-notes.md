@@ -5,188 +5,245 @@
 
 ## Slide 1: Title
 
-> "Hi everyone, I'm Amar, TAM in the Benelux team. Today I'm going to show you how DevOps Agent can help us troubleshoot one of the most common issues we see with containerized applications — services that can't connect to their database.
+> "Hi everyone, I'm Amar — TAM in the Benelux team.
 >
-> This is a 300-level session with a live demo, so by the end you'll see exactly how the agent investigates and resolves this in real-time. Let's dive in."
+> Today I'm showing you how DevOps Agent solves one of the most common container problems — services that can't connect to their database.
+>
+> This is a 300-level session with a live demo. By the end, you'll see exactly how the agent finds and fixes this. [pause] Let's go."
 
 ---
 
-## Slide 2: Why This Matters for TAMs
+## Slide 2: What I Will Cover
 
-> "Let me paint a picture. Your customer calls you — their product catalog isn't loading. They think it's a database issue. Sound familiar?
+> "Quick overview of what's coming. [pause]
 >
-> Without DevOps Agent, what do we do? We SSH into instances, manually check security groups, dig through CloudWatch logs, cross-reference VPC configurations. That's 30 to 60 minutes of manual investigation — and that's if you know exactly where to look.
+> First — why this matters for us as TAMs.
+> Then — a quick intro to DevOps Agent.
+> Then — the main part — a live demo where I break something, investigate it, and fix it.
+> And finally — how you can start using this with your customers.
 >
-> With DevOps Agent, you ask one question in plain English: 'Why can't the catalog connect to the database?' And it does all that investigation for you in about 2 minutes.
->
-> As TAMs, this is a game-changer. You can troubleshoot live during a cadence call, or guide your customer to use it themselves. Either way, you're delivering faster resolution and demonstrating real value."
-
----
-
-## Slide 3: What is DevOps Agent?
-
-> "So what actually is DevOps Agent? It's an AI-powered troubleshooting assistant that understands AWS infrastructure — ECS, EKS, Lambda, RDS, and more.
->
-> You talk to it in natural language. You say things like 'Why is my service slow?' or 'Check the health of my EKS pods.' And it goes and investigates — checking pod status, reading logs, analyzing security groups, looking at network configurations.
->
-> The key thing is: it correlates across services. It doesn't just look at Kubernetes — it connects what's happening in your pods to what's configured in your VPC security groups. That cross-service correlation is what makes it powerful.
->
-> Important note: it's read-only. It investigates and recommends, but it won't make changes to your infrastructure without your approval. So it's safe to run in production."
+> The whole thing is about 35 minutes. [pause] Let's start."
 
 ---
 
-## Slide 4: Architecture Overview
+## Slide 3: Why This Matters for TAMs
 
-> "Here's the application we'll be working with today. It's a retail store app running on EKS — pretty typical microservices architecture.
+> "So — let me set the scene. [pause]
 >
-> We have a UI frontend, a catalog service that serves product data, and an RDS PostgreSQL database that stores the products.
+> Your customer calls. Product catalog won't load. They think it's the database. Sound familiar?
 >
-> The catalog service needs to talk to RDS. And between them sits a security group — that's the network firewall that controls who can connect to the database.
+> Without DevOps Agent — what do we do?
+> - SSH into instances
+> - Check security groups by hand
+> - Dig through CloudWatch logs
+> - Compare VPC configs
 >
-> In our scenario, someone — maybe during a change window, maybe accidentally — modifies that security group and blocks the connection. The catalog can no longer reach the database. Products stop loading. Customer panics."
-
----
-
-## Slide 5: The Problem — What the Customer Sees
-
-> "Here's what makes this tricky. When you look at Kubernetes, everything looks fine. Pods are running — no crashes, no OOMKills, no CrashLoopBackOff. The application is technically 'up.'
+> That's 30 to 60 minutes of work. And that's if you know where to look. [pause]
 >
-> But when you check the logs, you see connection timeouts to the RDS endpoint. The catalog service is trying to connect but getting no response.
+> Now — with DevOps Agent? You ask one question: 'Why can't the catalog connect to the database?' And it does everything for you. About 2 minutes. [pause]
 >
-> This is misleading because most people look at pod status first. They see 'Running' and think Kubernetes is fine. And it IS fine — the problem isn't in Kubernetes at all. It's at the AWS networking layer — a security group rule is blocking traffic.
->
-> This is exactly the kind of issue where DevOps Agent shines, because it doesn't just look at one layer. It investigates across the full stack."
+> For us as TAMs — this is huge. You can troubleshoot live on a cadence call. Or you can teach your customer to do it themselves. Either way — faster fix, clear value."
 
 ---
 
-## Slide 6: LIVE DEMO — Injecting the Fault
+## Slide 4: What is DevOps Agent?
 
-> "Alright, let's see this in action. I'm going to show you the healthy application first — you can see the product catalog loads fine, products are displayed.
+> "So what is it? [pause]
 >
-> Now I'm going to inject the fault. This script modifies the RDS security group to block inbound traffic from the EKS nodes. This simulates someone accidentally removing a security group rule.
+> It's an AI troubleshooting tool. It understands AWS — ECS, EKS, Lambda, RDS, all of it.
+>
+> You talk to it in plain English. You say 'Why is my service slow?' or 'Check my EKS pods.' And it goes and looks — checks pod status, reads logs, looks at security groups, checks network configs.
+>
+> The key thing here is — [pause] — it connects findings across services. It doesn't just look at Kubernetes. It links what's happening in your pods to what's set up in your security groups. That's the power.
+>
+> And one important thing: it's read-only. It looks. It recommends. It does NOT make changes without your approval. Safe in production."
+
+---
+
+## Slide 5: Architecture Overview
+
+> "Here's what we're working with today. [pause] A retail store app on EKS. Pretty standard microservices setup.
+>
+> We have:
+> - A UI frontend
+> - A catalog service that serves product data
+> - An RDS PostgreSQL database that stores the products
+>
+> The catalog needs to talk to RDS. Between them sits a security group — that's the network firewall. It controls who can connect.
+>
+> In our scenario — someone changes that security group. Maybe during a change window. Maybe by accident. [pause] The catalog can't reach the database anymore. Products stop loading. Customer panics."
+
+---
+
+## Slide 6: The Problem — What the Customer Sees
+
+> "Here's what makes this tricky. [pause]
+>
+> You look at Kubernetes — everything looks fine. Pods are running. No crashes. No OOMKills. No CrashLoops. The app is technically 'up.'
+>
+> But check the logs — connection timeouts to the RDS endpoint. The catalog is trying to connect. No response. [pause]
+>
+> This is misleading. Most people check pod status first. They see 'Running' and think — okay, Kubernetes is fine. And it IS fine. The problem isn't in Kubernetes at all. It's at the AWS networking layer. A security group rule is blocking traffic.
+>
+> This is exactly where DevOps Agent shines. It doesn't just look at one layer. It checks the full stack."
+
+---
+
+## Slide 7: LIVE DEMO — Injecting the Fault
+
+> "Alright — let's see it for real. [pause]
+>
+> First — the healthy app. You can see the product catalog loads fine. Products are there.
+>
+> Now I'm going to break it. This script changes the RDS security group. It blocks traffic from EKS. Like someone accidentally removing a rule. [pause]
 >
 > [Run eks-lab3-start]
 >
-> Let me refresh the app... and there it is. The catalog is broken. No products loading. But if I check kubectl — pods are still running. No restarts. This is exactly what your customer would see and report to you."
+> Let me refresh... [pause] ...and there it is. Catalog is broken. No products. But check kubectl — pods are still running. No restarts. This is exactly what your customer would tell you."
 
 ---
 
-## Slide 7: LIVE DEMO — DevOps Agent Investigation
+## Slide 8: LIVE DEMO — DevOps Agent Investigation
 
-> "Now let's ask DevOps Agent to figure out what's wrong. I'm going to type a simple question: 'Why can't the catalog service connect to the database?'
+> "Now — the good part. Let's ask DevOps Agent what's wrong. [pause]
+>
+> I type one question: 'Why can't the catalog service connect to the database?'
 >
 > [Type the prompt and let it run]
 >
-> Watch what it's doing — I'll narrate as it goes:
+> Watch what it does — I'll talk through it:
 >
-> First, it checks pod status. Pods are running — okay, not a Kubernetes scheduling issue.
+> First — checks pod status. Running. Okay, not a scheduling problem.
 >
-> Next, it looks at the pod logs. It finds connection timeout errors to the RDS endpoint. Now it knows the problem is between the catalog and the database.
+> Next — reads the pod logs. Finds connection timeouts to RDS. Now it knows — the problem is between catalog and the database. [pause]
 >
-> Then it identifies the RDS instance from the pod's configuration. It looks up the security group attached to that RDS instance.
+> Then — it finds the RDS instance from the pod config. Looks up the security group on that RDS instance.
 >
-> And here's the key finding — it sees that the security group does NOT have an inbound rule allowing traffic from the EKS nodes on port 5432. That's our root cause.
+> And here's the key finding — [pause] — the security group does NOT allow traffic from EKS on port 5432. That's our root cause. Right there.
 >
-> It even suggests the fix: add an inbound rule allowing TCP port 5432 from the EKS node security group.
+> It even tells you the fix: add an inbound rule. TCP port 5432. From the EKS node security group. [pause]
 >
-> That whole investigation took about 2 minutes. Manually, this would have taken me 30 minutes of clicking through the console, checking security groups, cross-referencing CIDR blocks."
+> That took about 2 minutes. By hand? That's 30 minutes of clicking through the console. Checking security groups. Comparing CIDR blocks. The agent just did it all."
 
 ---
 
-## Slide 8: LIVE DEMO — Applying the Fix
+## Slide 9: LIVE DEMO — Applying the Fix
 
-> "Let me apply the fix now.
+> "Let me fix it now.
 >
 > [Run eks-lab3-fix]
 >
-> This restores the security group rule. Let me refresh the application... and we're back. Products are loading again. Issue resolved.
+> This puts the security group rule back. Let me refresh... [pause] ...and we're back. Products loading again. Done.
 >
-> From fault injection to resolution — about 5 minutes total. And most of that was me talking. The agent's investigation itself was under 2 minutes."
+> From breaking it to fixing it — about 5 minutes total. Most of that was me talking. The agent itself? Under 2 minutes."
 
 ---
 
-## Slide 9: What the Agent Found — Summary
+## Slide 10: What the Agent Found — Summary
 
-> "Let me summarize what the agent did. It followed a logical investigation path:
+> "Let me walk through what the agent did. Step by step: [pause]
 >
-> Pod status — running, no issue there.
-> Pod logs — connection timeout, so the problem is network-related.
-> RDS endpoint — identified from the service config.
-> Security group — found the missing inbound rule.
-> Root cause — security group blocking EKS to RDS connectivity.
-> Suggested fix — add the inbound rule for port 5432.
+> - Pod status — running. No issue there.
+> - Pod logs — connection timeout. So it's a network problem.
+> - RDS endpoint — found it from the service config.
+> - Security group — found the missing inbound rule.
+> - Root cause — security group blocking EKS to RDS.
+> - Fix — add the rule for port 5432.
 >
-> The reason this is hard to find manually is that the symptom is in Kubernetes, but the root cause is in AWS networking. You need to cross two different domains. DevOps Agent does that automatically."
-
----
-
-## Slide 10: ECS Comparison (Optional)
-
-> "Quick bonus — the workshop also has a similar scenario for ECS. Same problem — catalog can't reach the database — but the root cause is different. In ECS, it's a service discovery misconfiguration rather than a security group issue.
+> [pause]
 >
-> The interesting thing is that DevOps Agent adapts its investigation based on the platform. Same question, different investigation path, correct root cause in both cases.
->
-> I won't demo this today, but it's available in the workshop if you want to try it yourself."
+> The reason this is hard by hand: the symptom is in Kubernetes, but the root cause is in AWS networking. You need to cross two different worlds. DevOps Agent does that automatically."
 
 ---
 
-## Slide 11: How TAMs Can Use This
+## Slide 11: ECS Comparison (Optional)
 
-> "So how do we use this as TAMs? Three ways:
+> "Quick bonus — [pause] the workshop also has a similar scenario for ECS. Same problem — catalog can't reach the database — but different root cause. In ECS, it's a service discovery problem, not a security group.
 >
-> First — during customer calls. Customer reports an issue, you fire up DevOps Agent right there on the call. You troubleshoot in real-time and resolve it in minutes. That's a wow moment for the customer.
+> The interesting thing: DevOps Agent changes its approach based on the platform. Same question, different investigation, correct answer both times.
 >
-> Second — proactive engagement. Run periodic health checks on your customer's clusters. Find misconfigurations before they cause outages. That's the kind of proactive value that justifies Enterprise Support.
->
-> Third — customer enablement. Show your customers how to use DevOps Agent themselves. This reduces case volume for common issues and empowers their teams. You can even run a guided workshop as part of your SSP delivery.
->
-> And for those of you interested in the DevOps Agent Ambassador program — this is exactly the kind of thing that drives customer enrollment."
+> I won't demo this today. But it's in the workshop if you want to try it."
+
+*[If running late: skip this slide entirely or say "I'll skip the ECS comparison — it's in the workshop materials."]*
 
 ---
 
-## Slide 12: Getting Started
+## Slide 12: How TAMs Can Use This
 
-> "If you want to try this yourself, here's how:
+> "So — how do we actually use this? Three ways: [pause]
 >
-> DevOps Agent is available through Agent Spaces — same place where UNO runs. The workshop I demoed today is publicly available — I'll share the link.
+> One — during customer calls. Customer reports an issue. You open DevOps Agent right there. Fix it in minutes. That's a wow moment. [pause]
 >
-> I'd recommend starting with Module 2, EKS Troubleshooting, Scenario 3 — that's exactly what I showed today. It takes about 15 minutes to run through.
+> Two — proactive work. Run health checks on customer clusters regularly. Find problems before they cause outages. That's what justifies Enterprise Support. [pause]
 >
-> There are also scenarios for Lambda, ECS, and AI/ML services if you want to explore further."
+> Three — customer enablement. Show your customers how to use it themselves. Fewer support cases. You can run a guided workshop as part of your SSP.
+>
+> And if you're interested in the DevOps Agent Ambassador program — this is exactly the kind of thing that drives enrollment."
+
+*[If running late: pick ONE of the three and say "there are more use cases in the slides, but the big one is..."]*
 
 ---
 
-## Slide 13: Q&A
+## Slide 13: Getting Started
 
-> "That's my demo. Happy to take questions.
+> "If you want to try this yourself — here's how.
 >
-> [If no questions, prompt with:]
-> A question I often get is: 'Is it safe to run in production?' The answer is yes — DevOps Agent is read-only. It investigates by reading logs, metrics, and configurations. It doesn't make changes unless you explicitly approve them.
+> DevOps Agent is in Agent Spaces. Same place where UNO runs. The workshop I showed today is public — I'll share the link.
 >
-> Another common one: 'Does it work with customer accounts?' Yes, as long as you have the appropriate access. You can run it through Agent Spaces with your customer's account context.
+> Start with Module 2, EKS Troubleshooting, Scenario 3. That's exactly what I demoed. Takes about 15 minutes.
 >
-> Thanks everyone!"
+> There's also scenarios for Lambda, ECS, and AI/ML if you want to explore more."
+
+---
+
+## Slide 14: One Thing to Remember
+
+> "[pause] If you take away one thing from today — it's this:
+>
+> DevOps Agent connects the dots across services. That's the hard part of troubleshooting. It does it in 2 minutes. [pause]
+>
+> Use it during customer calls. Show real value. Fast.
+>
+> Try Scenario 3 this week. Fifteen minutes. Then you're ready to demo it for your customers."
+
+---
+
+## Slide 15: Q&A
+
+> "That's it. Happy to take questions. [pause]
+>
+> [If no questions come, say:]
+>
+> One question I always get: 'Is it safe in production?' Yes. It's read-only. It reads logs, metrics, configs. No changes unless you approve them.
+>
+> Another one: 'Does it work with customer accounts?' Yes — as long as you have access. You run it through Agent Spaces with the customer's account context.
+>
+> [pause] Thanks everyone. Try Scenario 3 this week — come find me if you get stuck."
 
 ---
 
 ## Timing Guide
 
-| Section | Duration | Cumulative |
-|---------|----------|-----------|
-| Slides 1-5 (Context) | 11 min | 11 min |
-| Slides 6-8 (Live Demo) | 14 min | 25 min |
-| Slides 9-12 (Wrap-up) | 10 min | 35 min |
-| Slide 13 (Q&A) | 5 min | 40 min |
+| Section | Duration | Cumulative | If running late |
+|---------|----------|------------|-----------------|
+| Slides 1-2 (Title + Roadmap) | 2 min | 2 min | — |
+| Slides 3-6 (Context) | 10 min | 12 min | Cut slide 6 narration to 1 min |
+| Slides 7-9 (Live Demo) | 14 min | 26 min | Can't shorten — this is the core |
+| Slides 10-13 (Wrap-up) | 10 min | 36 min | Skip slide 11, shorten slide 12 |
+| Slides 14-15 (Close + Q&A) | 4-7 min | 40 min | Close Q&A at 2 min |
 
 **Total: ~40 minutes**
+
+**If you hit 30 minutes and still on slide 9:** Skip slide 11 entirely. Shorten slide 12 to one use case. Go straight to "One Thing to Remember."
 
 ---
 
 ## Tips for Delivery
 
-1. **Practice the demo 3 times** before presenting. Know exactly what the agent will output.
-2. **Have a backup recording** in case the live environment has issues.
-3. **Narrate while the agent runs** — don't just sit in silence. Explain what it's checking.
-4. **Make it relatable** — use phrases like "You've all had this call from a customer..."
-5. **Keep energy up during the demo** — live demos can feel slow. Fill the gaps with context.
-6. **End with a call to action** — "Try Scenario 3 this week and let me know how it goes."
+1. **Practice the demo 3 times** before presenting. Know what the agent will show.
+2. **Have a backup recording** ready. Don't be afraid to switch to it.
+3. **Talk while the agent runs** — don't sit in silence. Say what it's checking.
+4. **Make it relatable** — "You've all had this call from a customer..."
+5. **Keep energy up during the demo** — live demos feel slow. Fill gaps with context.
+6. **End strong** — "Try Scenario 3 this week. Come find me if you have questions."
+7. **Use [pause] moments** — they give weight to key points. Don't rush.

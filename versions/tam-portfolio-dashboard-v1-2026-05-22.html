@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<style>
+:root {
+      --color-bg: #f8f9fb;
+      --color-bg-secondary: #f4f5f7;
+      --color-text: #172b4d;
+      --color-text-secondary: #44546f;
+      --color-text-muted: #8993a4;
+      --color-border-light: #ebecf0;
+      --color-border: #dfe1e6;
+      --color-surface: #ffffff;
+      --color-surface-hover: rgba(0,0,0,0.02);
+      --color-primary: #0052CC;
+      --color-success: #36b37e;
+      --color-error: #de350b;
+      --color-warning: #ff991f;
+      --color-info: #0065ff;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', Consolas, monospace;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-pill: 100px;
+    }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--color-bg, #f8f9fb);
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  color: var(--color-text, #172b4d);
+  padding: 24px;
+  line-height: 1.5;
+}
+h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: var(--color-text-muted, #8993a4); font-size: 13px; margin-bottom: 24px; }
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 16px;
+}
+.card-full { grid-column: 1 / -1; }
+.card-half { grid-column: span 2; }
+.card-label { color: var(--color-text-muted, #8993a4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.card-value { font-size: 28px; font-weight: 700; font-family: var(--font-mono, 'SF Mono', Consolas, monospace); }
+.card-delta { font-size: 12px; margin-top: 2px; }
+.card-delta.positive { color: var(--color-success, #36b37e); }
+.card-delta.negative { color: var(--color-error, #de350b); }
+
+/* Section Headers */
+.section-header {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 28px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-header i { color: var(--color-primary, #0052CC); }
+
+/* Health Scorecard Table */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--color-text-muted, #8993a4); font-weight: 500; padding: 10px 12px; border-bottom: 2px solid var(--color-border, #dfe1e6); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--color-border-light, #ebecf0); }
+tr:hover td { background: var(--color-surface-hover, rgba(0,0,0,0.02)); }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-red { background: #ffebe6; color: #de350b; }
+.badge-yellow { background: #fff7e6; color: #ff991f; }
+.badge-green { background: #e3fcef; color: #006644; }
+.badge-blue { background: #deebff; color: #0052CC; }
+
+/* Priority Actions */
+.action-list { list-style: none; }
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+}
+.action-item:last-child { border-bottom: none; }
+.action-priority {
+  min-width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+.priority-red { background: #de350b; }
+.priority-yellow { background: #ff991f; }
+.priority-green { background: #36b37e; }
+.action-content { flex: 1; }
+.action-title { font-weight: 500; font-size: 13px; }
+.action-title a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--color-border, #dfe1e6); }
+.action-title a:hover { color: var(--color-primary, #0052CC); border-bottom-color: var(--color-primary, #0052CC); }
+.action-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 2px; }
+.action-customer {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--color-border-light, #ebecf0);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Case Tooltip / Popup */
+.case-link {
+  position: relative;
+  cursor: pointer;
+  color: var(--color-primary, #0052CC);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-primary, #0052CC);
+}
+.case-link:hover .case-tooltip { display: block; }
+.case-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text, #172b4d);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 6px;
+}
+.case-tooltip a { color: #79e2f2; text-decoration: underline; }
+.case-tooltip::after {
+  content: '';
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--color-text, #172b4d);
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary, #44546f);
+  transition: all 0.15s ease;
+}
+.tab:hover { background: var(--color-border-light, #ebecf0); }
+.tab.active { background: var(--color-primary, #0052CC); color: white; }
+
+/* Customer Cards */
+.customer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.customer-card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.15s ease;
+}
+.customer-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.customer-name { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.customer-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; }
+.customer-stat-label { color: var(--color-text-muted, #8993a4); }
+.customer-stat-value { font-weight: 500; font-family: var(--font-mono, monospace); }
+
+/* Email/Slack Section */
+.comms-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+}
+.comms-item:last-child { border-bottom: none; }
+.comms-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; }
+.comms-icon.email { background: #0052CC; }
+.comms-icon.slack { background: #4A154B; }
+.comms-content { flex: 1; min-width: 0; }
+.comms-subject { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comms-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); }
+
+/* Improvement Recommendations */
+.recommendation {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+}
+.recommendation:last-child { border-bottom: none; }
+.rec-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: #deebff; color: #0052CC; font-size: 14px; flex-shrink: 0; }
+.rec-content { flex: 1; }
+.rec-title { font-size: 13px; font-weight: 500; }
+.rec-desc { font-size: 12px; color: var(--color-text-secondary, #44546f); margin-top: 2px; }
+.rec-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 4px; }
+
+/* Charts */
+.chart-container { height: 220px; }
+.chart-container-sm { height: 180px; }
+
+/* Time Budget Bar */
+.time-bar { height: 8px; border-radius: 4px; background: var(--color-border-light, #ebecf0); margin-top: 8px; overflow: hidden; display: flex; }
+.time-bar-fill { height: 100%; transition: width 0.6s ease; }
+.time-bar-customer { background: #0052CC; }
+.time-bar-initiative { background: #36b37e; }
+.time-bar-buffer { background: #ff991f; }
+
+.time-legend { display: flex; gap: 16px; margin-top: 8px; font-size: 11px; color: var(--color-text-muted, #8993a4); }
+.time-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+/* Last Updated */
+.last-updated { text-align: right; font-size: 11px; color: var(--color-text-muted, #8993a4); margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<h1><i class="fa-solid fa-gauge-high" style="color: var(--color-primary, #0052CC);"></i> TAM Portfolio Dashboard</h1>
+<div style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> — Sample data shown for illustration. In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
+<p class="subtitle">Amar Kutwal — Benelux/EMEA North — 4 Active Customers + 2 Pending</p>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Thursday, May 21, 2026 — 14:17 CEST</div>
+
+<!-- TOP KPI CARDS -->
+<div class="dashboard-grid">
+  <div class="card">
+    <div class="card-label">Active Customers</div>
+    <div class="card-value">4</div>
+    <div class="card-delta">+ 2 pending onboarding</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Open Cases</div>
+    <div class="card-value" style="color: #de350b; cursor: pointer;" onclick="document.getElementById('cases-detail').style.display = document.getElementById('cases-detail').style.display === 'none' ? 'block' : 'none'">7 <i class="fa-solid fa-chevron-down" style="font-size:12px;"></i></div>
+    <div class="card-delta negative">2 Sev-2 · 5 Sev-3+</div>
+    <div id="cases-detail" style="display:none; margin-top:10px; padding-top:10px; border-top:1px solid var(--color-border-light,#ebecf0); font-size:12px;">
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4892" target="_blank">Case #4892</a></span> — Sev-2 — EKS pod scaling — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4901" target="_blank">Case #4901</a></span> — Sev-2 — ALB 5xx errors — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=3321" target="_blank">Case #3321</a></span> — Sev-3 — VPN metrics anomaly — ReBound</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4855" target="_blank">Case #4855</a></span> — Sev-4 — S3 lifecycle policy — Vopak</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4860" target="_blank">Case #4860</a></span> — Sev-4 — CloudWatch alarm — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4872" target="_blank">Case #4872</a></span> — Sev-4 — IAM policy review — ReBound</div>
+      <div><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4888" target="_blank">Case #4888</a></span> — Sev-4 — DynamoDB throttling — BlockTech</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">SSP Milestones Active</div>
+    <div class="card-value">12</div>
+    <div class="card-delta positive">3 completed this month</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Time Utilization</div>
+    <div class="card-value">87%</div>
+    <div class="card-delta">6.2 / 7.1 hrs used today</div>
+  </div>
+</div>
+
+<!-- TIME BUDGET -->
+<div class="card card-full" style="margin-bottom: 24px;">
+  <div class="card-label">Today's Time Budget (8 hrs available after meetings)</div>
+  <div class="time-bar">
+    <div class="time-bar-fill time-bar-customer" style="width: 60%;"></div>
+    <div class="time-bar-fill time-bar-initiative" style="width: 20%;"></div>
+    <div class="time-bar-fill time-bar-buffer" style="width: 7%;"></div>
+  </div>
+  <div class="time-legend">
+    <span><span class="time-legend-dot" style="background:#0052CC;"></span>Customer Work (4.8 hrs)</span>
+    <span><span class="time-legend-dot" style="background:#36b37e;"></span>Initiatives (1.6 hrs)</span>
+    <span><span class="time-legend-dot" style="background:#ff991f;"></span>Buffer (0.5 hrs)</span>
+    <span><span class="time-legend-dot" style="background:var(--color-border-light, #ebecf0);"></span>Unallocated (1.1 hrs)</span>
+  </div>
+</div>
+
+<!-- CUSTOMER HEALTH SCORECARD -->
+<div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Customer Health Scorecard</div>
+<div class="card card-full">
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Priority</th>
+        <th>Cases</th>
+        <th>Engagement</th>
+        <th>SSP</th>
+        <th>Health</th>
+        <th>Overall</th>
+        <th>Spend</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Allied Publicity (APS)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">49 accounts · EKS-heavy</span></td>
+        <td><span class="badge badge-red">7/10</span></td>
+        <td><span class="badge badge-red">🔴</span> 2 Sev-2</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 1 behind</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-red">🔴</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$112K/mo</td>
+      </tr>
+      <tr>
+        <td><strong>ReBound (Cycleon)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">27 accounts · Logistics</span></td>
+        <td><span class="badge badge-yellow">5/10</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 1 stale</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$90K/mo</td>
+      </tr>
+      <tr>
+        <td><strong>Vopak</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">31 accounts · Partner: InQdo ⚠️</span></td>
+        <td><span class="badge badge-yellow">4/10</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 10d ago</td>
+        <td><span class="badge badge-red">🔴</span> SP expired</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;color:var(--color-text-muted,#8993a4);">N/A (partner)</td>
+      </tr>
+      <tr>
+        <td><strong>BlockTech B.V.</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">9 accounts · HFT Crypto</span></td>
+        <td><span class="badge badge-green">2/10</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-blue">⏳</span> New</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$108K/mo</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PRIORITY ACTIONS -->
+<div class="section-header"><i class="fa-solid fa-list-check"></i> Today's Priority Actions</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="card">
+    <div class="card-label" style="color:#de350b;font-weight:600;">🔴 MUST DO</div>
+    <ul class="action-list">
+      <li class="action-item">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Follow up Sev-2 <a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4892" target="_blank">case #4892</a> — EKS pod scaling</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · 3 days old · Escalation risk</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Respond to EKS upgrade timeline question</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Email from CTO · 24h SLA</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Prep for ReBound cadence call (Jun 5)</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · 30 min · Run cadence-prep SOP</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:#ff991f;font-weight:600;">🟡 SHOULD DO</div>
+    <ul class="action-list">
+      <li class="action-item">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Contact Vopak — 10 days since last touch</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · Send async update email</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Review Savings Plan expiry for Vopak</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · $20K/mo waste · Coordinate via InQdo</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Follow up stale <a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=3321" target="_blank">case #3321</a> with ReBound</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · No update 6 days</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:#36b37e;font-weight:600;">🟢 PROACTIVE</div>
+    <ul class="action-list">
+      <li class="action-item">
+        <div class="action-priority priority-green"></div>
+        <div class="action-content">
+          <div class="action-title">Start SSP draft for Allied Publicity</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Run support-plan-builder SOP</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-green"></div>
+        <div class="action-content">
+          <div class="action-title">Share Graviton migration guide with BlockTech</div>
+          <div class="action-meta"><span class="action-customer">BlockTech</span> · Cost savings opportunity</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-green"></div>
+        <div class="action-content">
+          <div class="action-title">Prepare TAM Summit presentation outline</div>
+          <div class="action-meta">Initiative · 30 min time block</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- COMMUNICATIONS TO ACTION -->
+<div class="section-header"><i class="fa-solid fa-envelope-open-text"></i> Communications Requiring Action</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div class="card-label"><i class="fa-solid fa-envelope"></i> Emails (4 needing action)</div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Re: EKS 1.25 Upgrade Timeline — APS</div>
+        <div class="comms-meta">From: j.vandenberg@theapsgroup.com · 2h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">VPN Redundancy Proposal — ReBound</div>
+        <div class="comms-meta">From: m.dehaan@cycleon.com · 5h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Re: Direct Connect bandwidth increase</div>
+        <div class="comms-meta">From: s.chen@block-tech.io · Yesterday</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">P&V Assurances handover docs ready</div>
+        <div class="comms-meta">From: vedanthh@amazon.com · Yesterday</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label"><i class="fa-brands fa-slack"></i> Slack Messages (3 needing action)</div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">@akkutwal can you check the APS Fargate task defs?</div>
+        <div class="comms-meta">#tam-aps-group · From: SA — 1h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">BlockTech Tokyo expansion — networking review needed</div>
+        <div class="comms-meta">#tam-blocktech · From: AM — 3h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">ReBound VPN metrics look off — FYI</div>
+        <div class="comms-meta">DM from SA — 4h ago</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SSP PROGRESS & CHARTS -->
+<div class="section-header"><i class="fa-solid fa-bullseye"></i> SSP Milestone Progress</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="ssp-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Milestones by Status</div>
+    <table style="margin-top:8px;">
+      <thead><tr><th>Customer</th><th>✅</th><th>🟡</th><th>🔴</th><th>⏳</th></tr></thead>
+      <tbody>
+        <tr><td>ReBound</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>APS</td><td>1</td><td>2</td><td>1</td><td>1</td></tr>
+        <tr><td>Vopak</td><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+        <tr><td>BlockTech</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- COST & USAGE -->
+<div class="section-header"><i class="fa-solid fa-chart-line"></i> Cost & Usage Trends</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="cost-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Cost Highlights</div>
+    <div style="margin-top:12px;">
+      <div class="customer-stat"><span class="customer-stat-label">APS Monthly</span><span class="customer-stat-value">$112K <span style="color:#de350b;font-size:11px;">↑ 8%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">BlockTech Monthly</span><span class="customer-stat-value">$108K <span style="color:#36b37e;font-size:11px;">↓ 2%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">ReBound Monthly</span><span class="customer-stat-value">$90K <span style="color:#8993a4;font-size:11px;">→ flat</span></span></div>
+      <div class="customer-stat" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--color-border-light,#ebecf0);"><span class="customer-stat-label">Vopak</span><span class="customer-stat-value" style="color:var(--color-text-muted,#8993a4);font-size:12px;">N/A (partner-resold)</span></div>
+    </div>
+    <div style="margin-top:16px;padding:10px;background:#fff7e6;border-radius:6px;font-size:12px;">
+      <strong style="color:#ff991f;">⚠️ Alert:</strong> Vopak Savings Plan expired — ~$20K/mo potential waste. Coordinate with InQdo.
+    </div>
+  </div>
+</div>
+
+<!-- IMPROVEMENT RECOMMENDATIONS -->
+<div class="section-header"><i class="fa-solid fa-lightbulb"></i> Improvement Recommendations</div>
+<div class="card card-full">
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Upgrade EKS clusters from 1.25 to 1.29 — Allied Publicity</div>
+      <div class="rec-desc">EKS 1.25 reaches EOL in July 2026. 3 production clusters affected. Customer has asked about timeline.</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: High · Risk Score: 7 · Est. TAM Effort: 4 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Renew Savings Plan coverage — Vopak (via InQdo)</div>
+      <div class="rec-desc">SP expired, ~$20K/month in on-demand waste. Coordinate through InQdo partner channel.</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: High · Risk Score: 6 · Est. TAM Effort: 2 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-network-wired"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Add VPN redundancy — ReBound</div>
+      <div class="rec-desc">Single VPN connection is a SPOF. Proactively identified via Daily Kickoff SOP. Customer reviewing proposal.</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: Medium · Risk Score: 4 · Est. TAM Effort: 3 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-microchip"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Graviton migration opportunity — BlockTech</div>
+      <div class="rec-desc">Running previous-gen x86 bare metal. Graviton instances offer 20% better price/performance for HFT workloads.</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: Low · Risk Score: 2 · Est. TAM Effort: 2 hrs</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAM GOAL DISTRIBUTION -->
+<div class="section-header"><i class="fa-solid fa-chart-pie"></i> TAM Goal Distribution (This Week)</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="goal-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div id="urgency-chart" class="chart-container"></div>
+  </div>
+</div>
+
+<!-- UPCOMING CADENCES -->
+<div class="section-header"><i class="fa-solid fa-calendar-days"></i> Upcoming Cadence Calls</div>
+<div class="card card-full">
+  <table>
+    <thead><tr><th>Date</th><th>Customer</th><th>Time</th><th>Prep Status</th><th>Key Topics</th></tr></thead>
+    <tbody>
+      <tr><td>Thu, Jun 5</td><td><strong>ReBound (Cycleon)</strong></td><td>11:00 AM</td><td><span class="badge badge-yellow">Not prepped</span></td><td>VPN proposal, Q2 SSP review, case #3321</td></tr>
+      <tr><td>TBD</td><td><strong>BlockTech B.V.</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>Tokyo expansion, onboarding follow-up, initial SSP</td></tr>
+      <tr><td>TBD</td><td><strong>Vopak</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>SP renewal (via InQdo), SSP kickoff</td></tr>
+      <tr><td>TBD</td><td><strong>Allied Publicity</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>EKS upgrade, Sev-2 cases, SSP workshop</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:32px;padding:16px;border-top:1px solid var(--color-border-light,#ebecf0);text-align:center;">
+  <div style="font-size:12px;color:var(--color-text-muted,#8993a4);">
+    <strong>Project Ulduz</strong> — Powered by 7 Custom SOPs (Kiro IDE) + Amazon Quick Desktop Skills<br>
+    Data sources: Outlook · Slack · AWS Health · Sentral · Knowledge Graph · Case Summary Reports
+  </div>
+</div>
+
+<!-- CHARTS SCRIPTS -->
+<script>
+const s = getComputedStyle(document.documentElement);
+const get = v => s.getPropertyValue(v).trim() || null;
+const textColor = get('--color-text-secondary') || '#44546f';
+const mutedColor = get('--color-text-muted') || '#8993a4';
+const gridColor = get('--color-border-light') || '#ebecf0';
+const primary = get('--color-primary') || '#0052CC';
+const success = get('--color-success') || '#36b37e';
+const error = get('--color-error') || '#de350b';
+const warning = get('--color-warning') || '#ff991f';
+const fontSans = get('--font-sans') || '-apple-system, BlinkMacSystemFont, sans-serif';
+
+// SSP Progress Chart
+Highcharts.chart('ssp-chart', {
+  chart: { type: 'bar', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'SSP Milestones by Customer', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['ReBound', 'APS', 'Vopak', 'BlockTech'], labels: { style: { color: textColor, fontSize: '12px' } }, lineColor: gridColor },
+  yAxis: { min: 0, title: { text: null }, gridLineColor: gridColor, labels: { style: { color: mutedColor } }, stackLabels: { enabled: true, style: { color: textColor } } },
+  legend: { itemStyle: { color: textColor, fontSize: '11px' } },
+  plotOptions: { bar: { stacking: 'normal', borderWidth: 0, borderRadius: 2 } },
+  colors: [success, warning, error, '#deebff'],
+  series: [
+    { name: 'Complete', data: [2, 1, 0, 0] },
+    { name: 'In Progress', data: [1, 2, 0, 0] },
+    { name: 'Behind', data: [0, 1, 1, 0] },
+    { name: 'Not Started', data: [1, 1, 2, 3] },
+  ],
+  credits: { enabled: false },
+  tooltip: { style: { fontSize: '12px' } },
+});
+
+// Cost Trend Chart
+Highcharts.chart('cost-chart', {
+  chart: { type: 'areaspline', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Monthly Spend Trend ($K)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'], labels: { style: { color: textColor, fontSize: '11px' } }, lineColor: gridColor },
+  yAxis: { title: { text: null }, gridLineColor: gridColor, labels: { style: { color: mutedColor }, format: '${value}K' } },
+  legend: { itemStyle: { color: textColor, fontSize: '11px' } },
+  plotOptions: { areaspline: { fillOpacity: 0.1, marker: { radius: 3 } } },
+  colors: [primary, success, error],
+  series: [
+    { name: 'APS', data: [98, 102, 105, 108, 112] },
+    { name: 'BlockTech', data: [105, 108, 110, 110, 108] },
+    { name: 'ReBound', data: [88, 89, 90, 91, 90] },
+  ],
+  credits: { enabled: false },
+  tooltip: { shared: true, valuePrefix: '$', valueSuffix: 'K' },
+});
+
+// TAM Goal Distribution
+Highcharts.chart('goal-chart', {
+  chart: { type: 'pie', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Time by TAM Goal', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  plotOptions: { pie: { innerSize: '55%', dataLabels: { enabled: true, format: '{point.name}: {point.percentage:.0f}%', style: { fontSize: '10px', color: textColor } } } },
+  colors: [primary, success, error, warning, '#8b5cf6', '#06b6d4', '#ec4899'],
+  series: [{ data: [
+    { name: 'Case Resolution', y: 25 },
+    { name: 'SSP Delivery', y: 20 },
+    { name: 'Proactive', y: 18 },
+    { name: 'Customer Sat.', y: 15 },
+    { name: 'Cost Optim.', y: 12 },
+    { name: 'Security', y: 5 },
+    { name: 'Op. Excellence', y: 5 },
+  ]}],
+  credits: { enabled: false },
+});
+
+// Customer Urgency Gauge
+Highcharts.chart('urgency-chart', {
+  chart: { type: 'column', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Customer Urgency Scores', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['APS', 'ReBound', 'Vopak', 'BlockTech'], labels: { style: { color: textColor, fontSize: '11px' } }, lineColor: gridColor },
+  yAxis: { min: 0, max: 10, title: { text: 'Score (0-10)', style: { color: mutedColor, fontSize: '11px' } }, gridLineColor: gridColor, plotBands: [{ from: 0, to: 2, color: 'rgba(54,179,126,0.08)' }, { from: 3, to: 5, color: 'rgba(255,153,31,0.06)' }, { from: 6, to: 10, color: 'rgba(222,53,11,0.06)' }] },
+  plotOptions: { column: { borderWidth: 0, borderRadius: 4, dataLabels: { enabled: true, format: '{y}/10', style: { fontSize: '11px', fontWeight: '600' } } } },
+  series: [{ name: 'Urgency', data: [{ y: 7, color: error }, { y: 5, color: warning }, { y: 4, color: warning }, { y: 2, color: success }], showInLegend: false }],
+  credits: { enabled: false },
+  tooltip: { pointFormat: 'Urgency: <b>{point.y}/10</b>' },
+});
+</script>
+
+</body>
+</html>

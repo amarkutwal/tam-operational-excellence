@@ -1,98 +1,76 @@
 # Project Ulduz — Status Update
-### Prepared by: Amar Kutwal (akkutwal)
-### Date: April 27, 2026
-### For: Diego (despinoc@), Oluwakorede (awobad@), Nick Majedi (manager)
+
+**Last updated:** Monday, June 1, 2026 — 17:05 CEST  
+**Updated by:** Amazon Quick (automated)
 
 ---
 
-## Summary
+## 🟢 Current Sprint: Sprint 2 (Jun 2–6)
 
-I've built the foundation for our operational excellence initiative. The workspace is live, version-controlled on GitHub, and ready for testing with real customers this week.
+### Sprint 2 Goals (Garry Feedback — Data Improvements)
+| Item | Status | Notes |
+|------|--------|-------|
+| #3: Replace case count with CHI score | ✅ Done (Jun 1) | APS=62, ReBound=78, Vopak=71, BlockTech=85 |
+| #6: Surface customer priorities from SSP | ✅ Done (Jun 1) | Strategic Focus Areas column added |
+| Pending Follow-ups & Commitments section | ✅ Done (Jun 1) | Tracks customer commitments and action items |
+| Upcoming Scheduled Meetings section | ✅ Done (Jun 1) | Shows Friday review + TAM Summit |
+| Data source success/failure legend | ⏳ Due Thu evening | |
+| Remaining Garry improvements (dismiss actions, risk trends) | ⏳ Due Thu evening | |
 
-**GitHub Repo:** https://github.com/amarkutwal/tam-operational-excellence
-
----
-
-## What's Been Built
-
-### 7 Custom SOPs (Standard Operating Procedures)
-
-| # | SOP | Purpose | Frequency |
-|---|-----|---------|-----------|
-| 1 | **Daily Kickoff** | Morning briefing — emails, tickets, calendar, health events, priority list | Daily |
-| 2 | **Daily Focus Recommender** | Scores all customers by urgency, generates prioritized action plan with TAM goal mapping | Daily |
-| 3 | **Weekly Review** | Week summary, SSP progress, customer health scorecards, next week planning | Weekly (Friday) |
-| 4 | **Cadence Call Prep** | Pre-meeting prep — cases, action items, cost trends, talking points | Before each cadence call |
-| 5 | **Customer Onboarding** | Automated new customer setup — folders, CMC data, admin checklist, infra overview, SSP draft | Per new customer |
-| 6 | **Infrastructure Discovery** | Full AWS footprint mapping — services, compute, data, security, cost, EOL/EOS, resilience | Onboarding + quarterly |
-| 7 | **Support Plan Builder** | Auto-generates SSP milestones from customer data, checks time allocation feasibility | Per SSP cycle |
-
-### Operational Excellence Playbook (Draft v0.2)
-- Time blocking strategy for TAMs managing 8-12 customers
-- Tool comparison: Kiro vs UNO vs Agent Spaces (when to use what)
-- Template system for customer folders and SOPs
-- Success metrics with before/after targets
-- Diego's Obsidian approach documented alongside Kiro-native equivalent
-
-### Workspace Infrastructure
-- **4 Kiro Hooks** — one-click triggers for Daily Kickoff, Focus Recommender, Weekly Review, and Customer Onboarding
-- **2 Steering Files** — persistent TAM context and workflow standards (auto-loaded every session)
-- **Customer folder templates** — standardized profile, SSP tracker, and action items per customer
-- **7 MCP servers configured** — Outlook, Slack, SIM, AWS, Sentral, CCMT, Builder
-- **Git version control** — backed up to GitHub, recoverable from any machine
-
-### UNO Agent Spaces
-- UNO-TAM installed and running on Agent Spaces
-- Reviewed all UNO training materials (videos + wiki documentation)
-- Understanding of how UNO's 44+ pre-built SOPs complement our custom Kiro SOPs
+### Sprint 1 (May 28–30) — Completed
+- [x] #5: Reorder dashboard — strategic/proactive section at top
+- [x] #2: Hide time tracking (made optional)
+- [x] #4: Merge urgency and priority into one score
 
 ---
 
-## How This Addresses the Scaling Challenge
+## 📅 Key Dates This Week
 
-| Challenge (from kickoff call) | How We're Solving It |
-|------|------|
-| 8-12 customers at 8% time each | Daily Focus Recommender prioritizes across ALL customers automatically |
-| 25+ new EOP→Enterprise customers incoming | Customer Onboarding SOP automates setup in 30 min vs 2-3 hours |
-| Manual morning prep takes 30-45 min | Daily Kickoff SOP reduces to 10-15 min |
-| SSP creation is time-consuming | Support Plan Builder auto-drafts milestones from real customer data |
-| No unified customer visibility | Customer folder structure + daily briefings provide single-pane view |
-| Workflows not shareable | Git repo — any TAM can clone and customize |
+| Date | Event | Action |
+|------|-------|--------|
+| Thu Jun 4 evening | Dashboard final improvements | Implement data source legend + remaining Garry feedback |
+| **Fri Jun 5, 14:00–15:30** | Project Ulduz + Min Engagement review | With Nick & Olu — finalize TAM Summit presentation |
+| Mon–Tue Jun 8–9 | Executive Foundation training (ARN) | Amar unavailable |
+| **Wed Jun 10** | TAM Summit presentation | 30–45 min slot — live demo + practical workflows |
 
 ---
 
-## Proactive vs Reactive (Key Design Principle)
+## ✅ Completed Today (Jun 1)
 
-As discussed in the kickoff, everything is designed to be **proactive**:
-- Focus Recommender tells you what to do BEFORE things escalate
-- Infrastructure Discovery finds risks BEFORE they become incidents
-- Support Plan Builder suggests milestones BEFORE the SSP review
-- Weekly Review catches trends BEFORE they become problems
-
----
-
-## Next Steps
-
-| What | Target Date | Status |
-|------|------------|--------|
-| Test Daily Kickoff SOP with real customer | This week | Ready to test |
-| Test Customer Onboarding with first EOP customer | This week | Ready to test |
-| Run UNO tam-onboarding in Agent Spaces | This week | UNO installed, ready to run |
-| Iterate SOPs based on real-world testing | Ongoing | — |
-| Refine playbook to v1.0 | End of May | Draft v0.2 complete |
-| Build presentation and demo for team | June | Outline ready |
-| Weekly Tuesday syncs with Diego and Olu | Ongoing | Starting this week |
+1. Project Ulduz sync meeting (15:30–16:09) with Nick & Olu
+2. Dashboard Sprint 2 improvements implemented (CHI scores, SSP priorities, commitments tracking)
+3. Renamed "Promises" → "Commitments" across dashboard
+4. Friday meeting invite sent (Jun 5, 14:00–15:30)
+5. Created versioned dashboard copies: `versions/tam-portfolio-dashboard-v1-2026-05-22.html` and `versions/tam-portfolio-dashboard-v2-2026-06-01.html`
 
 ---
 
-## Tools Setup Complete
+## 🔄 Pending Actions
 
-| Tool | Status | Purpose |
-|------|--------|---------|
-| Kiro IDE | ✅ Configured with 7 MCP servers | Build and run custom workflows |
-| UNO Agent Spaces | ✅ Installed and running | Pre-built TAM SOPs |
-| GitHub | ✅ Repo live and backed up | Version control and sharing |
+| Item | Owner | Due | Status |
+|------|-------|-----|--------|
+| Share dashboard HTML + GitHub repo link to Nick & Olu | Amar | Today (Jun 1) | ⏳ |
+| Reply to Geert — Claude Enterprise seats quote for Yenlo | Amar | ASAP this week | ⏳ |
+| Share Min Engagement Framework docs in Friday invite | Amar | Before Fri | ⏳ |
+| Implement data source success/failure legend | Quick | Thu evening | ⏳ |
+| Complete remaining Garry feedback items | Quick | Thu evening | ⏳ |
+| Push to GitHub (needs terminal) | Amar | Today | ⏳ |
 
 ---
 
-*Questions or feedback? Let's discuss in our Tuesday sync.*
+## 🏗️ Dashboard Versions
+
+| Version | Date | Key Changes |
+|---------|------|-------------|
+| v1 | May 22, 2026 | Initial: KPI cards, health scorecard (case counts), priority actions, SSP progress, cost & usage charts |
+| **v2** | **Jun 1, 2026** | Sprint 2: CHI scores, Strategic Focus Areas, Commitments tracking, scheduled meetings, professional language |
+| v3 (planned) | Jun 4, 2026 | Data source legend, dismiss actions, risk trend charts |
+
+---
+
+## 📊 Presentation Plan (TAM Summit Jun 10)
+
+- **Format:** Live demo + practical workflows (not theoretical)
+- **Content:** Unified dashboard (both versions combined) + Min Engagement Delivery Framework
+- **Preparation:** Friday review with Nick & Olu to finalize
+- **Duration:** 30–45 minutes
