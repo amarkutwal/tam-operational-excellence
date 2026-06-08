@@ -1,7 +1,334 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head><style id="qw-theme">:root {
+  --color-bg: #faf9fc;
+  --color-text: #1a1a1a;
+  --color-navbar-bg: #f9f9fb;
+  --color-bg-chat-view: #fcfcfd;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f9fafb;
+  --color-bg-hover: #f3f4f6;
+  --color-surface: #f9fafb;
+  --color-surface-hover: #f3f4f6;
+  --color-surface-active: #e5e7eb;
+  --color-border: rgba(0, 0, 0, .12);
+  --color-border-light: rgba(0, 0, 0, .06);
+  --color-border-strong: #d1d5db;
+  --color-primary: #4200db;
+  --color-primary-dark: #35009e;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: #e8e6ff;
+  --color-primary-hover-border: #35009e;
+  --color-nav-icon-active: #4200db;
+  --color-nav-hover-border: #4200db;
+  --color-primary-alpha-3: color-mix(in srgb, #4200db 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #4200db 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #4200db 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #4200db 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #4200db 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #4200db 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #4200db 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #4200db 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #4200db 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #4200db 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #4200db 12%, transparent);
+  --color-primary-border: color-mix(in srgb, #4200db 30%, transparent);
+  --color-focus-ring: color-mix(in srgb, #4200db 50%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #4200db 12%, transparent);
+  --color-accent: #4200db;
+  --color-accent-foreground: #4200db;
+  --color-accent-dark: #35009e;
+  --color-accent-light: #e8e6ff;
+  --color-accent-inverse: #ffffff;
+  --color-link: #4200db;
+  --color-primary-gradient-end: #e8e6ff;
+  --color-primary-bg-solid: #e8e6ff;
+  --color-user-bubble: #F3F3F7;
+  --color-text-secondary: #5e5e5e;
+  --color-text-tertiary: #656871;
+  --color-text-muted: #9ca3af;
+  --color-text-on-primary: #ffffff;
+  --color-success: #00802f;
+  --color-success-dark: #00471e;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: #e6f5eb;
+  --color-success-border: #b3d9bf;
+  --color-success-foreground: #00802f;
+  --color-success-dark-foreground: #00471e;
+  --color-success-text: #00471e;
+  --color-error: #db0000;
+  --color-error-dark: #700000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: #ffe0e0;
+  --color-error-bg: #fceaea;
+  --color-error-border: #f2cccc;
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #db0000;
+  --color-error-dark-foreground: #700000;
+  --color-error-inverse: #ffffff;
+  --color-error-text: #700000;
+  --color-warning: #f2b100;
+  --color-warning-dark: #573a00;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: #fef7e6;
+  --color-warning-border: #f9dfa3;
+  --color-warning-foreground: #f2b100;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #006ce0;
+  --color-info-dark: #002a66;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: #ebf3fc;
+  --color-info-border: #b3d1f0;
+  --color-info-foreground: #006ce0;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #ffffff;
+  --color-overlay: rgba(0, 0, 0, .5);
+  --color-shadow: rgba(0, 0, 0, .08);
+  --color-hover: rgba(0, 0, 0, .05);
+  --color-tooltip-bg: rgba(0, 0, 0, .85);
+  --color-tooltip-text: #ffffff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #db0000;
+  --color-voice-red-dark: #700000;
+  --color-voice-amber: #f2b100;
+  --color-voice-purple-glow: rgba(66, 0, 219, .4);
+  --color-voice-red-glow: rgba(219, 0, 0, .4);
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, .08);
+  --color-success-bg-solid: #d9ffd6;
+  --color-error-bg-solid: #ffe0e0;
+  --color-error-border-solid: #ffe0e0;
+  --color-warning-bg-solid: #fffbbd;
+  --color-warning-text: #573a00;
+  --color-info-bg-solid: #d1f1ff;
+  --color-info-bg-solid-alt: #d1f1ff;
+  --color-info-text: #002a66;
+  --color-info-text-alt: #002a66;
+  --color-emerald: #10b981;
+  --color-teal: #4ecdc4;
+  --color-code-bg: #F3F3F7;
+  --color-code-header-bg: #f1f3f5;
+  --color-code-text: #24292e;
+  --color-code-border: #e1e4e8;
+  --color-code-muted: #6a737d;
+  --color-inline-code-bg: #F3F3F7;
+  --color-inline-code-text: #24292e;
+  --color-inline-code-border: #e1e4e8;
+  --color-scrollbar-thumb: #d1d5db;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #333333;
+  --color-graph-node-text-dim: #7F8C8D;
+  --color-graph-edge-default: #95A5A6;
+  --color-graph-edge-cross: #E67E22;
+  --color-graph-edge-text: #666666;
+  --color-graph-edge-stroke: #ffffff;
+  --color-graph-highlight-bg: #FF6B6B;
+  --color-graph-highlight-border: #E74C3C;
+  --color-graph-search-bg: #FFD700;
+  --color-graph-search-border: #FFA500;
+  --color-graph-focus-border: #C0392B;
+  --color-graph-external-border: #95A5A6;
+  --color-graph-cat-file: #3498DB;
+  --color-graph-cat-folder: #7F8C8D;
+  --color-graph-cat-file-aggregate: #2980B9;
+  --color-graph-cat-class: #9B59B6;
+  --color-graph-cat-function: #2ECC71;
+  --color-graph-cat-method: #1ABC9C;
+  --color-graph-cat-variable: #F39C12;
+  --color-graph-cat-import: #D35400;
+  --color-graph-cat-module: #5B6ABF;
+  --color-graph-cat-concept: #E74C3C;
+  --color-graph-cat-person: #FF6B6B;
+  --color-graph-cat-org: #4ECDC4;
+  --color-graph-cat-organization: #4ECDC4;
+  --color-graph-cat-product: #A29BFE;
+  --color-graph-cat-metric: #FD79A8;
+  --color-graph-cat-location: #34495E;
+  --color-graph-cat-date: #E056A0;
+  --color-graph-cat-code: #3498DB;
+  --color-graph-cat-doc: #7F8C8D;
+  --color-graph-cat-url: #00B894;
+  --color-graph-cat-email: #6C5CE7;
+  --color-graph-cat-unknown: #BDC3C7;
+  --color-graph-rel-contains: #BDC3C7;
+  --color-graph-rel-extends: #9B59B6;
+  --color-graph-rel-implements: #3498DB;
+  --color-graph-rel-imports: #E67E22;
+  --color-graph-rel-uses: #2ECC71;
+  --color-graph-rel-calls: #27AE60;
+  --color-graph-rel-references: #F39C12;
+  --color-graph-rel-related-to: #95A5A6;
+  --color-graph-rel-works-on: #E74C3C;
+  --color-graph-rel-owns: #1ABC9C;
+  --color-graph-rel-depends-on: #E67E22;
+  --color-graph-rel-parent-of: #BDC3C7;
+  --qs-content: #fff;
+  --qs-main: #fff;
+  --qs-primary-foreground: #131920;
+  --qs-secondary-foreground: #656871;
+  --qs-tertiary-foreground: #9ca3af;
+  --qs-placeholder-foreground: #8c8c94;
+  --qs-divider: #dedee3;
+  --qs-default-border: #8c8c94;
+  --qs-neutral-soft: #b4b4bb;
+  --qs-neutral-gray-50: #f9fafb;
+  --qs-tertiary-background: #f9fafb;
+  --qs-action-hover: #f3f3f7;
+  --qs-primary-default: #4200db;
+  --qs-primary-dark: #35009e;
+  --qs-primary-light: #e8e6ff;
+  --qs-success-default: #00802f;
+  --qs-error-default: #db0000;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-family: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  --qs-font-base-letter-spacing: .15px;
+  --qs-shadow-sm: 0 0 2px 0 #00000029, 0 0 4px 0 #00000029;
+  --qs-shadow-md: 0 0 2px 0 #00000029, 0 2px 8px 1px #00000029;
+  --qs-shadow-lg: 0 4px 16px 4px #00000029, 0 2px 6px 1px #00000029;
+  --qs-shadow-xl: 0 4px 8px 2px #00000029, 0 6px 20px 4px #00000029;
+  --qs-width-modal-sm: 384px;
+  --qs-width-modal-md: 600px;
+  --qs-width-modal-lg: 1136px;
+  --qs-grid-gap: 16px;
+  --qs-grid-gap-xl: 24px;
+  --qs-primary-medium: #8575ff;
+  --qs-primary-inverse: #fff;
+  --qs-neutral-lightest: #f9f9fb;
+  --qs-neutral-light: #f3f3f7;
+  --qs-neutral-default: #dedee3;
+  --qs-neutral-medium: #8c8c94;
+  --qs-neutral-deep: #656871;
+  --qs-neutral-dark: #333843;
+  --qs-neutral-strong: #131920;
+  --qs-neutral-white: #fff;
+  --qs-neutral-black: #000;
+  --qs-success-medium: #005c26;
+  --qs-success-dark: #00471e;
+  --qs-success-light: #d9ffd6;
+  --qs-success-inverse: #fff;
+  --qs-info-default: #006ce0;
+  --qs-info-medium: #003b8f;
+  --qs-info-dark: #002a66;
+  --qs-info-light: #d1f1ff;
+  --qs-info-inverse: #fff;
+  --qs-warning-default: #f2b100;
+  --qs-warning-medium: #db9200;
+  --qs-warning-dark: #573a00;
+  --qs-warning-light: #fffbbd;
+  --qs-warning-inverse: #573a00;
+  --qs-warning-experimental: #f2b100;
+  --qs-warning-experimental-light: #fffbbd;
+  --qs-warning-experimental-light-foreground: #fffbbd;
+  --qs-error-medium: #900;
+  --qs-error-dark: #700000;
+  --qs-error-light: #ffe0e0;
+  --qs-error-inverse: #fff;
+  --qs-connection-default: #db3300;
+  --qs-connection-soft: #ff997a;
+  --qs-connection-light: #ffe0d6;
+  --qs-connection-dark: #661800;
+  --qs-automation-default: #b3008f;
+  --qs-automation-medium: #d600ba;
+  --qs-automation-soft: #ff94f1;
+  --qs-automation-light: #ffe0fb;
+  --qs-automation-dark: #660052;
+  --qs-insight-default: #a000b8;
+  --qs-insight-soft: #f299ff;
+  --qs-insight-light: #fce6ff;
+  --qs-insight-dark: #590066;
+  --qs-visualization-default: #7300e5;
+  --qs-visualization-soft: #d4a8ff;
+  --qs-visualization-light: #f2e5ff;
+  --qs-visualization-dark: #45008a;
+  --qs-spice: #ff9800;
+  --qs-coachmark: #006ce0;
+  --qs-brand: #fff;
+  --qs-brand-foreground: #131920;
+  --qs-brand-navbar: #131920;
+  --qs-brand-navbar-foreground: #fff;
+  --qs-brand-navbar-light: #dedee3;
+  --qs-brand-navbar-dark: #000;
+  --qs-application-navbar: #4200db;
+  --qs-application-navbar-foreground: #fff;
+  --qs-application-navbar-light: #e8e6ff;
+  --qs-application-navbar-dark: #35009e;
+  --qs-dimension: #4200db;
+  --qs-dimension-foreground: #fff;
+  --qs-dimension-experimental: #4200db;
+  --qs-dimension-experimental-foreground: #4200db;
+  --qs-measure: #00802f;
+  --qs-measure-foreground: #fff;
+  --qs-measure-experimental: #f2b100;
+  --qs-measure-experimental-foreground: #f2b100;
+  --qs-content-inverse: #333843;
+  --qs-content-inverse-active: #131920;
+  --qs-secondary: #dedee3;
+  --qs-disabled: #8c8c94;
+  --qs-divider-light: #f3f3f7;
+  --qs-hover-border: #333843;
+  --qs-active-border: #4200db;
+  --qs-disabled-border: #dedee3;
+  --qs-error-border: #ffe0e0;
+  --qs-error-active-border: #db0000;
+  --qs-disabled-foreground: #b4b4bb;
+  --qs-primary-inverse-foreground: #fff;
+  --qs-error-foreground: #db0000;
+  --qs-contrast-foreground: #131920;
+  --qs-main-foreground: #131920;
+  --qs-action-disabled: #f3f3f7;
+  --qs-action-active: #e8e6ff;
+  --qs-default-badge: #b4b4bb;
+  --qs-tag-default: #dedee3;
+  --qs-tag-soft-border: #b4b4bb;
+  --qs-focus-offset: 1px;
+  --qs-toggle-tile-sm: calc(.25rem * 8);
+  --qs-toggle-tile-md: calc(.25rem * 12);
+  --qs-toggle-tile-lg: calc(.25rem * 15);
+  --qs-shadow-pin-right: inset 4px 0 4px -4px #00000029;
+  --qs-shadow-pin-left: inset -4px 0 4px -4px #00000029;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: rgba(180, 0, 170, 1);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 1);
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+  color-scheme: light;
+}
+body { background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-link, var(--color-primary)); }</style>
 <meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
@@ -542,129 +869,7 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   pointer-events: auto;
 }
 
-
-/* ===== Dark Theme ===== */
-[data-theme="dark"] {
-  --color-bg: #0D1117;
-  --color-bg-secondary: #161B22;
-  --color-text: #E6EDF3;
-  --color-text-secondary: #8B949E;
-  --color-text-muted: #6E7681;
-  --color-border-light: #21262D;
-  --color-border: #30363D;
-  --color-surface: #0D1117;
-  --color-surface-hover: rgba(255,255,255,0.04);
-  --color-primary: #58A6FF;
-  --color-success: #3FB950;
-  --color-error: #F85149;
-  --color-warning: #D29922;
-  --color-info: #58A6FF;
-}
-
-[data-theme="dark"] .card {
-  background: var(--color-bg-secondary);
-}
-
-[data-theme="dark"] .badge-red { background: #3d1f1f; color: #F85149; }
-[data-theme="dark"] .badge-yellow { background: #3d2e0a; color: #D29922; }
-[data-theme="dark"] .badge-green { background: #0f2d1e; color: #3FB950; }
-[data-theme="dark"] .badge-blue { background: #0d2240; color: #58A6FF; }
-
-[data-theme="dark"] tr:hover td { background: rgba(255,255,255,0.04); }
-
-[data-theme="dark"] .action-customer {
-  background: var(--color-border, #30363D);
-  color: var(--color-text-secondary, #8B949E);
-}
-
-[data-theme="dark"] .followup-card,
-[data-theme="dark"] .customer-card,
-[data-theme="dark"] .meeting-card,
-[data-theme="dark"] .escalation-card {
-  background: var(--color-bg-secondary);
-  border-color: var(--color-border-light);
-}
-
-[data-theme="dark"] .data-source-legend {
-  background: var(--color-bg-secondary);
-  border-color: var(--color-border-light);
-}
-
-[data-theme="dark"] .data-source-pill.connected {
-  background: #0f2d1e;
-  color: #3FB950;
-  border-color: #1a4731;
-}
-[data-theme="dark"] .data-source-pill.stale {
-  background: #3d2e0a;
-  color: #D29922;
-  border-color: #4d3a0a;
-}
-[data-theme="dark"] .data-source-pill.failed {
-  background: #3d1f1f;
-  color: #F85149;
-  border-color: #5c2020;
-}
-
-[data-theme="dark"] .demo-banner {
-  background: #0d2240 !important;
-  border-color: #1a3a5c !important;
-  color: #58A6FF !important;
-}
-
-[data-theme="dark"] .escalation-badge {
-  background: #3d1f1f;
-  color: #F85149;
-}
-
-[data-theme="dark"] .rec-icon {
-  background: #0d2240;
-  color: #58A6FF;
-}
-
-[data-theme="dark"] .comms-item.done-highlight {
-  background: #0f2d1e;
-}
-[data-theme="dark"] .followup-card.done-highlight {
-  background: #0f2d1e;
-  border-color: #1a4731;
-}
-
-[data-theme="dark"] .action-dismiss:hover {
-  background: var(--color-border, #30363D);
-  color: var(--color-text, #E6EDF3);
-}
-
-[data-theme="dark"] .tab:hover {
-  background: var(--color-border, #30363D);
-}
-
-[data-theme="dark"] .refresh-btn:hover {
-  background: var(--color-border, #30363D);
-}
-
-[data-theme="dark"] .show-dismissed-toggle,
-[data-theme="dark"] .show-completed-toggle {
-  color: #58A6FF;
-}
-
-/* Dark mode scrollbar */
-[data-theme="dark"] ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #161B22;
-}
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #30363D;
-  border-radius: 4px;
-}
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: #484F58;
-}
-
-/* Theme toggle button */
+/* Dark Theme Toggle */
 #theme-toggle {
   position: fixed;
   top: 16px;
@@ -688,72 +893,105 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   border-color: var(--color-primary);
 }
 
+[data-theme="dark"] {
+  --color-bg: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-text: #E6EDF3;
+  --color-text-secondary: #8B949E;
+  --color-text-muted: #6E7681;
+  --color-border-light: #21262D;
+  --color-border: #30363D;
+  --color-surface: #0D1117;
+  --color-surface-hover: rgba(255,255,255,0.04);
+  --color-primary: #58A6FF;
+  --color-success: #3FB950;
+  --color-error: #F85149;
+  --color-warning: #D29922;
+  --color-info: #58A6FF;
+}
+
+[data-theme="dark"] .badge-red { background: #3d1a1a; color: #F85149; }
+[data-theme="dark"] .badge-yellow { background: #3d2e0a; color: #D29922; }
+[data-theme="dark"] .badge-green { background: #0d2818; color: #3FB950; }
+[data-theme="dark"] .badge-blue { background: #0d2240; color: #58A6FF; }
+[data-theme="dark"] .demo-banner { background: #0d2240; border-color: #1a3a5c; color: #58A6FF; }
+[data-theme="dark"] .data-source-pill { background: #21262D; border-color: #30363D; }
+[data-theme="dark"] .data-source-pill.connected { border-color: #238636; }
+[data-theme="dark"] .action-customer { background: #21262D; }
+[data-theme="dark"] .card { background: var(--color-bg-secondary); border-color: var(--color-border-light); }
+[data-theme="dark"] .customer-card { background: var(--color-bg-secondary); border-color: var(--color-border-light); }
+[data-theme="dark"] .followup-card { background: var(--color-bg-secondary); border-color: var(--color-border-light); }
+[data-theme="dark"] .meeting-card { background: var(--color-bg-secondary); border-color: var(--color-border-light); }
+[data-theme="dark"] .rec-icon { background: #0d2240; }
+[data-theme="dark"] ::-webkit-scrollbar { width: 8px; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background: #0D1117; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #30363D; border-radius: 4px; }
 </style>
 </head>
 <body>
 <button id="theme-toggle" title="Toggle dark/light mode">🌙</button>
 
 <h1><i class="fa-solid fa-gauge-high" style="color: var(--color-primary, #0052CC);"></i> TAM Portfolio Dashboard</h1>
-<div class="demo-banner" style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> &mdash; Sprint 2 complete &mdash; All improvements applied (CHI scoring, SSP priorities, risk trends, dismissable actions, data source legend). In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
-<p class="subtitle">Amar Kutwal &mdash; Benelux/EMEA North &mdash; 4 Active Customers + 2 Pending</p>
+<div style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> — Sprint 2 complete — All improvements applied (CHI scoring, SSP priorities, risk trends, dismissable actions, data source legend). In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
+<p class="subtitle">Amar Kutwal — Benelux/EMEA North — 4 Active Customers + 2 Pending</p>
 
 <!-- DATA SOURCE STATUS LEGEND -->
 <div class="data-source-legend">
-  <span style="font-size:11px;font-weight:600;color:var(--color-text-secondary,#44546f);margin-right:4px;"><i class="fa-solid fa-plug"></i> Data Sources:<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Shows connection status for each data source feeding this dashboard. Green = live, Yellow = stale, Red = failed.<br><br>&#x1F4E1; Data source: Shows which data feeds are connected. Sources: Outlook API, Slack API, AWS Health API, Case Summary (KAPI), Cost Explorer API</span></span></span>
+  <span style="font-size:11px;font-weight:600;color:var(--color-text-secondary,#44546f);margin-right:4px;"><i class="fa-solid fa-plug"></i> Data Sources:<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Shows connection status for each data source feeding this dashboard. Green = live, Yellow = stale, Red = failed.<br><br>📡 Data source: Shows which data feeds are connected. Sources: Outlook API, Slack API, AWS Health API, Case Summary (KAPI), Cost Explorer API</span></span></span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Outlook</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Slack</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
-  <span class="data-source-pill stale"><i class="fa-solid fa-triangle-exclamation"></i> Case Summary <span style="font-weight:400;">&mdash; last sync 2h ago</span></span>
+  <span class="data-source-pill stale"><i class="fa-solid fa-triangle-exclamation"></i> Case Summary <span style="font-weight:400;">— last sync 2h ago</span></span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
-  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 1, 2026 &mdash; 17:50 CEST</span>
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 1, 2026 — 17:50 CEST</span>
 </div>
 <div class="data-freshness">
-  <span id="refresh-timestamp">Last refreshed: loading...</span> &middot; Auto-refresh: every 5 min (Phase 2)
+  <span id="refresh-timestamp">Last refreshed: loading...</span> · Auto-refresh: every 5 min (Phase 2)
   <button class="refresh-btn" onclick="showRefreshInfo()" title="Refresh info"><i class="fa-solid fa-rotate"></i></button>
 </div>
 
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 1, 2026 &mdash; 17:55 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 1, 2026 — 17:55 CEST</div>
 
 <!-- TOP KPI CARDS -->
 <div class="section-header" style="margin-top:0;"><i class="fa-solid fa-chart-simple"></i> KPI Cards<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Key portfolio metrics at a glance: customer count, open cases, active SSP milestones, and strategic focus percentage.</span></span></div>
 <div class="dashboard-grid">
   <div class="card">
-    <div class="card-label">Active Customers<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Number of customers currently assigned to this TAM with active support plans.<br><br>&#x1F4E1; Data source: CMC (Customer Management Console)</span></span></div>
+    <div class="card-label">Active Customers<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Number of customers currently assigned to this TAM with active support plans.<br><br>📡 Data source: CMC (Customer Management Console)</span></span></div>
     <div class="card-value">4</div>
     <div class="card-delta">+ 2 pending onboarding</div>
   </div>
   <div class="card">
-    <div class="card-label">Open Cases<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Total open support cases across all customers in this portfolio.<br><br>&#x1F4E1; Data source: Case Summary via KAPI</span></span></div>
+    <div class="card-label">Open Cases<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Total open support cases across all customers in this portfolio.<br><br>📡 Data source: Case Summary via KAPI</span></span></div>
     <div class="card-value" style="color: #de350b; cursor: pointer;" onclick="document.getElementById('cases-detail').style.display = document.getElementById('cases-detail').style.display === 'none' ? 'block' : 'none'">7 <i class="fa-solid fa-chevron-down" style="font-size:12px;"></i></div>
-    <div class="card-delta negative">2 Sev-2 &middot; 5 Sev-3+</div>
+    <div class="card-delta negative">2 Sev-2 · 5 Sev-3+</div>
     <div id="cases-detail" style="display:none; margin-top:10px; padding-top:10px; border-top:1px solid var(--color-border-light,#ebecf0); font-size:12px;">
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4892" target="_blank">Case #4892</a></span> &mdash; Sev-2 &mdash; EKS pod scaling &mdash; APS</div>
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4901" target="_blank">Case #4901</a></span> &mdash; Sev-2 &mdash; ALB 5xx errors &mdash; APS</div>
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/3321" target="_blank">Case #3321</a></span> &mdash; Sev-3 &mdash; VPN metrics anomaly &mdash; ReBound</div>
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4855" target="_blank">Case #4855</a></span> &mdash; Sev-4 &mdash; S3 lifecycle policy &mdash; Vopak</div>
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4860" target="_blank">Case #4860</a></span> &mdash; Sev-4 &mdash; CloudWatch alarm &mdash; APS</div>
-      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4872" target="_blank">Case #4872</a></span> &mdash; Sev-4 &mdash; IAM policy review &mdash; ReBound</div>
-      <div><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4888" target="_blank">Case #4888</a></span> &mdash; Sev-4 &mdash; DynamoDB throttling &mdash; BlockTech</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4892" target="_blank">Case #4892</a></span> — Sev-2 — EKS pod scaling — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4901" target="_blank">Case #4901</a></span> — Sev-2 — ALB 5xx errors — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/3321" target="_blank">Case #3321</a></span> — Sev-3 — VPN metrics anomaly — ReBound</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4855" target="_blank">Case #4855</a></span> — Sev-4 — S3 lifecycle policy — Vopak</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4860" target="_blank">Case #4860</a></span> — Sev-4 — CloudWatch alarm — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4872" target="_blank">Case #4872</a></span> — Sev-4 — IAM policy review — ReBound</div>
+      <div><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/4888" target="_blank">Case #4888</a></span> — Sev-4 — DynamoDB throttling — BlockTech</div>
     </div>
   </div>
   <div class="card">
-    <div class="card-label">SSP Milestones Active<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Number of SSP milestones currently in progress or not yet started across all customers.<br><br>&#x1F4E1; Data source: SSP Tracker (manual input + SharePoint Blueprint). Tracks milestones TAM has committed to deliver for each customer this year.</span></span></div>
+    <div class="card-label">SSP Milestones Active<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Number of SSP milestones currently in progress or not yet started across all customers.<br><br>📡 Data source: SSP Tracker (manual input + SharePoint Blueprint). Tracks milestones TAM has committed to deliver for each customer this year.</span></span></div>
     <div class="card-value">12</div>
     <div class="card-delta positive">3 completed this month</div>
   </div>
   <div class="card">
-    <div class="card-label">Strategic Focus<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Percentage of TAM time spent on proactive/strategic customer work vs reactive support. Strategic = SSP delivery, architecture reviews, proactive recommendations, Well-Architected reviews. Reactive = case handling, urgent requests, firefighting. Does NOT include internal goals (certifications, training, initiatives). Calculated from activity categorization of time logged.<br><br>&#x1F4E1; Data source: Activity categorization (manual + AI-inferred from calendar events)</span></span></div>
+    <div class="card-label">Strategic Focus (% of time)<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">TIME spent on proactive/strategic customer work vs reactive support.<br><br>Strategic = SSP delivery, architecture reviews, proactive recommendations, Well-Architected reviews.<br>Reactive = case handling, urgent requests, firefighting.<br><br>Does NOT include internal goals (certifications, training, initiatives).<br><br>📡 Data source: Activity categorization (manual + AI-inferred from calendar events)</span></span></div>
     <div class="card-value">38%</div>
     <div class="card-delta positive" style="font-size:12px;">+13% vs <span class="info-icon-wrap" style="margin-left:0;"><span style="border-bottom:1px dashed var(--color-text-muted,#8993a4);cursor:help;">last week</span><span class="info-tooltip">Compared to previous 7-day rolling average</span></span> (25%)</div>
   </div>
 </div>
 
 <!-- ACTIVE ESCALATIONS -->
-<div class="section-header" style="margin-top:0;"><i class="fa-solid fa-fire"></i> Active Escalations<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">High-severity issues requiring immediate attention. These are actively being managed and tracked.<br><br>&#x1F4E1; Data source: AWS Health API + Case Summary (KAPI) + TAM manual input. Escalations are identified when: (1) case severity is Critical/Urgent for >24h, (2) AWS Health event impacts customer workload, (3) TAM manually flags a risk as escalation-worthy.</span></span></div>
+<div class="section-header" style="margin-top:0;"><i class="fa-solid fa-fire"></i> Active Escalations<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">High-severity issues requiring immediate attention. These are actively being managed and tracked.<br><br>📡 Data source: AWS Health API + Case Summary (KAPI) + TAM manual input. Escalations are identified when: (1) case severity is Critical/Urgent for &gt;24h, (2) AWS Health event impacts customer workload, (3) TAM manually flags a risk as escalation-worthy.</span></span></div>
 <div class="escalation-card">
   <div style="flex-shrink:0;"><span class="escalation-badge">High Severity</span></div>
   <div style="flex:1;">
-    <div class="esc-title">BlockTech &mdash; Root MFA enforcement</div>
+    <div class="esc-title">BlockTech — Root MFA enforcement</div>
     <div class="esc-meta">Root account has no MFA enabled across 3 production accounts. Security team escalation.</div>
   </div>
   <div style="text-align:right;flex-shrink:0;">
@@ -765,8 +1003,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- TIME BUDGET (collapsible, default collapsed) -->
 <div class="card card-full" style="margin-bottom: 24px;">
   <div class="collapsible-header" onclick="toggleCollapsible('time-budget-content', this)">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <div class="card-label" style="margin-bottom:0;">Time Budget<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">How TAM time is allocated across customer work, initiatives, and buffer for unplanned requests.<br><br>&#x1F4E1; Data source: Calculated from activity categorization &mdash; each TAM action is tagged to a TAM goal (Ops Excellence, Security, Cost Opt, etc.)</span></span></div>
+    <span class="collapsible-indicator">▶</span>
+    <div class="card-label" style="margin-bottom:0;">Time Budget<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">How TAM time is allocated across customer work, initiatives, and buffer for unplanned requests.<br><br>📡 Data source: Calculated from activity categorization — each TAM action is tagged to a TAM goal (Ops Excellence, Security, Cost Opt, etc.)</span></span></div>
   </div>
   <div id="time-budget-content" class="collapsible-content collapsed" style="max-height:200px;">
     <div style="padding-top:10px;">
@@ -786,59 +1024,59 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 </div>
 
 <!-- CUSTOMER HEALTH SCORECARD -->
-<div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Customer Health Scorecard<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Per-customer health overview showing priority, health index, engagement recency, SSP status, and strategic focus areas.<br><br>&#x1F4E1; Data sources: CHI Score from CMC (Customer Management Console), Engagement from Outlook/Slack (last contact date), SSP from SharePoint Blueprint, Health from AWS Health API, Spend from Cost Explorer API</span></span></div>
+<div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Customer Health Scorecard<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Per-customer health overview showing priority, health index, engagement recency, SSP status, and strategic focus areas.<br><br>📡 Data sources: CHI Score from CMC (Customer Management Console), Engagement from Outlook/Slack (last contact date), SSP from SharePoint Blueprint, Health from AWS Health API, Spend from Cost Explorer API</span></span></div>
 <div class="card card-full">
   <table>
     <thead>
       <tr>
         <th>Customer<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Customer name with tier badge showing engagement size (Large/Medium/Small)</span></span></th>
-        <th>Priority Score<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Combined urgency (0-10). Calculated from: case severity &times; age (40%), SSP delays (25%), days since contact (20%), CHI &amp; events (15%)</span></span></th>
-        <th>CHI Score<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Customer Health Index (0-100). Sourced from CMC (Customer Management Console). Composite metric calculated by AWS from: support case patterns, health event frequency, service adoption breadth, engagement frequency, and operational maturity signals. Higher = healthier customer. &#x1F4E1; Data source: CMC</span></span></th>
+        <th>Priority Score<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Combined urgency (0-10). Calculated from: case severity × age (40%), SSP delays (25%), days since contact (20%), CHI &amp; events (15%)</span></span></th>
+        <th>CHI Score<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Customer Health Index (0-100). Sourced from CMC (Customer Management Console). Composite metric calculated by AWS from: support case patterns, health event frequency, service adoption breadth, engagement frequency, and operational maturity signals. Higher = healthier customer. 📡 Data source: CMC</span></span></th>
         <th>Engagement<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Days since last meaningful contact. Green = recent, Yellow = getting stale, Red = overdue</span></span></th>
         <th>SSP<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">SSP milestone completion. Format: completed/total</span></span></th>
         <th>Health<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">AWS Health events status. Based on active events, planned maintenance, incident history</span></span></th>
-        <th>Strategic Focus Areas<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Top priorities from their SSP &mdash; what we're actively working on</span></span></th>
-        <th>MRC (Spend)<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly Recurring Cost (MRC) &mdash; gross monthly AWS spend. For partner-resold customers (Vopak), cost data is managed by the partner and shown as N/A.<br><br>&#x1F4E1; Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></th>
+        <th>Strategic Focus Areas<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Top priorities from their SSP — what we're actively working on</span></span></th>
+        <th>MRC (Spend)<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly Recurring Cost (MRC) — gross monthly AWS spend. For partner-resold customers (Vopak), cost data is managed by the partner and shown as N/A.<br><br>📡 Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Allied Publicity (APS)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">49 accounts &middot; EKS-heavy</span></td>
+        <td><strong>Allied Publicity (APS)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">49 accounts · EKS-heavy</span></td>
         <td><span class="badge badge-red">7/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">Cases + SSP behind</span></td>
         <td><span class="badge badge-red">62/100</span></td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
-        <td><span class="badge badge-yellow">&#x1F7E1;</span> 1 behind</td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 1 behind</td>
+        <td><span class="badge badge-green">🟢</span></td>
         <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">EKS upgrade + cost optimization</span></td>
         <td style="font-family:var(--font-mono,monospace);font-size:12px;">$112K/mo</td>
       </tr>
       <tr>
-        <td><strong>ReBound (Cycleon)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">27 accounts &middot; Logistics</span></td>
+        <td><strong>ReBound (Cycleon)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">27 accounts · Logistics</span></td>
         <td><span class="badge badge-yellow">5/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">Stale case</span></td>
         <td><span class="badge badge-yellow">78/100</span></td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
         <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Multi-region DR + VPN resilience</span></td>
         <td style="font-family:var(--font-mono,monospace);font-size:12px;">$90K/mo</td>
       </tr>
       <tr>
-        <td><strong>Vopak</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">31 accounts &middot; Partner: InQdo &#x26A0;&#xFE0F;</span></td>
+        <td><strong>Vopak</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">31 accounts · Partner: InQdo ⚠️</span></td>
         <td><span class="badge badge-yellow">4/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">SP expired + stale</span></td>
         <td><span class="badge badge-yellow">71/100</span></td>
-        <td><span class="badge badge-yellow">&#x1F7E1;</span> 10d ago</td>
-        <td><span class="badge badge-red">&#x1F534;</span> SP expired</td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 10d ago</td>
+        <td><span class="badge badge-red">🔴</span> SP expired</td>
+        <td><span class="badge badge-green">🟢</span></td>
         <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Security posture + SP renewal</span></td>
         <td style="font-family:var(--font-mono,monospace);font-size:12px;color:var(--color-text-muted,#8993a4);">N/A (partner)</td>
       </tr>
       <tr>
-        <td><strong>BlockTech B.V.</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">9 accounts &middot; HFT Crypto</span></td>
+        <td><strong>BlockTech B.V.</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">9 accounts · HFT Crypto</span></td>
         <td><span class="badge badge-green">1/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">All clear</span></td>
         <td><span class="badge badge-green">85/100</span></td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
-        <td><span class="badge badge-blue">&#x23F3;</span> New</td>
-        <td><span class="badge badge-green">&#x1F7E2;</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-blue">⏳</span> New</td>
+        <td><span class="badge badge-green">🟢</span></td>
         <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Graviton migration + latency optimization</span></td>
         <td style="font-family:var(--font-mono,monospace);font-size:12px;">$108K/mo</td>
       </tr>
@@ -849,8 +1087,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- SECURITY & RESILIENCE RISK TRENDS (collapsible, default collapsed) -->
 <div class="section-header">
   <div class="collapsible-header" onclick="toggleCollapsible('security-risk-content', this)" style="display:flex;align-items:center;gap:8px;">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <i class="fa-solid fa-shield-halved"></i> Security &amp; Resilience Risk Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Portfolio-wide security posture over 6 months. Downward = issues resolved. Upward = growing risk needing attention.<br><br>&#x1F4E1; Data source: AWS Trusted Advisor + AWS Health + Security Hub (aggregated findings)</span></span>
+    <span class="collapsible-indicator">▶</span>
+    <i class="fa-solid fa-shield-halved"></i> Security &amp; Resilience Risk Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Portfolio-wide security posture over 6 months. Downward = issues resolved. Upward = growing risk needing attention.<br><br>📡 Data source: AWS Trusted Advisor + AWS Health + Security Hub (aggregated findings)</span></span>
   </div>
 </div>
 <div id="security-risk-content" class="collapsible-content collapsed" style="max-height:800px;">
@@ -861,20 +1099,20 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   </div>
   <div class="card">
     <div class="collapsible-header" onclick="toggleCollapsible('risk-acceptance-content', this)" style="display:flex;align-items:center;gap:8px;">
-      <span class="collapsible-indicator">&#x25B6;</span>
-      <div class="card-label" style="font-weight:600;color:var(--color-text-secondary,#44546f);margin-bottom:0;">Customer Risk Acceptance<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Documented risks that customers were informed about and chose to accept or defer. Protects both TAM and customer.<br><br>&#x1F4E1; Data source: TAM manual documentation &mdash; risks identified during architecture reviews or health events that customer acknowledged and accepted</span></span></div>
+      <span class="collapsible-indicator">▶</span>
+      <div class="card-label" style="font-weight:600;color:var(--color-text-secondary,#44546f);margin-bottom:0;">Customer Risk Acceptance<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Documented risks that customers were informed about and chose to accept or defer. Protects both TAM and customer.<br><br>📡 Data source: TAM manual documentation — risks identified during architecture reviews or health events that customer acknowledged and accepted</span></span></div>
     </div>
     <div id="risk-acceptance-content" class="collapsible-content collapsed" style="max-height:400px;">
-      <p style="font-size:12px;color:#44546f;margin:12px 0;">When a customer is informed about a risk and chooses not to act (or delays action), it's documented here. This is a deliberate decision, not silent neglect &mdash; it protects both the TAM and customer.</p>
+      <p style="font-size:12px;color:#44546f;margin:12px 0;">When a customer is informed about a risk and chooses not to act (or delays action), it's documented here. This is a deliberate decision, not silent neglect — it protects both the TAM and customer.</p>
       <table class="risk-table">
         <thead>
           <tr><th>Customer</th><th>What's the Risk?</th><th>Customer Decision</th><th>Next Step / Timeline</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>APS</strong></td><td>EKS 1.24 EOL</td><td><span class="badge badge-yellow">No &mdash; migrating</span></td><td style="font-size:11px;">Target: Jul 2026</td></tr>
-          <tr><td><strong>ReBound</strong></td><td>Single-AZ VPN</td><td><span class="badge badge-green">Yes &mdash; accepted</span></td><td style="font-size:11px;">Cost constraint</td></tr>
-          <tr><td><strong>Vopak</strong></td><td>Legacy Lambda runtimes</td><td><span class="badge badge-yellow">No &mdash; planning</span></td><td style="font-size:11px;">Q3 remediation</td></tr>
-          <tr><td><strong>BlockTech</strong></td><td>No MFA on root</td><td><span class="badge badge-red">No &mdash; urgent</span></td><td style="font-size:11px;">Escalated</td></tr>
+          <tr><td><strong>APS</strong></td><td>EKS 1.24 EOL</td><td><span class="badge badge-yellow">No — migrating</span></td><td style="font-size:11px;">Target: Jul 2026</td></tr>
+          <tr><td><strong>ReBound</strong></td><td>Single-AZ VPN</td><td><span class="badge badge-green">Yes — accepted</span></td><td style="font-size:11px;">Cost constraint</td></tr>
+          <tr><td><strong>Vopak</strong></td><td>Legacy Lambda runtimes</td><td><span class="badge badge-yellow">No — planning</span></td><td style="font-size:11px;">Q3 remediation</td></tr>
+          <tr><td><strong>BlockTech</strong></td><td>No MFA on root</td><td><span class="badge badge-red">No — urgent</span></td><td style="font-size:11px;">Escalated</td></tr>
         </tbody>
       </table>
     </div>
@@ -883,94 +1121,94 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 </div>
 
 <!-- PRIORITY ACTIONS -->
-<div class="section-header"><i class="fa-solid fa-rocket"></i> Strategic &amp; Proactive Actions<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Ranked action items across all customers. Dismiss with &times; when actioned. Items persist in localStorage.<br><br>&#x1F4E1; Data source: Aggregated from Case Summary, AWS Health events, SSP tracker deadlines, and communication gaps (days since last contact)</span></span></div>
+<div class="section-header"><i class="fa-solid fa-rocket"></i> Strategic &amp; Proactive Actions<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Ranked action items across all customers. Dismiss with × when actioned. Items persist in localStorage.<br><br>📡 Data source: Aggregated from Case Summary, AWS Health events, SSP tracker deadlines, and communication gaps (days since last contact)</span></span></div>
 <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr 1fr;">
   <div class="card" style="border-left: 3px solid #0052CC;">
-    <div class="card-label" style="color:#0052CC;font-weight:600;">&#x1F680; STRATEGIC / PROACTIVE</div>
+    <div class="card-label" style="color:#0052CC;font-weight:600;">🚀 STRATEGIC / PROACTIVE</div>
     <ul class="action-list" id="actions-strategic">
       <li class="action-item" data-action-id="strategic-1">
         <div class="action-priority" style="background:#0052CC;"></div>
         <div class="action-content">
           <div class="action-title">Start SSP draft for Allied Publicity</div>
-          <div class="action-meta"><span class="action-customer">APS</span> &middot; Run support-plan-builder SOP</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Run support-plan-builder SOP</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="strategic-2">
         <div class="action-priority" style="background:#0052CC;"></div>
         <div class="action-content">
           <div class="action-title">Share Graviton migration guide with BlockTech</div>
-          <div class="action-meta"><span class="action-customer">BlockTech</span> &middot; Cost savings opportunity</div>
+          <div class="action-meta"><span class="action-customer">BlockTech</span> · Cost savings opportunity</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="strategic-3">
         <div class="action-priority" style="background:#0052CC;"></div>
         <div class="action-content">
           <div class="action-title">Prepare TAM Summit presentation outline</div>
-          <div class="action-meta">Initiative &middot; 30 min time block</div>
+          <div class="action-meta">Initiative · 30 min time block</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
     </ul>
     <button class="show-dismissed-toggle" id="toggle-strategic" onclick="toggleDismissed('actions-strategic', 'toggle-strategic')" style="display:none;"></button>
   </div>
   <div class="card">
-    <div class="card-label" style="color:#de350b;font-weight:600;">&#x1F534; MUST DO (Reactive)</div>
+    <div class="card-label" style="color:#de350b;font-weight:600;">🔴 MUST DO (Reactive)</div>
     <ul class="action-list" id="actions-mustdo">
       <li class="action-item" data-action-id="mustdo-1">
         <div class="action-priority priority-red"></div>
         <div class="action-content">
-          <div class="action-title">Follow up Sev-2 <a href="https://command-center.support.aws.a2z.com/case-console#/cases/4892" target="_blank">case #4892</a> &mdash; EKS pod scaling</div>
-          <div class="action-meta"><span class="action-customer">APS</span> &middot; 3 days old &middot; Escalation risk</div>
+          <div class="action-title">Follow up Sev-2 <a href="https://command-center.support.aws.a2z.com/case-console#/cases/4892" target="_blank">case #4892</a> — EKS pod scaling</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · 3 days old · Escalation risk</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="mustdo-2">
         <div class="action-priority priority-red"></div>
         <div class="action-content">
           <div class="action-title">Respond to EKS upgrade timeline question</div>
-          <div class="action-meta"><span class="action-customer">APS</span> &middot; Email from CTO &middot; 24h SLA</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Email from CTO · 24h SLA</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="mustdo-3">
         <div class="action-priority priority-red"></div>
         <div class="action-content">
           <div class="action-title">Prep for ReBound cadence call (Jun 5)</div>
-          <div class="action-meta"><span class="action-customer">ReBound</span> &middot; 30 min &middot; Run cadence-prep SOP</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · 30 min · Run cadence-prep SOP</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
     </ul>
     <button class="show-dismissed-toggle" id="toggle-mustdo" onclick="toggleDismissed('actions-mustdo', 'toggle-mustdo')" style="display:none;"></button>
   </div>
   <div class="card">
-    <div class="card-label" style="color:#ff991f;font-weight:600;">&#x1F7E1; SHOULD DO</div>
+    <div class="card-label" style="color:#ff991f;font-weight:600;">🟡 SHOULD DO</div>
     <ul class="action-list" id="actions-shoulddo">
       <li class="action-item" data-action-id="shoulddo-1">
         <div class="action-priority priority-yellow"></div>
         <div class="action-content">
-          <div class="action-title">Contact Vopak &mdash; 10 days since last touch</div>
-          <div class="action-meta"><span class="action-customer">Vopak</span> &middot; Send async update email</div>
+          <div class="action-title">Contact Vopak — 10 days since last touch</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · Send async update email</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="shoulddo-2">
         <div class="action-priority priority-yellow"></div>
         <div class="action-content">
           <div class="action-title">Review Savings Plan expiry for Vopak</div>
-          <div class="action-meta"><span class="action-customer">Vopak</span> &middot; $20K/mo waste &middot; Coordinate via InQdo</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · $20K/mo waste · Coordinate via InQdo</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
       <li class="action-item" data-action-id="shoulddo-3">
         <div class="action-priority priority-yellow"></div>
         <div class="action-content">
           <div class="action-title">Follow up stale <a href="https://command-center.support.aws.a2z.com/case-console#/cases/3321" target="_blank">case #3321</a> with ReBound</div>
-          <div class="action-meta"><span class="action-customer">ReBound</span> &middot; No update 6 days</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · No update 6 days</div>
         </div>
-        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">&times;</button>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
     </ul>
     <button class="show-dismissed-toggle" id="toggle-shoulddo" onclick="toggleDismissed('actions-shoulddo', 'toggle-shoulddo')" style="display:none;"></button>
@@ -978,40 +1216,40 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 </div>
 
 <!-- COMMUNICATIONS TO ACTION -->
-<div class="section-header"><i class="fa-solid fa-envelope-open-text"></i> Communications Requiring Action<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Emails and Slack messages needing a response. Mark done with &#x2713; when handled.<br><br>&#x1F4E1; Data sources: Email tab &rarr; Outlook API, Slack tab &rarr; Slack API. Shows unread/unactioned messages requiring TAM response.</span></span></div>
+<div class="section-header"><i class="fa-solid fa-envelope-open-text"></i> Communications Requiring Action<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Emails and Slack messages needing a response. Mark done with ✓ when handled.<br><br>📡 Data sources: Email tab → Outlook API, Slack tab → Slack API. Shows unread/unactioned messages requiring TAM response.</span></span></div>
 <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
   <div class="card" id="comms-emails-card">
     <div class="card-label"><i class="fa-solid fa-envelope"></i> Emails (4 needing action)</div>
     <div class="comms-item" data-comms-id="comms-1">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
       <div class="comms-content">
-        <div class="comms-subject">Re: EKS 1.25 Upgrade Timeline &mdash; APS</div>
-        <div class="comms-meta">From: j.vandenberg@theapsgroup.com &middot; 2h ago</div>
+        <div class="comms-subject">Re: EKS 1.25 Upgrade Timeline — APS</div>
+        <div class="comms-meta">From: j.vandenberg@theapsgroup.com · 2h ago</div>
       </div>
     </div>
     <div class="comms-item" data-comms-id="comms-2">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
       <div class="comms-content">
-        <div class="comms-subject">VPN Redundancy Proposal &mdash; ReBound</div>
-        <div class="comms-meta">From: m.dehaan@cycleon.com &middot; 5h ago</div>
+        <div class="comms-subject">VPN Redundancy Proposal — ReBound</div>
+        <div class="comms-meta">From: m.dehaan@cycleon.com · 5h ago</div>
       </div>
     </div>
     <div class="comms-item" data-comms-id="comms-3">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
       <div class="comms-content">
         <div class="comms-subject">Re: Direct Connect bandwidth increase</div>
-        <div class="comms-meta">From: s.chen@block-tech.io &middot; Yesterday</div>
+        <div class="comms-meta">From: s.chen@block-tech.io · Yesterday</div>
       </div>
     </div>
     <div class="comms-item" data-comms-id="comms-4">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
       <div class="comms-content">
-        <div class="comms-subject">P&V Assurances handover docs ready</div>
-        <div class="comms-meta">From: vedanthh@amazon.com &middot; Yesterday</div>
+        <div class="comms-subject">P&amp;V Assurances handover docs ready</div>
+        <div class="comms-meta">From: vedanthh@amazon.com · Yesterday</div>
       </div>
     </div>
     <button class="show-completed-toggle" id="toggle-comms-emails" onclick="toggleCompletedComms('emails')" style="display:none;"></button>
@@ -1019,27 +1257,27 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <div class="card" id="comms-slack-card">
     <div class="card-label"><i class="fa-brands fa-slack"></i> Slack Messages (3 needing action)</div>
     <div class="comms-item" data-comms-id="comms-5">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
       <div class="comms-content">
         <div class="comms-subject">@akkutwal can you check the APS Fargate task defs?</div>
-        <div class="comms-meta">#tam-aps-group &middot; From: SA &mdash; 1h ago</div>
+        <div class="comms-meta">#tam-aps-group · From: SA — 1h ago</div>
       </div>
     </div>
     <div class="comms-item" data-comms-id="comms-6">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
       <div class="comms-content">
-        <div class="comms-subject">BlockTech Tokyo expansion &mdash; networking review needed</div>
-        <div class="comms-meta">#tam-blocktech &middot; From: AM &mdash; 3h ago</div>
+        <div class="comms-subject">BlockTech Tokyo expansion — networking review needed</div>
+        <div class="comms-meta">#tam-blocktech · From: AM — 3h ago</div>
       </div>
     </div>
     <div class="comms-item" data-comms-id="comms-7">
-      <button class="action-done" onclick="markCommDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markCommDone(this)" title="Mark done">✓</button>
       <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
       <div class="comms-content">
-        <div class="comms-subject">ReBound VPN metrics look off &mdash; FYI</div>
-        <div class="comms-meta">DM from SA &mdash; 4h ago</div>
+        <div class="comms-subject">ReBound VPN metrics look off — FYI</div>
+        <div class="comms-meta">DM from SA — 4h ago</div>
       </div>
     </div>
     <button class="show-completed-toggle" id="toggle-comms-slack" onclick="toggleCompletedComms('slack')" style="display:none;"></button>
@@ -1047,12 +1285,12 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 </div>
 
 <!-- PENDING FOLLOW-UPS & COMMITMENTS -->
-<div class="section-header"><i class="fa-solid fa-handshake-angle"></i> Pending Follow-ups &amp; Commitments<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Open commitments made to customers. Track delivery and mark complete with &#x2713;.<br><br>&#x1F4E1; Data source: AI analysis of meeting summaries (Amazon Meetings Summary) + email commitments. Tracks what TAM promised to deliver.</span></span></div>
+<div class="section-header"><i class="fa-solid fa-handshake-angle"></i> Pending Follow-ups &amp; Commitments<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Open commitments made to customers. Track delivery and mark complete with ✓.<br><br>📡 Data source: AI analysis of meeting summaries (Amazon Meetings Summary) + email commitments. Tracks what TAM promised to deliver.</span></span></div>
 <div class="dashboard-grid">
   <div class="card" id="followups-card" style="grid-column: span 1;">
-    <div class="section-header" style="margin-top:0;font-size:14px;"><i class="fa-solid fa-clipboard-check"></i> Commitments & Action Items</div>
+    <div class="section-header" style="margin-top:0;font-size:14px;"><i class="fa-solid fa-clipboard-check"></i> Commitments &amp; Action Items</div>
     <div class="followup-card" data-followup-id="followup-1">
-      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
       <div class="followup-item">Claude Enterprise seats for Yenlo</div>
       <div class="followup-status">Committed to Geert: investigate and get back with quote status</div>
       <div class="followup-meta">
@@ -1061,7 +1299,7 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       </div>
     </div>
     <div class="followup-card" data-followup-id="followup-2">
-      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
       <div class="followup-item">Share dashboard HTML + GitHub repo link</div>
       <div class="followup-status">Agreed in Ulduz sync today</div>
       <div class="followup-meta">
@@ -1070,7 +1308,7 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       </div>
     </div>
     <div class="followup-card" data-followup-id="followup-3">
-      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">&#x2713;</button>
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
       <div class="followup-item">Share Min Engagement Framework docs in Friday meeting invite</div>
       <div class="followup-status">Action from Ulduz sync</div>
       <div class="followup-meta">
@@ -1084,13 +1322,13 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
     <div class="card-label" style="color:#0052CC;font-weight:600;"><i class="fa-solid fa-calendar-check"></i> Upcoming Scheduled Meetings</div>
     <div class="meeting-card">
       <div class="meeting-title">Project Ulduz + Min Engagement Framework review</div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 5 &mdash; 14:00&ndash;15:30 CEST</div>
-      <div class="meeting-details"><i class="fa-solid fa-users"></i> With: Nick & Olu</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 5 — 14:00–15:30 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-users"></i> With: Nick &amp; Olu</div>
       <div class="meeting-meta">Purpose: Finalize TAM Summit presentation</div>
     </div>
     <div class="meeting-card">
-      <div class="meeting-title">TAM Summit &mdash; Presentation Slot</div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 10 &mdash; 30&ndash;45 min slot</div>
+      <div class="meeting-title">TAM Summit — Presentation Slot</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 10 — 30–45 min slot</div>
       <div class="meeting-meta">Purpose: Present Project Ulduz TAM operational excellence demo</div>
     </div>
   </div>
@@ -1099,12 +1337,12 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- SSP PROGRESS & CHARTS (collapsible, default collapsed) -->
 <div class="section-header">
   <div class="collapsible-header" onclick="toggleCollapsible('ssp-progress-content', this)" style="display:flex;align-items:center;gap:8px;">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <i class="fa-solid fa-bullseye"></i> SSP Milestone Progress<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Progress on Strategic Support Plan milestones per customer. Shows what's delivered vs behind schedule.<br><br>&#x1F4E1; Data source: SSP Tracker (SharePoint Blueprint). Each milestone is agreed with customer during SSP creation and tracked through delivery.</span></span>
+    <span class="collapsible-indicator">▶</span>
+    <i class="fa-solid fa-bullseye"></i> SSP Milestone Progress<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Progress on Strategic Support Plan milestones per customer. Shows what's delivered vs behind schedule.<br><br>📡 Data source: SSP Tracker (SharePoint Blueprint). Each milestone is agreed with customer during SSP creation and tracked through delivery.</span></span>
   </div>
 </div>
 <div id="ssp-progress-content" class="collapsible-content collapsed" style="max-height:600px;">
-<p style="font-size:12px;color:#44546f;margin-bottom:12px;">Progress on Strategic Support Plan milestones per customer. Each customer has agreed milestones for the year &mdash; this tracks delivery status at a glance.</p>
+<p style="font-size:12px;color:#44546f;margin-bottom:12px;">Progress on Strategic Support Plan milestones per customer. Each customer has agreed milestones for the year — this tracks delivery status at a glance.</p>
 <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
   <div class="card">
     <div id="ssp-chart" class="chart-container"></div>
@@ -1126,8 +1364,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 </div>
 
 <!-- COST & USAGE -->
-<div class="section-header"><i class="fa-solid fa-chart-line"></i> Cost &amp; Usage Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly AWS spend per customer. Helps spot unexpected cost changes. Partner-resold excluded.<br><br>&#x1F4E1; Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></div>
-<p style="font-size:12px;color:#44546f;margin-bottom:12px;">Monthly AWS spend per customer over 5 months. Helps spot unexpected cost changes early. Vopak excluded &mdash; costs managed by partner (InQdo).</p>
+<div class="section-header"><i class="fa-solid fa-chart-line"></i> Cost &amp; Usage Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly AWS spend per customer. Helps spot unexpected cost changes. Partner-resold excluded.<br><br>📡 Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></div>
+<p style="font-size:12px;color:#44546f;margin-bottom:12px;">Monthly AWS spend per customer over 5 months. Helps spot unexpected cost changes early. Vopak excluded — costs managed by partner (InQdo).</p>
 <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
   <div class="card">
     <div id="cost-chart" class="chart-container"></div>
@@ -1135,13 +1373,13 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <div class="card">
     <div class="card-label">Cost Highlights</div>
     <div style="margin-top:12px;">
-      <div class="customer-stat"><span class="customer-stat-label">APS Monthly</span><span class="customer-stat-value">$112K <span style="color:#de350b;font-size:11px;">&uarr; 8%</span></span></div>
-      <div class="customer-stat"><span class="customer-stat-label">BlockTech Monthly</span><span class="customer-stat-value">$108K <span style="color:#36b37e;font-size:11px;">&darr; 2%</span></span></div>
-      <div class="customer-stat"><span class="customer-stat-label">ReBound Monthly</span><span class="customer-stat-value">$90K <span style="color:#8993a4;font-size:11px;">&rarr; flat</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">APS Monthly</span><span class="customer-stat-value">$112K <span style="color:#de350b;font-size:11px;">↑ 8%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">BlockTech Monthly</span><span class="customer-stat-value">$108K <span style="color:#36b37e;font-size:11px;">↓ 2%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">ReBound Monthly</span><span class="customer-stat-value">$90K <span style="color:#8993a4;font-size:11px;">→ flat</span></span></div>
       <div class="customer-stat" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--color-border-light,#ebecf0);"><span class="customer-stat-label">Vopak</span><span class="customer-stat-value" style="color:var(--color-text-muted,#8993a4);font-size:12px;">N/A (partner-resold)</span></div>
     </div>
     <div style="margin-top:16px;padding:10px;background:#fff7e6;border-radius:6px;font-size:12px;">
-      <strong style="color:#ff991f;">&#x26A0;&#xFE0F; Alert:</strong> Vopak Savings Plan expired &mdash; ~$20K/mo potential waste. Coordinate with InQdo.
+      <strong style="color:#ff991f;">⚠️ Alert:</strong> Vopak Savings Plan expired — ~$20K/mo potential waste. Coordinate with InQdo.
     </div>
   </div>
 </div>
@@ -1149,8 +1387,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- IMPROVEMENT RECOMMENDATIONS (collapsible, default collapsed) -->
 <div class="section-header">
   <div class="collapsible-header" onclick="toggleCollapsible('recommendations-content', this)" style="display:flex;align-items:center;gap:8px;">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <i class="fa-solid fa-lightbulb"></i> Improvement Recommendations<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">AI-generated suggestions for portfolio improvement based on current customer data patterns.<br><br>&#x1F4E1; Data source: AI-generated from Trusted Advisor findings, Cost Explorer anomalies, and Well-Architected review gaps</span></span>
+    <span class="collapsible-indicator">▶</span>
+    <i class="fa-solid fa-lightbulb"></i> Improvement Recommendations<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">AI-generated suggestions for portfolio improvement based on current customer data patterns.<br><br>📡 Data source: AI-generated from Trusted Advisor findings, Cost Explorer anomalies, and Well-Architected review gaps</span></span>
   </div>
 </div>
 <div id="recommendations-content" class="collapsible-content collapsed" style="max-height:600px;">
@@ -1158,40 +1396,40 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <div class="recommendation">
     <div class="rec-icon"><i class="fa-solid fa-shield-halved"></i></div>
     <div class="rec-content">
-      <div class="rec-title">Upgrade EKS clusters from 1.25 to 1.29 &mdash; Allied Publicity</div>
+      <div class="rec-title">Upgrade EKS clusters from 1.25 to 1.29 — Allied Publicity</div>
       <div class="rec-desc">EKS 1.25 reaches EOL in July 2026. 3 production clusters affected. Customer has asked about timeline.</div>
-      <div class="rec-meta">Pillar: Reliability &middot; Priority: High &middot; Risk Score: 7 &middot; Est. TAM Effort: 4 hrs</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: High · Risk Score: 7 · Est. TAM Effort: 4 hrs</div>
     </div>
   </div>
   <div class="recommendation">
     <div class="rec-icon"><i class="fa-solid fa-piggy-bank"></i></div>
     <div class="rec-content">
-      <div class="rec-title">Renew Savings Plan coverage &mdash; Vopak (via InQdo)</div>
+      <div class="rec-title">Renew Savings Plan coverage — Vopak (via InQdo)</div>
       <div class="rec-desc">SP expired, ~$20K/month in on-demand waste. Coordinate through InQdo partner channel.</div>
-      <div class="rec-meta">Pillar: Cost Optimization &middot; Priority: High &middot; Risk Score: 6 &middot; Est. TAM Effort: 2 hrs</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: High · Risk Score: 6 · Est. TAM Effort: 2 hrs</div>
     </div>
   </div>
   <div class="recommendation">
     <div class="rec-icon"><i class="fa-solid fa-network-wired"></i></div>
     <div class="rec-content">
-      <div class="rec-title">Add VPN redundancy &mdash; ReBound</div>
+      <div class="rec-title">Add VPN redundancy — ReBound</div>
       <div class="rec-desc">Single VPN connection is a SPOF. Proactively identified via Daily Kickoff SOP. Customer reviewing proposal.</div>
-      <div class="rec-meta">Pillar: Reliability &middot; Priority: Medium &middot; Risk Score: 4 &middot; Est. TAM Effort: 3 hrs</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: Medium · Risk Score: 4 · Est. TAM Effort: 3 hrs</div>
     </div>
   </div>
   <div class="recommendation">
     <div class="rec-icon"><i class="fa-solid fa-microchip"></i></div>
     <div class="rec-content">
-      <div class="rec-title">Graviton migration opportunity &mdash; BlockTech</div>
+      <div class="rec-title">Graviton migration opportunity — BlockTech</div>
       <div class="rec-desc">Running previous-gen x86 bare metal. Graviton instances offer 20% better price/performance for HFT workloads.</div>
-      <div class="rec-meta">Pillar: Cost Optimization &middot; Priority: Low &middot; Risk Score: 2 &middot; Est. TAM Effort: 2 hrs</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: Low · Risk Score: 2 · Est. TAM Effort: 2 hrs</div>
     </div>
   </div>
 </div>
 </div>
 
 <!-- UPCOMING CADENCES -->
-<div class="section-header"><i class="fa-solid fa-calendar-days"></i> Upcoming Cadence Calls<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Customer cadence calls &mdash; shows prep status, planned topics, and post-call summaries with agreed actions.<br><br>&#x1F4E1; Data source: Outlook Calendar API (scheduled meetings) + meeting notes from Amazon Meetings Summary</span></span></div>
+<div class="section-header"><i class="fa-solid fa-calendar-days"></i> Upcoming Cadence Calls<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Customer cadence calls — shows prep status, planned topics, and post-call summaries with agreed actions.<br><br>📡 Data source: Outlook Calendar API (scheduled meetings) + meeting notes from Amazon Meetings Summary</span></span></div>
 <div class="card card-full">
   <table>
     <thead><tr><th>Date</th><th>Customer</th><th>Time</th><th>Prep Status</th><th>Key Topics</th></tr></thead>
@@ -1200,7 +1438,7 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
         <td>Fri, May 30</td>
         <td><strong>ReBound (Cycleon)</strong></td>
         <td>11:00 AM</td>
-        <td><span class="badge badge-green">&#x2705; Completed (May 30)</span></td>
+        <td><span class="badge badge-green">✅ Completed (May 30)</span></td>
         <td>VPN proposal, Q2 SSP review, case #3321</td>
       </tr>
       <tr style="background:#e3fcef;">
@@ -1217,11 +1455,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       <tr id="blocktech-prep" class="cadence-prep-row" style="display:none;">
         <td colspan="5" style="padding:0;">
           <div style="margin:8px 12px;padding:12px;background:#deebff;border-left:3px solid #0052CC;border-radius:4px;font-size:12px;">
-            <div style="margin-bottom:8px;"><strong style="font-size:13px;">&#x1F4CB; Call Prep &mdash; BlockTech B.V.</strong></div>
-            <div style="margin-bottom:8px;"><strong>Open Cases:</strong> Case #1780 &mdash; Root MFA enforcement rollout</div>
-            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Email Jun 5 &mdash; MFA timeline confirmation</div>
+            <div style="margin-bottom:8px;"><strong style="font-size:13px;">📋 Call Prep — BlockTech B.V.</strong></div>
+            <div style="margin-bottom:8px;"><strong>Open Cases:</strong> Case #1780 — Root MFA enforcement rollout</div>
+            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Email Jun 5 — MFA timeline confirmation</div>
             <div style="margin-bottom:8px;"><strong>Health Events:</strong> None</div>
-            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: MFA enforcement &mdash; due Jun 15</div>
+            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: MFA enforcement — due Jun 15</div>
             <div><strong>Suggested Discussion Topics:</strong><br>1. MFA rollout status<br>2. Next quarter planning<br>3. Any new workloads?</div>
           </div>
         </td>
@@ -1230,11 +1468,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       <tr id="vopak-prep" class="cadence-prep-row" style="display:none;">
         <td colspan="5" style="padding:0;">
           <div style="margin:8px 12px;padding:12px;background:#deebff;border-left:3px solid #0052CC;border-radius:4px;font-size:12px;">
-            <div style="margin-bottom:8px;"><strong style="font-size:13px;">&#x1F4CB; Call Prep &mdash; Vopak</strong></div>
+            <div style="margin-bottom:8px;"><strong style="font-size:13px;">📋 Call Prep — Vopak</strong></div>
             <div style="margin-bottom:8px;"><strong>Open Cases:</strong> None</div>
-            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Slack Jun 4 &mdash; IoT sensor data pipeline question</div>
-            <div style="margin-bottom:8px;"><strong>Health Events:</strong> <span style="color:#ff991f;">&#x26A0;&#xFE0F; Planned maintenance: eu-west-1 Jun 12</span></div>
-            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: IoT architecture review &mdash; due Jun 20</div>
+            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Slack Jun 4 — IoT sensor data pipeline question</div>
+            <div style="margin-bottom:8px;"><strong>Health Events:</strong> <span style="color:#ff991f;">⚠️ Planned maintenance: eu-west-1 Jun 12</span></div>
+            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: IoT architecture review — due Jun 20</div>
             <div><strong>Suggested Discussion Topics:</strong><br>1. IoT pipeline optimization<br>2. Planned maintenance awareness<br>3. Partner (InQdo) alignment</div>
           </div>
         </td>
@@ -1243,11 +1481,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       <tr id="aps-prep" class="cadence-prep-row" style="display:none;">
         <td colspan="5" style="padding:0;">
           <div style="margin:8px 12px;padding:12px;background:#deebff;border-left:3px solid #0052CC;border-radius:4px;font-size:12px;">
-            <div style="margin-bottom:8px;"><strong style="font-size:13px;">&#x1F4CB; Call Prep &mdash; Allied Publicity (APS)</strong></div>
-            <div style="margin-bottom:8px;"><strong>Open Cases:</strong> Case #1792 &mdash; Cross-account IAM role issue &bull; Case #1801 &mdash; CloudFront cache invalidation</div>
-            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Email Jun 6 &mdash; Monthly cost report shared</div>
+            <div style="margin-bottom:8px;"><strong style="font-size:13px;">📋 Call Prep — Allied Publicity (APS)</strong></div>
+            <div style="margin-bottom:8px;"><strong>Open Cases:</strong> Case #1792 — Cross-account IAM role issue • Case #1801 — CloudFront cache invalidation</div>
+            <div style="margin-bottom:8px;"><strong>Recent Communications:</strong> Email Jun 6 — Monthly cost report shared</div>
             <div style="margin-bottom:8px;"><strong>Health Events:</strong> None</div>
-            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: Multi-account governance &mdash; due Jun 30</div>
+            <div style="margin-bottom:8px;"><strong>SSP Milestones Due:</strong> Milestone: Multi-account governance — due Jun 30</div>
             <div><strong>Suggested Discussion Topics:</strong><br>1. IAM role issue update<br>2. Cost optimization review<br>3. Multi-account governance progress</div>
           </div>
         </td>
@@ -1259,8 +1497,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- COMPLETED ACTIONS & COMMUNICATIONS -->
 <div class="section-header">
   <div class="collapsible-header" onclick="toggleCollapsible('completed-items-content', this)" style="display:flex;align-items:center;gap:8px;">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <i class="fa-solid fa-circle-check" style="color:var(--color-success,#36b37e);"></i> Completed Actions &amp; Communications<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Items you marked as done. Dismissed priority actions (&times;) and completed communications (&#x2713;) appear here with timestamps. Shows your work history for the day. Resets on next data refresh.<br><br>&#x1F4E1; Data source: localStorage (tam-dashboard-dismissed, tam-dashboard-comms-done, tam-dashboard-followups-done)</span></span>
+    <span class="collapsible-indicator">▶</span>
+    <i class="fa-solid fa-circle-check" style="color:var(--color-success,#36b37e);"></i> Completed Actions &amp; Communications<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Items you marked as done. Dismissed priority actions (×) and completed communications (✓) appear here with timestamps. Shows your work history for the day. Resets on next data refresh.<br><br>📡 Data source: localStorage (tam-dashboard-dismissed, tam-dashboard-comms-done, tam-dashboard-followups-done)</span></span>
   </div>
 </div>
 <div id="completed-items-content" class="collapsible-content collapsed" style="max-height:800px;">
@@ -1289,8 +1527,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- TAM GOAL DISTRIBUTION -->
 <div class="section-header">
   <div class="collapsible-header" onclick="toggleCollapsible('tam-goal-content', this)" style="display:flex;align-items:center;gap:8px;">
-    <span class="collapsible-indicator">&#x25B6;</span>
-    <i class="fa-solid fa-chart-pie"></i> TAM Goal Distribution (This Week)<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">How TAM activities map to official TAM goals (Operational Excellence, Security, Cost Optimization, etc.).<br><br>&#x1F4E1; Data source: Calculated from activity categorization &mdash; each TAM action is tagged to a TAM goal (Ops Excellence, Security, Cost Opt, etc.)</span></span>
+    <span class="collapsible-indicator">▶</span>
+    <i class="fa-solid fa-chart-pie"></i> TAM Goal Distribution (This Week)<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">How TAM activities map to official TAM goals (Operational Excellence, Security, Cost Optimization, etc.).<br><br>📡 Data source: Calculated from activity categorization — each TAM action is tagged to a TAM goal (Ops Excellence, Security, Cost Opt, etc.)</span></span>
   </div>
 </div>
 <div id="tam-goal-content" class="collapsible-content collapsed" style="max-height:600px;">
@@ -1301,11 +1539,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <div class="card">
     <div class="card-label">Priority Score Methodology</div>
     <div style="margin-top:12px;font-size:12px;color:var(--color-text-secondary,#44546f);">
-      <p style="margin-bottom:8px;">The <strong>Priority Score</strong> (0&ndash;10) combines:</p>
-      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-red" style="min-width:80px;">Cases</span> Open severity &times; age (40%)</div>
+      <p style="margin-bottom:8px;">The <strong>Priority Score</strong> (0–10) combines:</p>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-red" style="min-width:80px;">Cases</span> Open severity × age (40%)</div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-yellow" style="min-width:80px;">SSP</span> Milestone delays (25%)</div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-blue" style="min-width:80px;">Engagement</span> Days since last touch (20%)</div>
-      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-green" style="min-width:80px;">Health</span> CHI & risk events (15%)</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-green" style="min-width:80px;">Health</span> CHI &amp; risk events (15%)</div>
       <p style="margin-top:12px;font-size:11px;color:var(--color-text-muted,#8993a4);">Single unified score replaces separate "urgency" and "priority" fields.</p>
     </div>
   </div>
@@ -1316,8 +1554,8 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 <!-- FOOTER -->
 <div style="margin-top:32px;padding:16px;border-top:1px solid var(--color-border-light,#ebecf0);text-align:center;">
   <div style="font-size:12px;color:var(--color-text-muted,#8993a4);">
-    <strong>Project Ulduz</strong> &mdash; Powered by 7 Custom SOPs (Kiro IDE) + Amazon Quick Desktop Skills<br>
-    Data sources: Outlook &middot; Slack &middot; AWS Health &middot; Sentral &middot; Knowledge Graph &middot; Case Summary Reports
+    <strong>Project Ulduz</strong> — Powered by 7 Custom SOPs (Kiro IDE) + Amazon Quick Desktop Skills<br>
+    Data sources: Outlook · Slack · AWS Health · Sentral · Knowledge Graph · Case Summary Reports
   </div>
 </div>
 
@@ -1355,7 +1593,7 @@ Highcharts.chart('ssp-chart', {
 
 // Cost Trend Chart
 Highcharts.chart('cost-chart', {
-  chart: { type: 'areaspline', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  chart: { type: 'column', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
   title: { text: 'Monthly Spend Trend ($K)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
   subtitle: { text: 'Spend trend Jan\u2013May 2026', style: { fontSize: '11px', color: '#8993a4' } },
   xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'], labels: { style: { color: textColor, fontSize: '11px' } }, lineColor: gridColor },
@@ -1372,8 +1610,8 @@ Highcharts.chart('cost-chart', {
   tooltip: { shared: true, valuePrefix: '$', valueSuffix: 'K' },
 });
 
-// TAM Goal Distribution (deferred — container may be collapsed)
-setTimeout(function() { try { Highcharts.chart('goal-chart', {
+// TAM Goal Distribution
+Highcharts.chart('goal-chart', {
   chart: { type: 'pie', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
   title: { text: 'Time by TAM Goal', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
   plotOptions: { pie: { innerSize: '55%', dataLabels: { enabled: true, format: '{point.name}: {point.percentage:.0f}%', style: { fontSize: '10px', color: textColor } } } },
@@ -1390,10 +1628,8 @@ setTimeout(function() { try { Highcharts.chart('goal-chart', {
   credits: { enabled: false },
 });
 
-} catch(e) {} }, 100);
-
 // Security & Resilience Risk Trends Chart
-setTimeout(function() { try { Highcharts.chart('risk-trend-chart', {
+Highcharts.chart('risk-trend-chart', {
   chart: { type: 'line', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
   title: { text: 'Security & Resilience Findings (6-mo)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
   subtitle: { text: '\u2193 Down is good (issues resolved) \u00b7 \u2191 Up needs attention (growing risk)', style: { fontSize: '11px', color: '#8993a4' } },
@@ -1411,10 +1647,7 @@ setTimeout(function() { try { Highcharts.chart('risk-trend-chart', {
   tooltip: { shared: true, style: { fontSize: '12px' } },
 });
 
-} catch(e) {} }, 100);
-
 // Urgency chart removed \u2014 merged into unified Priority Score in Health Scorecard
-
 </script>
 
 <!-- COLLAPSIBLE SECTION TOGGLE JAVASCRIPT -->
@@ -1516,7 +1749,7 @@ window.toggleCollapsible = function(contentId, headerEl) {
       dismissed.push(id);
       saveDismissed(dismissed);
     }
-    // Save to completed actions list (renderCompletedItems called after defined — safe with check)
+    // Save to completed actions list
     var titleEl = item.querySelector('.action-title');
     var text = titleEl ? titleEl.textContent.trim() : id;
     var metaEl = item.querySelector('.action-meta');
@@ -1931,6 +2164,7 @@ window.toggleCallPrep = function(rowId) {
 (function() {
   var THEME_KEY = 'tam-dashboard-theme';
   var toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
 
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1938,24 +2172,25 @@ window.toggleCallPrep = function(rowId) {
     toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
     // Update Highcharts for dark/light mode
     if (window.Highcharts && Highcharts.charts) {
+      var isDark = theme === 'dark';
       Highcharts.charts.forEach(function(chart) {
         if (chart) {
-          var isDark = theme === 'dark';
-          chart.update({
-            chart: { backgroundColor: 'transparent' },
-            title: { style: { color: isDark ? '#E6EDF3' : '#172b4d' } },
-            subtitle: { style: { color: isDark ? '#8B949E' : '#8993a4' } },
-            xAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
-            yAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
-            legend: { itemStyle: { color: isDark ? '#E6EDF3' : '#172b4d' } }
-          }, false);
-          chart.redraw();
+          try {
+            chart.update({
+              chart: { backgroundColor: 'transparent' },
+              title: { style: { color: isDark ? '#E6EDF3' : '#172b4d' } },
+              subtitle: { style: { color: isDark ? '#8B949E' : '#8993a4' } },
+              xAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
+              yAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
+              legend: { itemStyle: { color: isDark ? '#E6EDF3' : '#172b4d' } }
+            }, false);
+            chart.redraw();
+          } catch(e) {}
         }
       });
     }
   }
 
-  // Load saved preference (default: light)
   var saved = localStorage.getItem(THEME_KEY) || 'light';
   setTheme(saved);
 
@@ -1966,5 +2201,4 @@ window.toggleCallPrep = function(rowId) {
 })();
 </script>
 
-</body>
-</html>
+</body></html>
