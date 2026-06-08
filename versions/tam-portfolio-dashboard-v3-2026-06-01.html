@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<style>
+:root {
+      --color-bg: #f8f9fb;
+      --color-bg-secondary: #f4f5f7;
+      --color-text: #172b4d;
+      --color-text-secondary: #44546f;
+      --color-text-muted: #8993a4;
+      --color-border-light: #ebecf0;
+      --color-border: #dfe1e6;
+      --color-surface: #ffffff;
+      --color-surface-hover: rgba(0,0,0,0.02);
+      --color-primary: #0052CC;
+      --color-success: #36b37e;
+      --color-error: #de350b;
+      --color-warning: #ff991f;
+      --color-info: #0065ff;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', Consolas, monospace;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-pill: 100px;
+    }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--color-bg, #f8f9fb);
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  color: var(--color-text, #172b4d);
+  padding: 24px;
+  line-height: 1.5;
+}
+h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: var(--color-text-muted, #8993a4); font-size: 13px; margin-bottom: 24px; }
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 16px;
+}
+.card-full { grid-column: 1 / -1; }
+.card-half { grid-column: span 2; }
+.card-label { color: var(--color-text-muted, #8993a4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.card-value { font-size: 28px; font-weight: 700; font-family: var(--font-mono, 'SF Mono', Consolas, monospace); }
+.card-delta { font-size: 12px; margin-top: 2px; }
+.card-delta.positive { color: var(--color-success, #36b37e); }
+.card-delta.negative { color: var(--color-error, #de350b); }
+
+/* Section Headers */
+.section-header {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 28px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-header i { color: var(--color-primary, #0052CC); }
+
+/* Health Scorecard Table */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--color-text-muted, #8993a4); font-weight: 500; padding: 10px 12px; border-bottom: 2px solid var(--color-border, #dfe1e6); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--color-border-light, #ebecf0); }
+tr:hover td { background: var(--color-surface-hover, rgba(0,0,0,0.02)); }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-red { background: #ffebe6; color: #de350b; }
+.badge-yellow { background: #fff7e6; color: #ff991f; }
+.badge-green { background: #e3fcef; color: #006644; }
+.badge-blue { background: #deebff; color: #0052CC; }
+
+/* Priority Actions */
+.action-list { list-style: none; }
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+  position: relative;
+  transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
+}
+.action-item:last-child { border-bottom: none; }
+.action-item.dismissed {
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border-bottom: none;
+}
+.action-priority {
+  min-width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+.priority-red { background: #de350b; }
+.priority-yellow { background: #ff991f; }
+.priority-green { background: #36b37e; }
+.action-content { flex: 1; }
+.action-title { font-weight: 500; font-size: 13px; }
+.action-title a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--color-border, #dfe1e6); }
+.action-title a:hover { color: var(--color-primary, #0052CC); border-bottom-color: var(--color-primary, #0052CC); }
+.action-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 2px; }
+.action-customer {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--color-border-light, #ebecf0);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Dismiss Button */
+.action-dismiss {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted, #8993a4);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  opacity: 0;
+}
+.action-item:hover .action-dismiss { opacity: 1; }
+.action-dismiss:hover { background: var(--color-border-light, #ebecf0); color: var(--color-text, #172b4d); }
+
+/* Show Dismissed Toggle */
+.show-dismissed-toggle {
+  font-size: 11px;
+  color: var(--color-primary, #0052CC);
+  cursor: pointer;
+  padding: 6px 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+}
+.show-dismissed-toggle:hover { color: #0747a6; }
+
+/* Case Tooltip / Popup */
+.case-link {
+  position: relative;
+  cursor: pointer;
+  color: var(--color-primary, #0052CC);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-primary, #0052CC);
+}
+.case-link:hover .case-tooltip { display: block; }
+.case-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text, #172b4d);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 6px;
+}
+.case-tooltip a { color: #79e2f2; text-decoration: underline; }
+.case-tooltip::after {
+  content: '';
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--color-text, #172b4d);
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary, #44546f);
+  transition: all 0.15s ease;
+}
+.tab:hover { background: var(--color-border-light, #ebecf0); }
+.tab.active { background: var(--color-primary, #0052CC); color: white; }
+
+/* Customer Cards */
+.customer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.customer-card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.15s ease;
+}
+.customer-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.customer-name { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.customer-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; }
+.customer-stat-label { color: var(--color-text-muted, #8993a4); }
+.customer-stat-value { font-weight: 500; font-family: var(--font-mono, monospace); }
+
+/* Email/Slack Section */
+.comms-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+}
+.comms-item:last-child { border-bottom: none; }
+.comms-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; }
+.comms-icon.email { background: #0052CC; }
+.comms-icon.slack { background: #4A154B; }
+.comms-content { flex: 1; min-width: 0; }
+.comms-subject { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comms-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); }
+
+/* Improvement Recommendations */
+.recommendation {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light, #ebecf0);
+}
+.recommendation:last-child { border-bottom: none; }
+.rec-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: #deebff; color: #0052CC; font-size: 14px; flex-shrink: 0; }
+.rec-content { flex: 1; }
+.rec-title { font-size: 13px; font-weight: 500; }
+.rec-desc { font-size: 12px; color: var(--color-text-secondary, #44546f); margin-top: 2px; }
+.rec-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 4px; }
+
+/* Charts */
+.chart-container { height: 220px; }
+.chart-container-sm { height: 180px; }
+
+/* Time Budget Bar */
+.time-bar { height: 8px; border-radius: 4px; background: var(--color-border-light, #ebecf0); margin-top: 8px; overflow: hidden; display: flex; }
+.time-bar-fill { height: 100%; transition: width 0.6s ease; }
+.time-bar-customer { background: #0052CC; }
+.time-bar-initiative { background: #36b37e; }
+.time-bar-buffer { background: #ff991f; }
+
+.time-legend { display: flex; gap: 16px; margin-top: 8px; font-size: 11px; color: var(--color-text-muted, #8993a4); }
+.time-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+/* Follow-up Cards */
+.followup-card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-left: 3px solid #8b5cf6;
+}
+.followup-card .followup-item { font-size: 13px; font-weight: 500; }
+.followup-card .followup-status { font-size: 12px; color: var(--color-text-secondary, #44546f); margin-top: 2px; }
+.followup-card .followup-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 4px; display: flex; gap: 12px; }
+
+.meeting-card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-left: 3px solid #0052CC;
+}
+.meeting-card .meeting-title { font-size: 13px; font-weight: 500; }
+.meeting-card .meeting-details { font-size: 12px; color: var(--color-text-secondary, #44546f); margin-top: 2px; }
+.meeting-card .meeting-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 4px; }
+
+/* Last Updated */
+.last-updated { text-align: right; font-size: 11px; color: var(--color-text-muted, #8993a4); margin-bottom: 16px; }
+
+/* Data Source Status Legend */
+.data-source-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+}
+.data-source-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.data-source-pill.connected {
+  background: #e3fcef;
+  color: #006644;
+  border-color: #abf5d1;
+}
+.data-source-pill.stale {
+  background: #fff7e6;
+  color: #ff991f;
+  border-color: #ffe4a0;
+}
+.data-source-pill.failed {
+  background: #ffebe6;
+  color: #de350b;
+  border-color: #ffbdad;
+}
+.data-source-pill i { font-size: 10px; }
+.data-source-sync {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--color-text-muted, #8993a4);
+}
+
+/* Escalation Card */
+.escalation-card {
+  background: var(--color-bg-secondary, #f4f5f7);
+  border: 1px solid var(--color-border-light, #ebecf0);
+  border-radius: 8px;
+  padding: 12px 16px;
+  border-left: 4px solid #de350b;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.escalation-card .esc-title { font-size: 13px; font-weight: 600; }
+.escalation-card .esc-meta { font-size: 11px; color: var(--color-text-muted, #8993a4); margin-top: 2px; }
+.escalation-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  background: #ffebe6;
+  color: #de350b;
+  text-transform: uppercase;
+}
+
+/* Risk Table */
+.risk-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px; }
+.risk-table th { text-align: left; color: var(--color-text-muted, #8993a4); font-weight: 500; padding: 8px 10px; border-bottom: 2px solid var(--color-border, #dfe1e6); font-size: 11px; }
+.risk-table td { padding: 8px 10px; border-bottom: 1px solid var(--color-border-light, #ebecf0); }
+</style>
+</head>
+<body>
+
+<h1><i class="fa-solid fa-gauge-high" style="color: var(--color-primary, #0052CC);"></i> TAM Portfolio Dashboard</h1>
+<div style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> — Sprint 2 complete — All Garry Sollis feedback items addressed (CHI scoring, SSP priorities, risk trends, dismissable actions, data source legend). In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
+<p class="subtitle">Amar Kutwal — Benelux/EMEA North — 4 Active Customers + 2 Pending</p>
+
+<!-- DATA SOURCE STATUS LEGEND -->
+<div class="data-source-legend">
+  <span style="font-size:11px;font-weight:600;color:var(--color-text-secondary,#44546f);margin-right:4px;"><i class="fa-solid fa-plug"></i> Data Sources:</span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Outlook</span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Slack</span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
+  <span class="data-source-pill stale"><i class="fa-solid fa-triangle-exclamation"></i> Case Summary <span style="font-weight:400;">— last sync 2h ago</span></span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 1, 2026 — 17:50 CEST</span>
+</div>
+
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 1, 2026 — 17:55 CEST</div>
+
+<!-- TOP KPI CARDS -->
+<div class="dashboard-grid">
+  <div class="card">
+    <div class="card-label">Active Customers</div>
+    <div class="card-value">4</div>
+    <div class="card-delta">+ 2 pending onboarding</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Open Cases</div>
+    <div class="card-value" style="color: #de350b; cursor: pointer;" onclick="document.getElementById('cases-detail').style.display = document.getElementById('cases-detail').style.display === 'none' ? 'block' : 'none'">7 <i class="fa-solid fa-chevron-down" style="font-size:12px;"></i></div>
+    <div class="card-delta negative">2 Sev-2 · 5 Sev-3+</div>
+    <div id="cases-detail" style="display:none; margin-top:10px; padding-top:10px; border-top:1px solid var(--color-border-light,#ebecf0); font-size:12px;">
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4892" target="_blank">Case #4892</a></span> — Sev-2 — EKS pod scaling — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4901" target="_blank">Case #4901</a></span> — Sev-2 — ALB 5xx errors — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=3321" target="_blank">Case #3321</a></span> — Sev-3 — VPN metrics anomaly — ReBound</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4855" target="_blank">Case #4855</a></span> — Sev-4 — S3 lifecycle policy — Vopak</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4860" target="_blank">Case #4860</a></span> — Sev-4 — CloudWatch alarm — APS</div>
+      <div style="margin-bottom:4px;"><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4872" target="_blank">Case #4872</a></span> — Sev-4 — IAM policy review — ReBound</div>
+      <div><span class="case-link"><a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4888" target="_blank">Case #4888</a></span> — Sev-4 — DynamoDB throttling — BlockTech</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">SSP Milestones Active</div>
+    <div class="card-value">12</div>
+    <div class="card-delta positive">3 completed this month</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Strategic Focus</div>
+    <div class="card-value">38%</div>
+    <div class="card-delta positive">↑ vs 25% last week</div>
+  </div>
+</div>
+
+<!-- ACTIVE ESCALATIONS -->
+<div class="section-header" style="margin-top:0;"><i class="fa-solid fa-fire"></i> Active Escalations</div>
+<div class="escalation-card">
+  <div style="flex-shrink:0;"><span class="escalation-badge">High Severity</span></div>
+  <div style="flex:1;">
+    <div class="esc-title">BlockTech — Root MFA enforcement</div>
+    <div class="esc-meta">Root account has no MFA enabled across 3 production accounts. Security team escalation.</div>
+  </div>
+  <div style="text-align:right;flex-shrink:0;">
+    <div style="font-size:11px;color:var(--color-text-muted,#8993a4);">Opened: May 28, 2026</div>
+    <div style="font-size:11px;color:var(--color-text-muted,#8993a4);">Owner: <strong>Amar</strong></div>
+  </div>
+</div>
+
+<!-- TIME BUDGET (hidden by default — toggle via button) -->
+<div class="card card-full" style="margin-bottom: 24px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div class="card-label" style="margin-bottom:0;">Time Budget (optional)</div>
+    <button onclick="document.getElementById('time-budget-content').style.display = document.getElementById('time-budget-content').style.display === 'none' ? 'block' : 'none'" style="background:var(--color-border-light,#ebecf0);border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--color-text-secondary,#44546f);">Show/Hide</button>
+  </div>
+  <div id="time-budget-content" style="display:none;margin-top:10px;">
+    <div class="time-bar">
+      <div class="time-bar-fill time-bar-customer" style="width: 60%;"></div>
+      <div class="time-bar-fill time-bar-initiative" style="width: 20%;"></div>
+      <div class="time-bar-fill time-bar-buffer" style="width: 7%;"></div>
+    </div>
+    <div class="time-legend">
+      <span><span class="time-legend-dot" style="background:#0052CC;"></span>Customer Work (4.8 hrs)</span>
+      <span><span class="time-legend-dot" style="background:#36b37e;"></span>Initiatives (1.6 hrs)</span>
+      <span><span class="time-legend-dot" style="background:#ff991f;"></span>Buffer (0.5 hrs)</span>
+      <span><span class="time-legend-dot" style="background:var(--color-border-light, #ebecf0);"></span>Unallocated (1.1 hrs)</span>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER HEALTH SCORECARD -->
+<div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Customer Health Scorecard</div>
+<div class="card card-full">
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Priority Score</th>
+        <th>CHI Score</th>
+        <th>Engagement</th>
+        <th>SSP</th>
+        <th>Health</th>
+        <th>Strategic Focus Areas</th>
+        <th>Spend</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Allied Publicity (APS)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">49 accounts · EKS-heavy</span></td>
+        <td><span class="badge badge-red">7/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">Cases + SSP behind</span></td>
+        <td><span class="badge badge-red">62/100</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 1 behind</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">EKS upgrade + cost optimization</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$112K/mo</td>
+      </tr>
+      <tr>
+        <td><strong>ReBound (Cycleon)</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">27 accounts · Logistics</span></td>
+        <td><span class="badge badge-yellow">5/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">Stale case</span></td>
+        <td><span class="badge badge-yellow">78/100</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Multi-region DR + VPN resilience</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$90K/mo</td>
+      </tr>
+      <tr>
+        <td><strong>Vopak</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">31 accounts · Partner: InQdo ⚠️</span></td>
+        <td><span class="badge badge-yellow">4/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">SP expired + stale</span></td>
+        <td><span class="badge badge-yellow">71/100</span></td>
+        <td><span class="badge badge-yellow">🟡</span> 10d ago</td>
+        <td><span class="badge badge-red">🔴</span> SP expired</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Security posture + SP renewal</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;color:var(--color-text-muted,#8993a4);">N/A (partner)</td>
+      </tr>
+      <tr>
+        <td><strong>BlockTech B.V.</strong><br><span style="font-size:11px;color:var(--color-text-muted,#8993a4);">9 accounts · HFT Crypto</span></td>
+        <td><span class="badge badge-green">2/10</span><br><span style="font-size:10px;color:var(--color-text-muted,#8993a4);">All clear</span></td>
+        <td><span class="badge badge-green">85/100</span></td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span class="badge badge-blue">⏳</span> New</td>
+        <td><span class="badge badge-green">🟢</span></td>
+        <td><span style="font-size:12px;color:var(--color-text-secondary,#44546f);">Graviton migration + latency optimization</span></td>
+        <td style="font-family:var(--font-mono,monospace);font-size:12px;">$108K/mo</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECURITY & RESILIENCE RISK TRENDS -->
+<div class="section-header"><i class="fa-solid fa-shield-halved"></i> Security & Resilience Risk Trends</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="risk-trend-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="font-weight:600;color:var(--color-text-secondary,#44546f);">Customer Risk Acceptance</div>
+    <table class="risk-table">
+      <thead>
+        <tr><th>Customer</th><th>Risk Item</th><th>Accepted?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>APS</strong></td><td>EKS 1.24 EOL</td><td><span class="badge badge-yellow">No — migrating</span></td><td style="font-size:11px;">Target: Jul 2026</td></tr>
+        <tr><td><strong>ReBound</strong></td><td>Single-AZ VPN</td><td><span class="badge badge-green">Yes — accepted</span></td><td style="font-size:11px;">Cost constraint</td></tr>
+        <tr><td><strong>Vopak</strong></td><td>Legacy Lambda runtimes</td><td><span class="badge badge-yellow">No — planning</span></td><td style="font-size:11px;">Q3 remediation</td></tr>
+        <tr><td><strong>BlockTech</strong></td><td>No MFA on root</td><td><span class="badge badge-red">No — urgent</span></td><td style="font-size:11px;">Escalated</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PRIORITY ACTIONS -->
+<div class="section-header"><i class="fa-solid fa-rocket"></i> Strategic & Proactive Actions</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="card" style="border-left: 3px solid #0052CC;">
+    <div class="card-label" style="color:#0052CC;font-weight:600;">🚀 STRATEGIC / PROACTIVE</div>
+    <ul class="action-list" id="actions-strategic">
+      <li class="action-item" data-action-id="strategic-1">
+        <div class="action-priority" style="background:#0052CC;"></div>
+        <div class="action-content">
+          <div class="action-title">Start SSP draft for Allied Publicity</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Run support-plan-builder SOP</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="strategic-2">
+        <div class="action-priority" style="background:#0052CC;"></div>
+        <div class="action-content">
+          <div class="action-title">Share Graviton migration guide with BlockTech</div>
+          <div class="action-meta"><span class="action-customer">BlockTech</span> · Cost savings opportunity</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="strategic-3">
+        <div class="action-priority" style="background:#0052CC;"></div>
+        <div class="action-content">
+          <div class="action-title">Prepare TAM Summit presentation outline</div>
+          <div class="action-meta">Initiative · 30 min time block</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-strategic" onclick="toggleDismissed('actions-strategic', 'toggle-strategic')" style="display:none;"></button>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:#de350b;font-weight:600;">🔴 MUST DO (Reactive)</div>
+    <ul class="action-list" id="actions-mustdo">
+      <li class="action-item" data-action-id="mustdo-1">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Follow up Sev-2 <a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=4892" target="_blank">case #4892</a> — EKS pod scaling</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · 3 days old · Escalation risk</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="mustdo-2">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Respond to EKS upgrade timeline question</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · Email from CTO · 24h SLA</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="mustdo-3">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">Prep for ReBound cadence call (Jun 5)</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · 30 min · Run cadence-prep SOP</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-mustdo" onclick="toggleDismissed('actions-mustdo', 'toggle-mustdo')" style="display:none;"></button>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:#ff991f;font-weight:600;">🟡 SHOULD DO</div>
+    <ul class="action-list" id="actions-shoulddo">
+      <li class="action-item" data-action-id="shoulddo-1">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Contact Vopak — 10 days since last touch</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · Send async update email</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="shoulddo-2">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Review Savings Plan expiry for Vopak</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · $20K/mo waste · Coordinate via InQdo</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="shoulddo-3">
+        <div class="action-priority priority-yellow"></div>
+        <div class="action-content">
+          <div class="action-title">Follow up stale <a href="https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=3321" target="_blank">case #3321</a> with ReBound</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · No update 6 days</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-shoulddo" onclick="toggleDismissed('actions-shoulddo', 'toggle-shoulddo')" style="display:none;"></button>
+  </div>
+</div>
+
+<!-- COMMUNICATIONS TO ACTION -->
+<div class="section-header"><i class="fa-solid fa-envelope-open-text"></i> Communications Requiring Action</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div class="card-label"><i class="fa-solid fa-envelope"></i> Emails (4 needing action)</div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Re: EKS 1.25 Upgrade Timeline — APS</div>
+        <div class="comms-meta">From: j.vandenberg@theapsgroup.com · 2h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">VPN Redundancy Proposal — ReBound</div>
+        <div class="comms-meta">From: m.dehaan@cycleon.com · 5h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Re: Direct Connect bandwidth increase</div>
+        <div class="comms-meta">From: s.chen@block-tech.io · Yesterday</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">P&V Assurances handover docs ready</div>
+        <div class="comms-meta">From: vedanthh@amazon.com · Yesterday</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label"><i class="fa-brands fa-slack"></i> Slack Messages (3 needing action)</div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">@akkutwal can you check the APS Fargate task defs?</div>
+        <div class="comms-meta">#tam-aps-group · From: SA — 1h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">BlockTech Tokyo expansion — networking review needed</div>
+        <div class="comms-meta">#tam-blocktech · From: AM — 3h ago</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">ReBound VPN metrics look off — FYI</div>
+        <div class="comms-meta">DM from SA — 4h ago</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PENDING FOLLOW-UPS & COMMITMENTS -->
+<div class="section-header"><i class="fa-solid fa-handshake-angle"></i> Pending Follow-ups & Commitments</div>
+<div class="dashboard-grid">
+  <div class="card" style="grid-column: span 1;">
+    <div class="section-header" style="margin-top:0;font-size:14px;"><i class="fa-solid fa-clipboard-check"></i> Commitments & Action Items</div>
+    <div class="followup-card">
+      <div class="followup-item">Claude Enterprise seats for Yenlo</div>
+      <div class="followup-status">Committed to Geert: investigate and get back with quote status</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: ASAP (this week)</span>
+      </div>
+    </div>
+    <div class="followup-card">
+      <div class="followup-item">Share dashboard HTML + GitHub repo link</div>
+      <div class="followup-status">Agreed in Ulduz sync today</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Initiative</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: After call (today)</span>
+      </div>
+    </div>
+    <div class="followup-card">
+      <div class="followup-item">Share Min Engagement Framework docs in Friday meeting invite</div>
+      <div class="followup-status">Action from Ulduz sync</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Initiative</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Before Friday</span>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="grid-column: span 1;">
+    <div class="card-label" style="color:#0052CC;font-weight:600;"><i class="fa-solid fa-calendar-check"></i> Upcoming Scheduled Meetings</div>
+    <div class="meeting-card">
+      <div class="meeting-title">Project Ulduz + Min Engagement Framework review</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 5 — 14:00–15:30 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-users"></i> With: Nick & Olu</div>
+      <div class="meeting-meta">Purpose: Finalize TAM Summit presentation</div>
+    </div>
+    <div class="meeting-card">
+      <div class="meeting-title">TAM Summit — Presentation Slot</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 10 — 30–45 min slot</div>
+      <div class="meeting-meta">Purpose: Present Project Ulduz TAM operational excellence demo</div>
+    </div>
+  </div>
+</div>
+
+<!-- SSP PROGRESS & CHARTS -->
+<div class="section-header"><i class="fa-solid fa-bullseye"></i> SSP Milestone Progress</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="ssp-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Milestones by Status</div>
+    <table style="margin-top:8px;">
+      <thead><tr><th>Customer</th><th>✅</th><th>🟡</th><th>🔴</th><th>⏳</th></tr></thead>
+      <tbody>
+        <tr><td>ReBound</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>APS</td><td>1</td><td>2</td><td>1</td><td>1</td></tr>
+        <tr><td>Vopak</td><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+        <tr><td>BlockTech</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- COST & USAGE -->
+<div class="section-header"><i class="fa-solid fa-chart-line"></i> Cost & Usage Trends</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="cost-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Cost Highlights</div>
+    <div style="margin-top:12px;">
+      <div class="customer-stat"><span class="customer-stat-label">APS Monthly</span><span class="customer-stat-value">$112K <span style="color:#de350b;font-size:11px;">↑ 8%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">BlockTech Monthly</span><span class="customer-stat-value">$108K <span style="color:#36b37e;font-size:11px;">↓ 2%</span></span></div>
+      <div class="customer-stat"><span class="customer-stat-label">ReBound Monthly</span><span class="customer-stat-value">$90K <span style="color:#8993a4;font-size:11px;">→ flat</span></span></div>
+      <div class="customer-stat" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--color-border-light,#ebecf0);"><span class="customer-stat-label">Vopak</span><span class="customer-stat-value" style="color:var(--color-text-muted,#8993a4);font-size:12px;">N/A (partner-resold)</span></div>
+    </div>
+    <div style="margin-top:16px;padding:10px;background:#fff7e6;border-radius:6px;font-size:12px;">
+      <strong style="color:#ff991f;">⚠️ Alert:</strong> Vopak Savings Plan expired — ~$20K/mo potential waste. Coordinate with InQdo.
+    </div>
+  </div>
+</div>
+
+<!-- IMPROVEMENT RECOMMENDATIONS -->
+<div class="section-header"><i class="fa-solid fa-lightbulb"></i> Improvement Recommendations</div>
+<div class="card card-full">
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Upgrade EKS clusters from 1.25 to 1.29 — Allied Publicity</div>
+      <div class="rec-desc">EKS 1.25 reaches EOL in July 2026. 3 production clusters affected. Customer has asked about timeline.</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: High · Risk Score: 7 · Est. TAM Effort: 4 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Renew Savings Plan coverage — Vopak (via InQdo)</div>
+      <div class="rec-desc">SP expired, ~$20K/month in on-demand waste. Coordinate through InQdo partner channel.</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: High · Risk Score: 6 · Est. TAM Effort: 2 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-network-wired"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Add VPN redundancy — ReBound</div>
+      <div class="rec-desc">Single VPN connection is a SPOF. Proactively identified via Daily Kickoff SOP. Customer reviewing proposal.</div>
+      <div class="rec-meta">Pillar: Reliability · Priority: Medium · Risk Score: 4 · Est. TAM Effort: 3 hrs</div>
+    </div>
+  </div>
+  <div class="recommendation">
+    <div class="rec-icon"><i class="fa-solid fa-microchip"></i></div>
+    <div class="rec-content">
+      <div class="rec-title">Graviton migration opportunity — BlockTech</div>
+      <div class="rec-desc">Running previous-gen x86 bare metal. Graviton instances offer 20% better price/performance for HFT workloads.</div>
+      <div class="rec-meta">Pillar: Cost Optimization · Priority: Low · Risk Score: 2 · Est. TAM Effort: 2 hrs</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAM GOAL DISTRIBUTION -->
+<div class="section-header"><i class="fa-solid fa-chart-pie"></i> TAM Goal Distribution (This Week)</div>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <div id="goal-chart" class="chart-container"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Priority Score Methodology</div>
+    <div style="margin-top:12px;font-size:12px;color:var(--color-text-secondary,#44546f);">
+      <p style="margin-bottom:8px;">The <strong>Priority Score</strong> (0–10) combines:</p>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-red" style="min-width:80px;">Cases</span> Open severity × age (40%)</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-yellow" style="min-width:80px;">SSP</span> Milestone delays (25%)</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-blue" style="min-width:80px;">Engagement</span> Days since last touch (20%)</div>
+      <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;"><span class="badge badge-green" style="min-width:80px;">Health</span> CHI & risk events (15%)</div>
+      <p style="margin-top:12px;font-size:11px;color:var(--color-text-muted,#8993a4);">Single unified score replaces separate "urgency" and "priority" fields.</p>
+    </div>
+  </div>
+</div>
+
+<!-- UPCOMING CADENCES -->
+<div class="section-header"><i class="fa-solid fa-calendar-days"></i> Upcoming Cadence Calls</div>
+<div class="card card-full">
+  <table>
+    <thead><tr><th>Date</th><th>Customer</th><th>Time</th><th>Prep Status</th><th>Key Topics</th></tr></thead>
+    <tbody>
+      <tr><td>Thu, Jun 5</td><td><strong>ReBound (Cycleon)</strong></td><td>11:00 AM</td><td><span class="badge badge-yellow">Not prepped</span></td><td>VPN proposal, Q2 SSP review, case #3321</td></tr>
+      <tr><td>TBD</td><td><strong>BlockTech B.V.</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>Tokyo expansion, onboarding follow-up, initial SSP</td></tr>
+      <tr><td>TBD</td><td><strong>Vopak</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>SP renewal (via InQdo), SSP kickoff</td></tr>
+      <tr><td>TBD</td><td><strong>Allied Publicity</strong></td><td>TBD</td><td><span class="badge badge-blue">Schedule needed</span></td><td>EKS upgrade, Sev-2 cases, SSP workshop</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:32px;padding:16px;border-top:1px solid var(--color-border-light,#ebecf0);text-align:center;">
+  <div style="font-size:12px;color:var(--color-text-muted,#8993a4);">
+    <strong>Project Ulduz</strong> — Powered by 7 Custom SOPs (Kiro IDE) + Amazon Quick Desktop Skills<br>
+    Data sources: Outlook · Slack · AWS Health · Sentral · Knowledge Graph · Case Summary Reports
+  </div>
+</div>
+
+<!-- CHARTS SCRIPTS -->
+<script>
+const s = getComputedStyle(document.documentElement);
+const get = v => s.getPropertyValue(v).trim() || null;
+const textColor = get('--color-text-secondary') || '#44546f';
+const mutedColor = get('--color-text-muted') || '#8993a4';
+const gridColor = get('--color-border-light') || '#ebecf0';
+const primary = get('--color-primary') || '#0052CC';
+const success = get('--color-success') || '#36b37e';
+const error = get('--color-error') || '#de350b';
+const warning = get('--color-warning') || '#ff991f';
+const fontSans = get('--font-sans') || '-apple-system, BlinkMacSystemFont, sans-serif';
+
+// SSP Progress Chart
+Highcharts.chart('ssp-chart', {
+  chart: { type: 'bar', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'SSP Milestones by Customer', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['ReBound', 'APS', 'Vopak', 'BlockTech'], labels: { style: { color: textColor, fontSize: '12px' } }, lineColor: gridColor },
+  yAxis: { min: 0, title: { text: null }, gridLineColor: gridColor, labels: { style: { color: mutedColor } }, stackLabels: { enabled: true, style: { color: textColor } } },
+  legend: { itemStyle: { color: textColor, fontSize: '11px' } },
+  plotOptions: { bar: { stacking: 'normal', borderWidth: 0, borderRadius: 2 } },
+  colors: [success, warning, error, '#deebff'],
+  series: [
+    { name: 'Complete', data: [2, 1, 0, 0] },
+    { name: 'In Progress', data: [1, 2, 0, 0] },
+    { name: 'Behind', data: [0, 1, 1, 0] },
+    { name: 'Not Started', data: [1, 1, 2, 3] },
+  ],
+  credits: { enabled: false },
+  tooltip: { style: { fontSize: '12px' } },
+});
+
+// Cost Trend Chart
+Highcharts.chart('cost-chart', {
+  chart: { type: 'areaspline', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Monthly Spend Trend ($K)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'], labels: { style: { color: textColor, fontSize: '11px' } }, lineColor: gridColor },
+  yAxis: { title: { text: null }, gridLineColor: gridColor, labels: { style: { color: mutedColor }, format: '${value}K' } },
+  legend: { itemStyle: { color: textColor, fontSize: '11px' } },
+  plotOptions: { areaspline: { fillOpacity: 0.1, marker: { radius: 3 } } },
+  colors: [primary, success, error],
+  series: [
+    { name: 'APS', data: [98, 102, 105, 108, 112] },
+    { name: 'BlockTech', data: [105, 108, 110, 110, 108] },
+    { name: 'ReBound', data: [88, 89, 90, 91, 90] },
+  ],
+  credits: { enabled: false },
+  tooltip: { shared: true, valuePrefix: '$', valueSuffix: 'K' },
+});
+
+// TAM Goal Distribution
+Highcharts.chart('goal-chart', {
+  chart: { type: 'pie', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Time by TAM Goal', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  plotOptions: { pie: { innerSize: '55%', dataLabels: { enabled: true, format: '{point.name}: {point.percentage:.0f}%', style: { fontSize: '10px', color: textColor } } } },
+  colors: [primary, success, error, warning, '#8b5cf6', '#06b6d4', '#ec4899'],
+  series: [{ data: [
+    { name: 'Case Resolution', y: 25 },
+    { name: 'SSP Delivery', y: 20 },
+    { name: 'Proactive', y: 18 },
+    { name: 'Customer Sat.', y: 15 },
+    { name: 'Cost Optim.', y: 12 },
+    { name: 'Security', y: 5 },
+    { name: 'Op. Excellence', y: 5 },
+  ]}],
+  credits: { enabled: false },
+});
+
+// Security & Resilience Risk Trends Chart
+Highcharts.chart('risk-trend-chart', {
+  chart: { type: 'line', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
+  title: { text: 'Security & Resilience Findings (6-mo)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
+  xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], labels: { style: { color: textColor, fontSize: '11px' } }, lineColor: gridColor },
+  yAxis: { min: 0, title: { text: null }, gridLineColor: gridColor, labels: { style: { color: mutedColor } } },
+  legend: { itemStyle: { color: textColor, fontSize: '11px' } },
+  plotOptions: { line: { marker: { radius: 4 } } },
+  colors: [error, warning, primary],
+  series: [
+    { name: 'Critical Findings', data: [12, 9, 11, 8, 6, 5] },
+    { name: 'Extended Support / EOL Items', data: [3, 3, 4, 4, 5, 5] },
+    { name: 'Unpatched Vulnerabilities', data: [8, 7, 5, 4, 3, 2] },
+  ],
+  credits: { enabled: false },
+  tooltip: { shared: true, style: { fontSize: '12px' } },
+});
+
+// Urgency chart removed — merged into unified Priority Score in Health Scorecard
+</script>
+
+<!-- DISMISSABLE ACTIONS JAVASCRIPT -->
+<script>
+(function() {
+  const STORAGE_KEY = 'tam-dashboard-dismissed-actions';
+
+  function getDismissed() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    } catch(e) { return []; }
+  }
+
+  function saveDismissed(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  // Apply stored dismissals on load
+  function applyDismissals() {
+    const dismissed = getDismissed();
+    dismissed.forEach(function(id) {
+      const el = document.querySelector('[data-action-id="' + id + '"]');
+      if (el) {
+        el.classList.add('dismissed');
+        el.style.display = 'none';
+      }
+    });
+    updateToggles();
+  }
+
+  // Update toggle buttons visibility & text
+  function updateToggles() {
+    const dismissed = getDismissed();
+    ['actions-strategic', 'actions-mustdo', 'actions-shoulddo'].forEach(function(listId) {
+      const list = document.getElementById(listId);
+      const toggleId = 'toggle-' + listId.replace('actions-', '');
+      const toggle = document.getElementById(toggleId);
+      if (!list || !toggle) return;
+      const items = list.querySelectorAll('.action-item');
+      let dismissedCount = 0;
+      items.forEach(function(item) {
+        if (dismissed.includes(item.getAttribute('data-action-id'))) {
+          dismissedCount++;
+        }
+      });
+      if (dismissedCount > 0) {
+        toggle.style.display = 'block';
+        toggle.textContent = 'Show dismissed (' + dismissedCount + ')';
+        toggle.setAttribute('data-showing', 'false');
+      } else {
+        toggle.style.display = 'none';
+      }
+    });
+  }
+
+  // Dismiss action handler
+  window.dismissAction = function(btn) {
+    const item = btn.closest('.action-item');
+    if (!item) return;
+    const id = item.getAttribute('data-action-id');
+    item.classList.add('dismissed');
+    setTimeout(function() { item.style.display = 'none'; updateToggles(); }, 300);
+    const dismissed = getDismissed();
+    if (!dismissed.includes(id)) {
+      dismissed.push(id);
+      saveDismissed(dismissed);
+    }
+  };
+
+  // Toggle dismissed items visibility
+  window.toggleDismissed = function(listId, toggleId) {
+    const list = document.getElementById(listId);
+    const toggle = document.getElementById(toggleId);
+    if (!list || !toggle) return;
+    const showing = toggle.getAttribute('data-showing') === 'true';
+    const dismissed = getDismissed();
+    const items = list.querySelectorAll('.action-item');
+    if (showing) {
+      // Hide them again
+      items.forEach(function(item) {
+        if (dismissed.includes(item.getAttribute('data-action-id'))) {
+          item.style.display = 'none';
+          item.classList.add('dismissed');
+        }
+      });
+      toggle.setAttribute('data-showing', 'false');
+      let count = 0;
+      items.forEach(function(item) { if (dismissed.includes(item.getAttribute('data-action-id'))) count++; });
+      toggle.textContent = 'Show dismissed (' + count + ')';
+    } else {
+      // Show them
+      items.forEach(function(item) {
+        if (dismissed.includes(item.getAttribute('data-action-id'))) {
+          item.style.display = 'flex';
+          item.classList.remove('dismissed');
+          item.style.opacity = '0.5';
+        }
+      });
+      toggle.setAttribute('data-showing', 'true');
+      toggle.textContent = 'Hide dismissed';
+    }
+  };
+
+  // Initialize on load
+  applyDismissals();
+})();
+</script>
+
+</body>
+</html>
