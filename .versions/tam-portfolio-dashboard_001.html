@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
@@ -542,12 +541,160 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   opacity: 1;
   pointer-events: auto;
 }
+
+
+/* ===== Dark Theme ===== */
+[data-theme="dark"] {
+  --color-bg: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-text: #E6EDF3;
+  --color-text-secondary: #8B949E;
+  --color-text-muted: #6E7681;
+  --color-border-light: #21262D;
+  --color-border: #30363D;
+  --color-surface: #0D1117;
+  --color-surface-hover: rgba(255,255,255,0.04);
+  --color-primary: #58A6FF;
+  --color-success: #3FB950;
+  --color-error: #F85149;
+  --color-warning: #D29922;
+  --color-info: #58A6FF;
+}
+
+[data-theme="dark"] .card {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .badge-red { background: #3d1f1f; color: #F85149; }
+[data-theme="dark"] .badge-yellow { background: #3d2e0a; color: #D29922; }
+[data-theme="dark"] .badge-green { background: #0f2d1e; color: #3FB950; }
+[data-theme="dark"] .badge-blue { background: #0d2240; color: #58A6FF; }
+
+[data-theme="dark"] tr:hover td { background: rgba(255,255,255,0.04); }
+
+[data-theme="dark"] .action-customer {
+  background: var(--color-border, #30363D);
+  color: var(--color-text-secondary, #8B949E);
+}
+
+[data-theme="dark"] .followup-card,
+[data-theme="dark"] .customer-card,
+[data-theme="dark"] .meeting-card,
+[data-theme="dark"] .escalation-card {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .data-source-legend {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .data-source-pill.connected {
+  background: #0f2d1e;
+  color: #3FB950;
+  border-color: #1a4731;
+}
+[data-theme="dark"] .data-source-pill.stale {
+  background: #3d2e0a;
+  color: #D29922;
+  border-color: #4d3a0a;
+}
+[data-theme="dark"] .data-source-pill.failed {
+  background: #3d1f1f;
+  color: #F85149;
+  border-color: #5c2020;
+}
+
+[data-theme="dark"] .demo-banner {
+  background: #0d2240 !important;
+  border-color: #1a3a5c !important;
+  color: #58A6FF !important;
+}
+
+[data-theme="dark"] .escalation-badge {
+  background: #3d1f1f;
+  color: #F85149;
+}
+
+[data-theme="dark"] .rec-icon {
+  background: #0d2240;
+  color: #58A6FF;
+}
+
+[data-theme="dark"] .comms-item.done-highlight {
+  background: #0f2d1e;
+}
+[data-theme="dark"] .followup-card.done-highlight {
+  background: #0f2d1e;
+  border-color: #1a4731;
+}
+
+[data-theme="dark"] .action-dismiss:hover {
+  background: var(--color-border, #30363D);
+  color: var(--color-text, #E6EDF3);
+}
+
+[data-theme="dark"] .tab:hover {
+  background: var(--color-border, #30363D);
+}
+
+[data-theme="dark"] .refresh-btn:hover {
+  background: var(--color-border, #30363D);
+}
+
+[data-theme="dark"] .show-dismissed-toggle,
+[data-theme="dark"] .show-completed-toggle {
+  color: #58A6FF;
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #161B22;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 4px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #484F58;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+#theme-toggle:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-primary);
+}
+
 </style>
 </head>
 <body>
+<button id="theme-toggle" title="Toggle dark/light mode">🌙</button>
 
 <h1><i class="fa-solid fa-gauge-high" style="color: var(--color-primary, #0052CC);"></i> TAM Portfolio Dashboard</h1>
-<div style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> &mdash; Sprint 2 complete &mdash; All improvements applied (CHI scoring, SSP priorities, risk trends, dismissable actions, data source legend). In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
+<div class="demo-banner" style="background:#deebff;border:1px solid #b3d4ff;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#0052CC;"><i class="fa-solid fa-flask"></i> <strong>Demo Version</strong> &mdash; Sprint 2 complete &mdash; All improvements applied (CHI scoring, SSP priorities, risk trends, dismissable actions, data source legend). In production, this dashboard is populated live from Outlook, Slack, AWS Health, and Case Summary Reports via automated SOPs.</div>
 <p class="subtitle">Amar Kutwal &mdash; Benelux/EMEA North &mdash; 4 Active Customers + 2 Pending</p>
 
 <!-- DATA SOURCE STATUS LEGEND -->
@@ -1225,8 +1372,8 @@ Highcharts.chart('cost-chart', {
   tooltip: { shared: true, valuePrefix: '$', valueSuffix: 'K' },
 });
 
-// TAM Goal Distribution
-Highcharts.chart('goal-chart', {
+// TAM Goal Distribution (deferred — container may be collapsed)
+setTimeout(function() { try { Highcharts.chart('goal-chart', {
   chart: { type: 'pie', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
   title: { text: 'Time by TAM Goal', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
   plotOptions: { pie: { innerSize: '55%', dataLabels: { enabled: true, format: '{point.name}: {point.percentage:.0f}%', style: { fontSize: '10px', color: textColor } } } },
@@ -1243,8 +1390,10 @@ Highcharts.chart('goal-chart', {
   credits: { enabled: false },
 });
 
+} catch(e) {} }, 100);
+
 // Security & Resilience Risk Trends Chart
-Highcharts.chart('risk-trend-chart', {
+setTimeout(function() { try { Highcharts.chart('risk-trend-chart', {
   chart: { type: 'line', backgroundColor: 'transparent', style: { fontFamily: fontSans } },
   title: { text: 'Security & Resilience Findings (6-mo)', style: { fontSize: '13px', fontWeight: '600', color: textColor } },
   subtitle: { text: '\u2193 Down is good (issues resolved) \u00b7 \u2191 Up needs attention (growing risk)', style: { fontSize: '11px', color: '#8993a4' } },
@@ -1262,7 +1411,10 @@ Highcharts.chart('risk-trend-chart', {
   tooltip: { shared: true, style: { fontSize: '12px' } },
 });
 
+} catch(e) {} }, 100);
+
 // Urgency chart removed \u2014 merged into unified Priority Score in Health Scorecard
+
 </script>
 
 <!-- COLLAPSIBLE SECTION TOGGLE JAVASCRIPT -->
@@ -1364,7 +1516,7 @@ window.toggleCollapsible = function(contentId, headerEl) {
       dismissed.push(id);
       saveDismissed(dismissed);
     }
-    // Save to completed actions list
+    // Save to completed actions list (renderCompletedItems called after defined — safe with check)
     var titleEl = item.querySelector('.action-title');
     var text = titleEl ? titleEl.textContent.trim() : id;
     var metaEl = item.querySelector('.action-meta');
@@ -1771,6 +1923,46 @@ window.toggleCallPrep = function(rowId) {
 
   // Initial render
   renderCompletedItems();
+})();
+</script>
+
+
+<script>
+(function() {
+  var THEME_KEY = 'tam-dashboard-theme';
+  var toggleBtn = document.getElementById('theme-toggle');
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    // Update Highcharts for dark/light mode
+    if (window.Highcharts && Highcharts.charts) {
+      Highcharts.charts.forEach(function(chart) {
+        if (chart) {
+          var isDark = theme === 'dark';
+          chart.update({
+            chart: { backgroundColor: 'transparent' },
+            title: { style: { color: isDark ? '#E6EDF3' : '#172b4d' } },
+            subtitle: { style: { color: isDark ? '#8B949E' : '#8993a4' } },
+            xAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
+            yAxis: { labels: { style: { color: isDark ? '#8B949E' : '#8993a4' } }, lineColor: isDark ? '#30363D' : '#dfe1e6', gridLineColor: isDark ? '#21262D' : '#ebecf0' },
+            legend: { itemStyle: { color: isDark ? '#E6EDF3' : '#172b4d' } }
+          }, false);
+          chart.redraw();
+        }
+      });
+    }
+  }
+
+  // Load saved preference (default: light)
+  var saved = localStorage.getItem(THEME_KEY) || 'light';
+  setTheme(saved);
+
+  toggleBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
 })();
 </script>
 
