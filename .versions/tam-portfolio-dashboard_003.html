@@ -1561,6 +1561,7 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
 
 <!-- CHARTS SCRIPTS -->
 <script>
+if (typeof Highcharts !== 'undefined') {
 const s = getComputedStyle(document.documentElement);
 const get = v => s.getPropertyValue(v).trim() || null;
 const textColor = get('--color-text-secondary') || '#44546f';
@@ -1647,7 +1648,7 @@ Highcharts.chart('risk-trend-chart', {
   tooltip: { shared: true, style: { fontSize: '12px' } },
 });
 
-// Urgency chart removed \u2014 merged into unified Priority Score in Health Scorecard
+} // end Highcharts guard
 </script>
 
 <!-- COLLAPSIBLE SECTION TOGGLE JAVASCRIPT -->
@@ -1696,7 +1697,7 @@ window.toggleCollapsible = function(contentId, headerEl) {
   }
 
   function saveDismissed(list) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch(e) {}
   }
 
   // Apply stored dismissals on load
@@ -1813,7 +1814,7 @@ window.toggleCollapsible = function(contentId, headerEl) {
   }
 
   function saveCommsDone(list) {
-    localStorage.setItem(COMMS_STORAGE_KEY, JSON.stringify(list));
+    try { localStorage.setItem(COMMS_STORAGE_KEY, JSON.stringify(list)); } catch(e) {}
   }
 
   function applyCommsDone() {
@@ -1941,7 +1942,7 @@ window.toggleCollapsible = function(contentId, headerEl) {
   }
 
   function saveFollowupsDone(list) {
-    localStorage.setItem(FOLLOWUP_STORAGE_KEY, JSON.stringify(list));
+    try { localStorage.setItem(FOLLOWUP_STORAGE_KEY, JSON.stringify(list)); } catch(e) {}
   }
 
   function applyFollowupsDone() {
@@ -2087,7 +2088,7 @@ window.toggleCallPrep = function(rowId) {
   }
 
   function saveCompleted(key, list) {
-    localStorage.setItem(key, JSON.stringify(list));
+    try { localStorage.setItem(key, JSON.stringify(list)); } catch(e) {}
   }
 
   function formatTimestamp(ts) {
@@ -2168,7 +2169,7 @@ window.toggleCallPrep = function(rowId) {
 
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_KEY, theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
     toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
     // Update Highcharts for dark/light mode
     if (window.Highcharts && Highcharts.charts) {
@@ -2191,7 +2192,8 @@ window.toggleCallPrep = function(rowId) {
     }
   }
 
-  var saved = localStorage.getItem(THEME_KEY) || 'light';
+  var saved = 'light';
+  try { saved = localStorage.getItem(THEME_KEY) || 'light'; } catch(e) {}
   setTheme(saved);
 
   toggleBtn.addEventListener('click', function() {

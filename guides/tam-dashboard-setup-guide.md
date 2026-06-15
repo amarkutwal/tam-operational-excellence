@@ -1,8 +1,9 @@
 # TAM Portfolio Dashboard — Setup Guide
 
-## Connect → Clone → Import → Done
+## Connect → Clone → Upload → Run → Done
 
-**Time:** ~5 minutes**What you get:** A live portfolio dashboard with real customer data, 7 automated workflows, and a daily morning briefing.
+**Time:** ~10 minutes
+**What you get:** A live portfolio dashboard with real customer data, 7 automated workflows, and a daily morning briefing.
 
 ---
 
@@ -23,9 +24,14 @@ These feed your emails, calendar, and Slack messages into the dashboard.
 Open your terminal and run:
 
 ```bash
-git clone git@ssh.gitlab.aws.dev:project-ulduz/tam-operational-excellence.git ~/Documents/tam-workspace
+# Refresh your Midway SSH certificate first (tap YubiKey when prompted)
+mwinit -o
 
+# Clone the repo
+git clone git@ssh.gitlab.aws.dev:project-ulduz/tam-operational-excellence.git ~/Documents/tam-workspace
 ```
+
+> ⚠️ **Getting a "Permission denied" error?** Run `mwinit -o` first — GitLab requires a fresh Midway SSH certificate. HTTPS won't work (blocked with 403).
 
 This downloads the dashboard template, all 7 workflow skills, and the setup automation.
 
@@ -35,37 +41,50 @@ Then add this folder to Quick Desktop:
 
 ---
 
-## Step 3: Import & Setup (2 minutes)
+## Step 3: Upload Skills (3 minutes)
 
 In Amazon Quick Desktop:
 
-1. **Settings** → **Capabilities** → **Skills** → **Import**
-2. Select: `~/Documents/tam-workspace/skills/tam-dashboard-setup/`
-3. Open a new chat and type:
+1. **Settings** → **Capabilities** → **Skills** → **Upload folder**
+2. Upload the setup skill first: `~/Documents/tam-workspace/skills/tam-dashboard-setup/`
+3. Then upload each of the 7 workflow skills (one at a time):
+   - `~/Documents/tam-workspace/skills/tam-cadence-call-prep/`
+   - `~/Documents/tam-workspace/skills/tam-customer-onboarding/`
+   - `~/Documents/tam-workspace/skills/tam-daily-focus-recommender/`
+   - `~/Documents/tam-workspace/skills/tam-daily-kickoff/`
+   - `~/Documents/tam-workspace/skills/tam-infrastructure-discovery/`
+   - `~/Documents/tam-workspace/skills/tam-support-plan-builder/`
+   - `~/Documents/tam-workspace/skills/tam-weekly-review/`
+
+> 💡 You should see **8 skills** total under "MY SKILLS" when done (1 setup + 7 workflows).
+
+---
+
+## Step 4: Run the Setup (2 minutes)
+
+Open a new chat and type:
 
 > "Set up my TAM dashboard. My alias is [your-alias]."
 
 Example:
 
-> "Set up my TAM dashboard. My alias is jsmith7."
+> "Set up my TAM dashboard. My alias is mageshpj."
 
 **Quick Desktop will automatically:**
 
 - Look up your alias → find your customers
-- Create customer profiles from your Case Summary Reports
-- Generate your personalized dashboard with real data
-- Install all 7 workflow skills (daily kickoff, call prep, weekly review, etc.)
+- Create customer profile folders from your Case Summary Reports
+- Generate your personalized dashboard (full version with all sections)
 - Create scheduled tasks (morning briefing at 8 AM, activity monitor every 15 min)
 
 ---
 
-## Step 4: You're Done ✅
+## Step 5: You're Done ✅
 
 Open your dashboard:
 
 ```bash
 open ~/Documents/tam-workspace/tam-portfolio-dashboard.html
-
 ```
 
 Or just ask Quick:
@@ -74,9 +93,15 @@ Or just ask Quick:
 
 **You now have:**
 
-- Live portfolio dashboard with your real customers
-- Auto-ranked priority actions
-- Clickable cadence call prep
+- Live portfolio dashboard with your real customers (all 20 sections)
+- Customer health scorecard with CHI scores
+- Auto-ranked priority actions (dismissable)
+- Cadence call prep panels (expandable per customer)
+- SSP milestone progress tracker
+- Communications section (email + Slack per customer)
+- Security & resilience risk trends
+- Cost trend charts
+- Time budget allocation
 - Dark/light mode toggle
 - Morning briefings at 8 AM
 - Weekly reviews every Friday
@@ -93,6 +118,19 @@ Or just ask Quick:
 | Weekly review | "Run my weekly review" |
 | Add new customer | "Add [customer name] to my dashboard" |
 | Refresh data | "Refresh my dashboard" |
+| Daily focus | "What should I focus on today?" |
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| `git clone` permission denied | Run `mwinit -o` first, then retry |
+| Only see 1 skill after upload | You need to upload each skill folder individually (8 total) |
+| Dashboard missing sections (comms, SSP, call prep) | Re-run setup — make sure you're using the latest repo (`git pull`) |
+| Dashboard shows 0 emails / empty sections | Connect Outlook first, then "Refresh my dashboard" — data fills in over time |
+| Skills don't show in Quick | Make sure you clicked "Upload folder" (not "Upload") and selected the folder, not a file |
 
 ---
 
@@ -114,4 +152,3 @@ Or just ask Quick:
 - **Slack:** Amar Kutwal (akkutwal)
 - **Email:** [akkutwal@amazon.nl](mailto:akkutwal@amazon.nl)
 - **Repo:** [https://gitlab.aws.dev/project-ulduz/tam-operational-excellence](https://gitlab.aws.dev/project-ulduz/tam-operational-excellence)
-
