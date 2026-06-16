@@ -81,10 +81,10 @@ Example:
 
 ## Step 5: You're Done ✅
 
-Open your dashboard:
+Open your dashboard in your **browser** (not the Quick viewer — browser gives you full interactivity with mark-done persistence and charts):
 
 ```bash
-open ~/Documents/tam-workspace/tam-portfolio-dashboard.html
+open ~/Documents/tam-workspace/tam-live-dashboard.html
 ```
 
 Or just ask Quick:
@@ -94,6 +94,7 @@ Or just ask Quick:
 **You now have:**
 
 - Live portfolio dashboard with your real customers (all 20 sections)
+- Weekly calendar view with upcoming meetings
 - Customer health scorecard with CHI scores
 - Auto-ranked priority actions (dismissable)
 - Cadence call prep panels (expandable per customer)
@@ -103,6 +104,7 @@ Or just ask Quick:
 - Cost trend charts
 - Time budget allocation
 - Dark/light mode toggle
+- Auto-reloads every 15 minutes (picks up fresh data automatically)
 - Morning briefings at 8 AM
 - Weekly reviews every Friday
 
