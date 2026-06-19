@@ -4,6 +4,54 @@
 
 **Time:** ~10 minutes
 **What you get:** A live portfolio dashboard with real customer data, 7 automated workflows, and a daily morning briefing.
+**Last Updated:** June 19, 2026
+
+---
+
+## Features at a Glance
+
+### 📊 Dashboard Sections
+| Section | What it does |
+|---------|-------------|
+| Data Source Status | Live connection badges (Outlook, Slack, AWS Health, Cases, Cost Explorer) |
+| KPI Summary | 4 tiles: Active Customers, Open Cases, SSP Milestones, Strategic Focus % |
+| Active Escalations | Red-bordered alert for anything needing immediate attention |
+| Customer Health Scorecard | Tiered table with CHI scores, priority ranking, SSP status, spend trends |
+| Priority Actions | Ranked action items with dismiss/mark-done persistence |
+| Pending Follow-ups & Commitments | Cards tracking what you committed to customers |
+| Upcoming Meetings | Auto-filtered — past meetings hide automatically, future ones stay visible |
+| Communications | Email + Slack messages per customer, mark-done persists across refresh |
+| SSP Milestone Progress | Charts showing delivery status per customer |
+| Security & Resilience Trends | 6-month trend lines (critical findings, EOL, vulnerabilities) |
+| Customer Risk Acceptance | Documented risk decisions with review dates |
+| Time Budget | How your time splits across customers, initiatives, and buffer |
+| Cadence Call Prep | Expandable panels per customer with prep checklist |
+| Weekly Calendar View | At-a-glance week schedule |
+| Cost Trend Charts | Per-customer spend over time |
+
+### ⚡ Smart Features (added Jun 2026)
+| Feature | How it works |
+|---------|-------------|
+| **Auto-hide past meetings** | Meetings with a date before today are hidden automatically on page load |
+| **Persistent mark-as-done** | Followups, communications, and meetings all save to localStorage — survives refresh |
+| **Future meetings stay visible** | Marking a future meeting "done" shows a green "prepped" indicator but keeps the card visible |
+| **Live monitoring agent** | Runs every 15 min — checks Outlook folders, inbox, Slack channels, calendar. Writes new action items directly into the dashboard |
+| **Slack action detection** | Agent flags messages directed at you (mentions, questions, first messages after joining a channel) — not just all messages |
+| **Collapsible sections** | SSP progress, call prep panels, health events collapse/expand — remembers state |
+| **Dark/light mode** | Toggle in top-right corner, preference saved to localStorage |
+| **Auto-reload** | Dashboard reloads every 15 minutes to pick up fresh data from the monitoring agent |
+| **Deduplication** | Monitoring agent checks for existing items before adding — no duplicates |
+
+### 🤖 Automated Workflows (7 Skills)
+| Skill | What it does |
+|-------|-------------|
+| Daily Kickoff | Morning briefing across all customers — emails, cases, health events, schedule |
+| Daily Focus Recommender | Scores all customers by urgency, recommends what to focus on today |
+| Cadence Call Prep | One-click prep for any customer call — cases, activity, SSP, talking points |
+| Weekly Review | End-of-week progress review, SSP tracking, next-week planning |
+| Customer Onboarding | Automates new customer setup when they join your portfolio |
+| Infrastructure Discovery | Maps what a customer runs on AWS — services, compute, data, security |
+| Support Plan Builder | Drafts SSP milestones based on actual customer data and needs |
 
 ---
 
