@@ -402,6 +402,8 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 16px;
   margin-bottom: 24px;
+  max-width: 100%;
+  overflow: hidden;
 }
 .card {
   background: var(--color-bg-secondary, #f4f5f7);
@@ -701,6 +703,7 @@ tr:hover td { background: var(--color-surface-hover, rgba(0,0,0,0.02)); }
 
 /* Charts */
 .chart-container { height: 220px; }
+.chart-container { height: 220px; width: 100%; max-width: 100%; overflow: hidden; }
 .chart-container-sm { height: 180px; }
 
 /* Time Budget Bar */
@@ -983,7 +986,8 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
   <button class="refresh-btn" onclick="showRefreshInfo()" title="Refresh info"><i class="fa-solid fa-rotate"></i></button>
 </div>
 
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Friday, June 19, 2026 — 21:42 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 22, 2026 — 11:27 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 22, 2026 — 11:27 CEST</div>
 
 <!-- TOP KPI CARDS -->
 <div class="section-header" style="margin-top:0;"><i class="fa-solid fa-chart-simple"></i> KPI Cards<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Key portfolio metrics at a glance: customer count, open cases, active SSP milestones, and strategic focus percentage.</span></span></div>
@@ -995,8 +999,8 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
   </div>
   <div class="card">
     <div class="card-label">Open Cases<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Total open support cases across all customers in this portfolio.<br><br>📡 Data source: Case Summary via KAPI</span></span></div>
-    <div class="card-value" style="color: #de350b; cursor: pointer;" onclick="document.getElementById('cases-detail').style.display = document.getElementById('cases-detail').style.display === 'none' ? 'block' : 'none'">10 <i class="fa-solid fa-chevron-down" style="font-size:12px;"></i></div>
-    <div class="card-delta negative">1 Critical · 2 Urgent · 3 High</div>
+    <div class="card-value" style="color: #de350b; cursor: pointer;" onclick="document.getElementById('cases-detail').style.display = document.getElementById('cases-detail').style.display === 'none' ? 'block' : 'none'">9 <i class="fa-solid fa-chevron-down" style="font-size:12px;"></i></div>
+    <div class="card-delta negative">0 Critical · 1 Urgent · 2 Missed SLA · 0 Languishing</div>
     <div id="cases-detail" style="display:none; margin-top:10px; padding-top:10px; border-top:1px solid var(--color-border-light,#ebecf0); font-size:12px;">
       <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/178151462400120" target="_blank">Case #178151462400120</a></span> — Urgent — WAF — Yenlo</div>
       <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/178098924400073" target="_blank">Case #178098924400073</a></span> — High — EKS — Yenlo</div>
@@ -1005,6 +1009,13 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/178090618900596" target="_blank">Case #178090618900596</a></span> — Normal — QuickSight — APS</div>
       <div style="margin-bottom:4px;"><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/178127062000497" target="_blank">Case #178127062000497</a></span> — Low — EC2 — PostNL</div>
       <div><span class="case-link"><a href="https://command-center.support.aws.a2z.com/case-console#/cases/178093658000456" target="_blank">Case #178093658000456</a></span> — Critical — SES — Qualcomm</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-blocktech-biweekly-jun24" data-meeting-date="2026-06-24" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">BlockTech / AWS — Bi-Weekly Sync</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 24 — 14:00–14:30 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-users"></i> With: Sander van Schie, Erik Reijne (BlockTech)</div>
+      <div class="meeting-meta">Purpose: Bi-weekly cadence. Prep: check open cases, any PTP issue updates, ongoing topics.</div>
     </div>
   </div>
   <div class="card">
@@ -1176,6 +1187,22 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
         <div class="action-content">
           <div class="action-title">RSVP — DevOps Agent Game Day EMEA/APJC (ES GenAI Growth Day)</div>
           <div class="action-meta"><span class="action-customer">Internal</span> · Limited spots · RSVP via Gather: gather.a2z.com/event/6feaf71e-1151-45bd-8e83-510ecf8948d4</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="mustdo-4">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">⚠️ SpringClean Warning — AWS resources in account #090323100873 will be deleted soon</div>
+          <div class="action-meta"><span class="action-customer">Internal / AWS Account</span> · 3rd warning today Jun 22 (also Jun 19, Jun 20) · Tag resources with "auto-delete=no" to retain them — urgent</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="mustdo-5">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">🔴 [Action Required] Amazon EKS 1.30 end of extended support — account #090323100873</div>
+          <div class="action-meta"><span class="action-customer">AWS Health</span> · Arrived today Jun 22 · EKS Kubernetes 1.30 extended support is ending — upgrade clusters before deadline to avoid additional charges</div>
         </div>
         <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
@@ -1375,11 +1402,66 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
     </div>
     <div class="followup-card" data-followup-id="followup-6">
       <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
-      <div class="followup-item">Reply to Shailesh Jain in #aws-p-and-v-account-team — welcomes you, asks if you need an internal intro call with P&V team</div>
-      <div class="followup-status">Slack message today 5:15 PM — direct question to you</div>
+      <div class="followup-item">🔴 Send P&V internal intro meeting invite — Shailesh replied with attendees: Bassem + Shailesh</div>
+      <div class="followup-status">Shailesh replied at 10:29 CEST: "Hi, it would be Bassem and me. Thanks" — invite ready to send now</div>
       <div class="followup-meta">
         <span><span class="action-customer">P&V</span></span>
-        <span><i class="fa-regular fa-clock"></i> Due: Today / Monday</span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — send meeting invite to Bassem + Shailesh</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-7">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Schedule 45-min call with Abdullah Siddiqui — walk him through ReBound EBA format, materials, and how to replicate the DevOps Agent workshop with his customer</div>
+      <div class="followup-status">You replied to Abdullah today at 21:24 CEST — committed to call next week</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / TAM Collaboration</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Next week (w/c Jun 22)</span>
+      </div>
+    </div>
+    <button class="show-completed-toggle" id="toggle-followups" onclick="toggleCompletedFollowups()" style="display:none;"></button>
+    <div class="followup-card" data-followup-id="followup-8">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Schedule Yenlo/Connext deep dive session with Pumudu Ruhunage — he asked you directly to book it (Mondays or Tuesdays preferred)</div>
+      <div class="followup-status">Pumudu's direct request from Jun 16 email: "@Kutwal, Amar, please schedule yenlo/connext deep dive session as discussed preferable on Mondays/Tuesdays. I'll walk you through our setup."</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week (w/c Jun 22)</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-9">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 AWS Health: EKS 1.30 end of extended support — Account 090323100873 (US-EAST-1). Check which customer this account belongs to and plan EKS upgrade.</div>
+      <div class="followup-status">AWS Health alert received Jun 22 at 02:57 CEST — action required before extended support ends</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">AWS Health</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Urgent — check account + plan upgrade</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-10">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">⚠️ SpringClean warning — AWS resources in account 090323100873 will be deleted soon. Tag resources with "auto-delete=no" to retain them.</div>
+      <div class="followup-status">SpringClean notification received Jun 21–22 — recurring warning, resources at risk of deletion</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">AWS Account</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: ASAP — tag resources to prevent deletion</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-11">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Check Chetan's availability for Fabio Blonda (IT TAM) and confirm a slot for the DevOps Agent EBA Q&A call — you promised to check at lunchtime today</div>
+      <div class="followup-status">Fabio sent DM at 09:53 asking to connect. You replied "I'll check with him at lunch time." Meeting may already be booked for Tue Jun 23 11:30.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / TAM Collaboration</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today at lunch — confirm Chetan slot to Fabio</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-12">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Review GPU capacity guidance from Darius Seroka — check if any of your customers are impacted (P* / G* series capacity issues in us-west-2, us-east-1, eu-west-1, eu-west-2)</div>
+      <div class="followup-status">Unread email received Mon Jun 22 at 12:12 CEST from Darius Seroka. EU North TAM-wide alert: customers reporting GPU capacity issues across multiple regions. Action: review and share guidance with relevant customers.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">All Customers (EU North TAM)</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — read and action as relevant</span>
       </div>
     </div>
     <button class="show-completed-toggle" id="toggle-followups" onclick="toggleCompletedFollowups()" style="display:none;"></button>
@@ -1407,6 +1489,20 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 24 — 14:00–15:00 CEST</div>
       <div class="meeting-meta">Purpose: Fargate retirement, Future Capacity Request NRT, DX maintenance</div>
     </div>
+    <div class="meeting-card" data-meeting-id="meeting-benelux-weekly-jun22" data-meeting-date="2026-06-22" style="position:relative;">
+    <div class="meeting-card" data-meeting-id="meeting-kcr-review-jun22" data-meeting-date="2026-06-22" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">EMEA North KCR Review Meeting</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Mon, Jun 22 — 11:00–12:00 CEST</div>
+      <div class="meeting-meta">Purpose: Key Customer Risk (KCR) intake — help TAMs triage ongoing issues. Organiser: Darius Seroka. Zoom: amazon.zoom.us/j/98801585873</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-benelux-weekly-jun22" data-meeting-date="2026-06-22" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Benelux Weekly Team Meeting</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Monday, Jun 22 — 09:30–10:30 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-location-dot"></i> AMS13 Rijksmuseum (Room) + Zoom</div>
+      <div class="meeting-meta">Purpose: Weekly Benelux TAM team sync. Organiser: Arnaud Errede. Abdul Qadir is on PTO this week (Jun 22–27).</div>
+    </div>
     <div class="meeting-card" data-meeting-id="meeting-benelux-inperson-jun22" data-meeting-date="2026-06-22" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
       <div class="meeting-title">Benelux In-Person Team Meeting — EKS Upgrade Presentation</div>
@@ -1421,12 +1517,38 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-details"><i class="fa-solid fa-users"></i> With: Pumudu Ruhunage (Yenlo/Connext)</div>
       <div class="meeting-meta">Purpose: Connext deep-dive / workload overview. Pumudu requested this. Prep questions on their setup.</div>
     </div>
+    <div class="meeting-card" data-meeting-id="meeting-uno-agents-jun23" data-meeting-date="2026-06-23" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">UNO Agents Bi-Weekly Office Hours — EMEA</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 11:00 CEST</div>
+      <div class="meeting-meta">Purpose: Bi-weekly EMEA office hours for UNO Agents program. Good visibility opportunity.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-devops-eba-qa-jun23" data-meeting-date="2026-06-23" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">AWS DevOps Agent EBA Q&A — Fabio Blonda</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 11:30–12:00 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-video"></i> <a href="https://amazon.zoom.us/j/99154145180?pwd=8LS1w32hbSKo0A8vV3HvitbpntwCgI.1&from=addon" target="_blank">Zoom link</a></div>
+      <div class="meeting-meta">Purpose: Fabio (IT TAM) saw the ReBound DevOps Agent EBA trip report and wants to learn more + replicate. He invited you and Chetan.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-benelux-inperson-jun22" data-meeting-date="2026-06-22" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Benelux In-Person Team Meeting — June 2026</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Monday, Jun 22 — 10:30–16:00 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-location-dot"></i> AMS13 (in-person)</div>
+      <div class="meeting-meta">Purpose: Skills & competencies development, aligned with ES transformation. Full Benelux TAM team. In-person.</div>
+    </div>
     <div class="meeting-card" data-meeting-id="meeting-customer-storytelling-jun22" data-meeting-date="2026-06-22" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
-      <div class="meeting-title">Amazon Customer Storytelling — Mandatory Training</div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Monday, Jun 22 — 14:00–16:30 CEST</div>
+      <div class="meeting-title">Amazon Customer Storytelling — Mandatory Training <span style="color:#F5A623;font-size:11px;">[WITHDRAWN]</span></div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Monday, Jun 22 — 14:00–16:30 CEST <span style="color:#8FAAB3;font-size:11px;">(Amar withdrew Jun 21 — no longer attending)</span></div>
       <div class="meeting-details"><i class="fa-solid fa-location-dot"></i> AMS13 04.408 & 04.509 (in-person)</div>
       <div class="meeting-meta">Mandatory ES TAM Learn class (closed session). Accepted. Block time — do not schedule over this.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-project-ulduz-sync-jun23" data-meeting-date="2026-06-23" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Sync up on Project Ulduz</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 10:30–11:00 CEST</div>
+      <div class="meeting-meta">Purpose: Project Ulduz internal sync. Prep updates on dashboard progress and next steps.</div>
     </div>
     <div class="meeting-card" data-meeting-id="meeting-devops-office-hours-jun22" data-meeting-date="2026-06-22" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
@@ -1434,11 +1556,37 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Monday, Jun 22 — 17:00–17:30 CEST</div>
       <div class="meeting-meta">Share ReBound EBA trip report success + Abdullah's interest.</div>
     </div>
+    <div class="meeting-card" data-meeting-id="meeting-olu-sync-jun25" data-meeting-date="2026-06-25" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Amar & Olu — Project Ulduz Sync</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Thursday, Jun 25 — 11:00–11:30 CEST</div>
+      <div class="meeting-meta">Purpose: Project Ulduz bilateral sync with Olu on progress and next steps.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-cluster3-sync-jun26" data-meeting-date="2026-06-26" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Cluster 3 Sync</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Fri, Jun 26 — 10:00–10:30 CEST</div>
+      <div class="meeting-meta">Purpose: Internal cluster sync with Evgeny Kamelyov, Vinotha, Mark Berendse, Muhammad Saeed</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-devops-game-day-jun26" data-meeting-date="2026-06-26" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">ES GenAI Growth Day — DevOps Agent Game Day EMEA/APJC</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 26 — 11:00 CEST</div>
+      <div class="meeting-meta">Purpose: "The Grand Midnight Ride" — Unicorn Rides incident scenario. RSVP required in Gather (limited spots). Great learning + visibility opportunity.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-innovation-hub-jun24" data-meeting-date="2026-06-24" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">Innovation Hub North — Monthly Review</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wed, Jun 24 — 14:00–15:00 CEST</div>
+      <div class="meeting-meta">Purpose: Monthly virtual review for EMEA North TAMs — share projects, emerging ideas, and opportunities. Conflicts with BlockTech Bi-Weekly (also 14:00).</div>
+    </div>
   </div>
 </div>
+</div>
+</div>
 
-<!-- SSP PROGRESS & CHARTS (collapsible, default collapsed) -->
-<div class="section-header">
+<!-- SSP PROGRESS & CHARTS (separate top-level section) -->
+<div class="section-header" style="margin-top:32px;padding-top:16px;border-top:1px solid var(--color-border-light, #ebecf0);">
   <div class="collapsible-header" onclick="toggleCollapsible('ssp-progress-content', this)" style="display:flex;align-items:center;gap:8px;">
     <span class="collapsible-indicator">▶</span>
     <i class="fa-solid fa-bullseye"></i> SSP Milestone Progress<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Progress on Strategic Support Plan milestones per customer. Shows what's delivered vs behind schedule.<br><br>📡 Data source: SSP Tracker (SharePoint Blueprint). Each milestone is agreed with customer during SSP creation and tracked through delivery.</span></span>
@@ -1467,9 +1615,9 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
 </div>
 
 <!-- COST & USAGE -->
-<div class="section-header"><i class="fa-solid fa-chart-line"></i> Cost &amp; Usage Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly AWS spend per customer. Helps spot unexpected cost changes. Partner-resold excluded.<br><br>📡 Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></div>
+<div class="section-header" style="margin-top:32px;padding-top:16px;border-top:1px solid var(--color-border-light, #ebecf0);"><i class="fa-solid fa-chart-line"></i> Cost &amp; Usage Trends<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Monthly AWS spend per customer. Helps spot unexpected cost changes. Partner-resold excluded.<br><br>📡 Data source: AWS Cost Explorer API (monthly aggregated spend per linked account)</span></span></div>
 <p style="font-size:12px;color:#44546f;margin-bottom:12px;">Monthly AWS spend per customer over 5 months. Helps spot unexpected cost changes early. Vopak excluded — costs managed by partner (InQdo).</p>
-<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; max-width: 100%; overflow: hidden;">
   <div class="card">
     <div id="cost-chart" class="chart-container"></div>
   </div>
