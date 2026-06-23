@@ -865,7 +865,8 @@ tr:hover td { background: var(--color-surface-hover, rgba(0,0,0,0.02)); }
 .info-tooltip {
   display: none;
   position: absolute;
-  bottom: 100%;
+  top: 100%;
+  bottom: auto;
   left: 50%;
   transform: translateX(-50%);
   background: #172b4d;
@@ -879,17 +880,17 @@ tr:hover td { background: var(--color-surface-hover, rgba(0,0,0,0.02)); }
   max-width: 300px;
   z-index: 100;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  margin-bottom: 6px;
+  margin-top: 6px;
   line-height: 1.4;
 }
 .info-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #172b4d;
+  border-bottom-color: #172b4d;
 }
 .info-icon-wrap:hover .info-tooltip {
   display: block;
@@ -3374,6 +3375,41 @@ setTimeout(function(){ location.reload(); }, 15*60*1000);
       }
       saveCollapsedSections(allStates);
     });
+  });
+})();
+</script>
+<script>
+
+// ============================================================
+// CLASSIFY FOLLOWUPS: COMMITMENT vs ACTION ITEM
+// ============================================================
+(function() {
+  var commitmentKeywords = ['committed', 'promised', 'agreed', 'cadence call', 'meeting invite', 
+    'seats for', 'share dashboard', 'share min engagement', 'schedule call with',
+    'schedule intro call', 'schedule yenlo', 'send p&v', 'invite sent'];
+  
+  document.querySelectorAll('.followup-card').forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    var isCommitment = commitmentKeywords.some(function(kw) { return text.includes(kw); });
+    
+    // Add type badge
+    var badge = document.createElement('span');
+    badge.style.cssText = 'position:absolute;top:8px;left:12px;font-size:9px;font-weight:600;letter-spacing:0.5px;padding:2px 6px;border-radius:3px;';
+    
+    if (isCommitment) {
+      badge.textContent = 'COMMITMENT';
+      badge.style.background = '#fff3e0';
+      badge.style.color = '#e65100';
+      card.style.borderLeftColor = '#ff9800';
+    } else {
+      badge.textContent = 'ACTION';
+      badge.style.background = '#e3f2fd';
+      badge.style.color = '#1565c0';
+      card.style.borderLeftColor = '#2196f3';
+    }
+    
+    card.style.paddingTop = '28px';
+    card.insertBefore(badge, card.firstChild);
   });
 })();
 </script>
