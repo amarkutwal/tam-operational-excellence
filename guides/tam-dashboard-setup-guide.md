@@ -4,7 +4,7 @@
 
 **Time:** ~10 minutes
 **What you get:** A live portfolio dashboard with real customer data, 7 automated workflows, and a daily morning briefing.
-**Last Updated:** June 19, 2026
+**Last Updated:** June 23, 2026
 
 ---
 
@@ -38,11 +38,16 @@
 | **Future meetings stay visible** | Marking a future meeting "done" shows a green "prepped" indicator but keeps the card visible |
 | **Live monitoring agent** | Runs every 15 min — checks Outlook folders, inbox, Slack channels, calendar. Writes new action items directly into the dashboard |
 | **Slack action detection** | Agent flags messages directed at you (mentions, questions, first messages after joining a channel) — not just all messages |
-| **Collapsible sections** | SSP progress, call prep panels, health events collapse/expand — remembers state |
+| **All sections collapsible** | Click any section header to collapse/expand — state saved to localStorage, survives refresh |
 | **Dark/light mode** | Toggle in top-right corner, preference saved to localStorage |
 | **Auto-reload** | Dashboard reloads every 15 minutes to pick up fresh data from the monitoring agent |
 | **Strategic engagement engine** | Analyzes customer signals (cases, health, spend, emails) and surfaces proactive engagement opportunities matched to AWS programs |
 | **Deduplication** | Monitoring agent checks for existing items before adding — no duplicates |
+| **Dismiss (×) button** | Every followup/commitment has ✓ (mark done) and × (not relevant) — both persist across refresh |
+| **Content-stable IDs** | Followup item IDs based on content hash — dismissals survive dashboard regenerations |
+| **Commitment vs Action labels** | Each followup card auto-classified as COMMITMENT (orange) or ACTION (blue) for quick visual differentiation |
+| **Empty row prevention** | When all items in a card group are hidden, the parent container auto-hides too — no blank rows |
+| **Tooltips below icons** | Info tooltips appear below the icon to prevent overlap with sections above |
 
 ### 🤖 Automated Workflows (7 Skills)
 | Skill | What it does |
