@@ -1828,12 +1828,6 @@ Last full sync: Tue 23 Jun 2026, 14:47 CEST
       <div class="meeting-details"><i class="fa-solid fa-video"></i> <a href="https://amazon.zoom.us/j/98930495472?pwd=IHSRa6viQUSkJFgUYRo4pqZzEuKGHc.1&from=addon" target="_blank">Zoom link</a></div>
       <div class="meeting-meta">Purpose: EMEA TAM community session on the path to Principal TAM. Useful for promo prep.</div>
     </div>
-    <div class="meeting-card" data-meeting-id="meeting-blocktech-bisync-jun24" data-meeting-date="2026-06-24" style="position:relative;">
-      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
-      <div class="meeting-title">❌ BlockTech / AWS — Bi-Weekly Sync <span style="color:#de350b;font-size:12px;font-weight:normal;">(CANCELLED — moving to monthly)</span></div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 24 — 14:00–14:30 CEST</div>
-      <div class="meeting-meta">⚠️ Cancelled by Magfried (Jun 23). Switching to monthly cadence — TAM to reschedule. See followup fu-bc7d1e9a.</div>
-    </div>
     <div class="meeting-card" data-meeting-id="meeting-benelux-weekly-jun22" data-meeting-date="2026-06-22" style="position:relative;">
     <div class="meeting-card" data-meeting-id="meeting-kcr-review-jun22" data-meeting-date="2026-06-22" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
@@ -2074,13 +2068,13 @@ Last full sync: Tue 23 Jun 2026, 14:47 CEST
     <table style="margin-top:8px;">
       <thead><tr><th>Customer</th><th>Done</th><th>In Progress</th><th>Behind</th><th>Not Started</th></tr></thead>
       <tbody>
-        <tr><td>ReBound</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
-        <tr><td>APS</td><td>1</td><td>2</td><td>1</td><td>1</td></tr>
-        <tr><td>Vopak</td><td>0</td><td>0</td><td>1</td><td>2</td></tr>
-        <tr><td>BlockTech</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
-        <tr><td>P&amp;V</td><td>0</td><td>1</td><td>0</td><td>2</td></tr>
-        <tr><td>Yenlo</td><td>0</td><td>1</td><td>0</td><td>2</td></tr>
-        <tr style="font-weight:600;border-top:2px solid var(--color-border,#dfe1e6);"><td>Total</td><td>3</td><td>5</td><td>2</td><td>11</td></tr>
+        <tr><td>ReBound</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>APS</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>Vopak</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>BlockTech</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>P&amp;V</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>Yenlo</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr style="font-weight:600;border-top:2px solid var(--color-border,#dfe1e6);"><td>Total</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
       </tbody>
     </table>
   </div>
@@ -2471,10 +2465,10 @@ Highcharts.chart('ssp-chart', {
   plotOptions: { bar: { stacking: 'normal', borderWidth: 0, borderRadius: 2 } },
   colors: [success, warning, error, '#deebff'],
   series: [
-    { name: 'Complete', data: [3,0,1,0,0,0] },
-    { name: 'In Progress', data: [1,2,1,0,0,0] },
-    { name: 'Behind', data: [0,0,1,0,0,0] },
-    { name: 'Not Started', data: [0,1,1,3,3,3] },
+    { name: 'Complete', data: [0,0,0,0,0,0] },
+    { name: 'In Progress', data: [0,0,0,0,0,0] },
+    { name: 'Behind', data: [0,0,0,0,0,0] },
+    { name: 'Not Started', data: [0,0,0,0,0,0] },
   ],
   credits: { enabled: false },
   tooltip: { style: { fontSize: '12px' } },
