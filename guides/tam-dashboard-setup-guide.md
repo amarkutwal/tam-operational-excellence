@@ -19,6 +19,7 @@
 | Customer Health Scorecard | Tiered table with CHI scores, priority ranking, SSP status, spend trends |
 | Priority Actions | Ranked action items with dismiss/mark-done persistence |
 | Pending Follow-ups & Commitments | Cards tracking what you committed to customers |
+| Strategic Engagement Opportunities | Per-customer proactive recommendations with priority levels, signals, and suggested AWS programs (SHIP, WAR, CFM, EBA) |
 | Upcoming Meetings | Auto-filtered — past meetings hide automatically, future ones stay visible |
 | Communications | Email + Slack messages per customer, mark-done persists across refresh |
 | SSP Milestone Progress | Charts showing delivery status per customer |
@@ -40,6 +41,7 @@
 | **Collapsible sections** | SSP progress, call prep panels, health events collapse/expand — remembers state |
 | **Dark/light mode** | Toggle in top-right corner, preference saved to localStorage |
 | **Auto-reload** | Dashboard reloads every 15 minutes to pick up fresh data from the monitoring agent |
+| **Strategic engagement engine** | Analyzes customer signals (cases, health, spend, emails) and surfaces proactive engagement opportunities matched to AWS programs |
 | **Deduplication** | Monitoring agent checks for existing items before adding — no duplicates |
 
 ### 🤖 Automated Workflows (7 Skills)

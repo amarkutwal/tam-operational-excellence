@@ -1,6 +1,26 @@
 # Project Ulduz — Status Update
 
-## Latest: Jun 19, 2026
+## Latest: Jun 23, 2026
+
+### ✅ Completed This Week (Jun 22–23)
+- **Strategic Engagement Opportunities section** — new dashboard section (feedback from Nick & Diego):
+  - Per-customer cards with proactive recommendations, evidence signals, suggested AWS programs
+  - Priority-ranked: ReBound (DevOps Agent expansion), APS (AI SDLC workshop), Yenlo (WAR + Bedrock), BlockTech (Graviton + EKS), P&V (VPN + Windows EOS), Vopak (Savings Plan renewal)
+  - Moves dashboard from purely logistical ("what do I reply to") to strategic ("what should I proactively offer")
+  - Collapsible, dark-mode compatible, same card styling
+- **SSP/Cost section layout fix** — closed 2 missing `</div>` tags that trapped SSP & Cost inside Follow-ups grid
+- **Chart overflow fix** — added max-width/overflow constraints to dashboard grid and chart containers
+- **EKS Cluster Upgrades presentation** delivered at Benelux In-Person Team Meeting (Jun 22)
+- **2 SpecReqs drafted** for TFC "AI Operations progress" — DevOps Agent Discovery (May 29) + EBA Deployment (Jun 17)
+
+### In Progress
+- Wire up monitoring agent to maintain Strategic Engagement section with fresh signals
+- Agent auto-updating "Last full sync" timestamps (still manual)
+- 3rd SpecReq needed for TFC (1 more after the 2 drafted)
+- Abdullah Siddiqui EBA replication — meeting coordination ongoing
+- P&V Shailesh Jain internal intro call — pending reply
+
+---
 
 ### ✅ Completed This Week (Jun 15–19)
 - **Dashboard v7 shipped** — major UX + automation improvements:

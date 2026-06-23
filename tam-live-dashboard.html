@@ -976,18 +976,18 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Outlook</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Slack</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
-  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced Jun 16, 15:00</span></span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced Jun 23, 14:47</span></span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
-Last full sync: Thu 18 Jun 2026, 13:02 CEST
-  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 18, 2026 — 13:02 CEST</span>
+Last full sync: Tue 23 Jun 2026, 14:47 CEST
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 23, 2026 — 14:47 CEST</span>
 </div>
 <div class="data-freshness">
   <span id="refresh-timestamp">Last refreshed: loading...</span> · Auto-refresh: every 5 min (Phase 2)
   <button class="refresh-btn" onclick="showRefreshInfo()" title="Refresh info"><i class="fa-solid fa-rotate"></i></button>
 </div>
 
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 22, 2026 — 11:27 CEST</div>
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Monday, June 22, 2026 — 11:27 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Tuesday, June 23, 2026 — 14:47 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Tuesday, June 23, 2026 — 14:47 CEST</div>
 
 <!-- TOP KPI CARDS -->
 <div class="section-header" style="margin-top:0;"><i class="fa-solid fa-chart-simple"></i> KPI Cards<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Key portfolio metrics at a glance: customer count, open cases, active SSP milestones, and strategic focus percentage.</span></span></div>
@@ -1449,10 +1449,10 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
     <div class="followup-card" data-followup-id="followup-11">
       <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
       <div class="followup-item">Check Chetan's availability for Fabio Blonda (IT TAM) and confirm a slot for the DevOps Agent EBA Q&A call — you promised to check at lunchtime today</div>
-      <div class="followup-status">Fabio sent DM at 09:53 asking to connect. You replied "I'll check with him at lunch time." Meeting may already be booked for Tue Jun 23 11:30.</div>
+      <div class="followup-status">✅ Meeting confirmed: Fri Jun 26, 15:00–15:30 CEST. Fabio + Chetan + Amar. Prep for this call — Fabio wants to replicate the ReBound EBA model for his customer.</div>
       <div class="followup-meta">
         <span><span class="action-customer">Internal / TAM Collaboration</span></span>
-        <span><i class="fa-regular fa-clock"></i> Due: Today at lunch — confirm Chetan slot to Fabio</span>
+        <span><i class="fa-regular fa-clock"></i> Due: Fri Jun 26 — prep & join the call</span>
       </div>
     </div>
     <div class="followup-card" data-followup-id="followup-12">
@@ -1464,8 +1464,333 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
         <span><i class="fa-regular fa-clock"></i> Due: Today — read and action as relevant</span>
       </div>
     </div>
+    <div class="followup-card" data-followup-id="followup-13">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Prep for Yenlo Workload Overview Session — Pumudu walks you through their Connext setup tomorrow</div>
+      <div class="followup-status">Meeting: Tue Jun 23 at 09:30–10:30 CEST. Pumudu will walk through their infrastructure. Prep questions: What are their main workloads? Which AWS services? Any pain points? Cost, security, or scaling concerns?</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — prep before tomorrow 9:30 AM</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-14">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Reply to Sarath Kumar's farewell Slack DM — he messaged you at 14:57 CEST today after his farewell email</div>
+      <div class="followup-status">Sarath sent farewell email (mentioned you as his mentor) and followed up on Slack: "Ha Amar bhai". A warm reply would mean a lot.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Personal</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today</span>
+      </div>
+    </div>
     <button class="show-completed-toggle" id="toggle-followups" onclick="toggleCompletedFollowups()" style="display:none;"></button>
+    <div class="followup-card" data-followup-id="followup-15">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Read DevOps Agent Office Hours summary (today) — extract Release Manager updates and new customer use cases to share with ReBound / other prospects</div>
+      <div class="followup-status">Meeting summary arrived today (unread). Topics: Release Manager functionality, customer implementation patterns. You're a DevOps Agent Ambassador — stay sharp on latest updates.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">DevOps Agent</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-16">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Schedule P&amp;V internal intro call — invite Shailesh Jain + Bassem to align on the account</div>
+      <div class="followup-status">Shailesh replied on #aws-p-and-v-account-team (today, 10:29 CEST) confirming attendees: Bassem and himself. You asked who to invite — now you have the answer. Book the meeting.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&amp;V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-17">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Schedule Yenlo / Connext deep-dive session — Pumudu will walk you through their setup. Prefer Mon or Tue.</div>
+      <div class="followup-status">Pumudu Ruhunage (Yenlo) asked on Jun 16 via email: "@Kutwal, Amar, please schedule yenlo/connext deep dive session as discussed preferable on Mondays/Tuesdays." Not yet scheduled.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-18">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">Check EKS 1.30 end-of-extended-support AWS Health alert — identify which customer account (090323100873) this belongs to and plan upgrade path</div>
+      <div class="followup-status">AWS Health notification received today (00:57 CEST): "Amazon EKS Kubernetes 1.30 end of extended support [Account: 090323100873] [US-EAST-1]". Action required — extended support ends, upgrade needed.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">AWS Health</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-19">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Forward AppMod Workshop invite (EKS, ECS &amp; Lambda) to relevant customers — free AWS-run hands-on event with beginner + advanced tracks</div>
+      <div class="followup-status">AWS Field Enablement email received Jun 22 at 19:17 CEST. Good fit for APS (Arjen/SDLC interest), Yenlo (EKS workloads), BlockTech. Review and forward to those who could benefit.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Multiple Customers</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-20">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Review Eric's presentation feedback from yesterday's DevOps Agent Office Hours — strengths and improvement areas shared directly with you</div>
+      <div class="followup-status">Eric sent unedited feedback at 8:03 PM (Jun 22) via DM. Strengths: good topic, interactive Q&A, clear AWS vs cx responsibilities, no reading from slides. Improvement: time management (was given 30 min instead of 45 min requested). Also sent same feedback to Nick.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Review + acknowledge this week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-21">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔵 Test AWS Specialist Agent (ASA) — you have Field Preview access. Review it and assess value for your customers.</div>
+      <div class="followup-status">AWS Specialist Agent (ASA) is now in Field Preview. Amar received access Jun 22. ASA draws on deep technical AWS guidance — good to test before recommending to customers or using in case handling.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Strategic / Internal</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week — test &amp; evaluate</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-39">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Share Workload Overview Session recording with Pumudu</div>
+      <div class="followup-status">Zoom recording is ready (Jun 23, 09:28 CEST). Duration: 55 min. Link: https://amazon.zoom.us/rec/share/a1iWlzfTFmLoAJAs-IfEURiHEBcFVGMosUPsHqIo7LssxYh0X7i-8wQhr_NfbIi9.uugbHikWF5NTmoWn?pwd=DL9ySLj-2HHN3-jFKQ — Share with Pumudu Ruhunage so the Yenlo team has the recording for reference.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — share recording with Pumudu</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-40">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Project Ulduz — Review today's sync meeting summary and extract action items</div>
+      <div class="followup-status">Meeting summary arrived in inbox (Jun 23, 09:12 CEST): "Sync up on project-ulduz" — team reviewed dashboard progress, transitioning from logistics to strategic customer management focus. Read the summary and add any open action items to the dashboard.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Project Ulduz</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — review and action</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-41">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Reply to Magfried Janga — BlockTech TAM lead reached out</div>
+      <div class="followup-status">Magfried sent a Slack DM at 13:44 CEST today: "Hi Amar hope you are doing well." He is the BlockTech TAM lead who introduced you to the account. Acknowledge his message — and a good chance to ask about the upcoming BlockTech Bi-Weekly Sync tomorrow (Jun 24 14:00).</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">BlockTech</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-42">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Confirm call with Magfried Janga — he asked to set something up, you said "Yes. Quick call?"</div>
+      <div class="followup-status">At 14:35 CEST Magfried asked "should we set something up" — you replied "Yes. Quick call?" at 14:36. Confirm the call happened or schedule it. Good timing before BlockTech Bi-Weekly Sync tomorrow (Jun 24 14:00).</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">BlockTech</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today / Tomorrow</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-43">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 P&V — Schedule intro call with Shailesh Jain and Bassem</div>
+      <div class="followup-status">Shailesh Jain replied in #aws-p-and-v-account-team (Jun 22, 10:29 CEST): "Hi, it would be Bassem and me." — He confirmed who to invite for the internal alignment call you proposed. Next step: send a calendar invite to both Shailesh and Bassem for a short intro call (30 min) to introduce yourself and align on the account.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-44">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Schedule AI roadmap follow-up meeting with Pumudu</div>
+      <div class="followup-status">Action item from Yenlo Workload Overview Session (Jun 23, 09:38–10:32 CEST): Amar to schedule a follow-up session with Pumudu Ruhunage to discuss AI roadmap and requirements in detail. Yenlo is exploring Amazon Bedrock for conversational monitoring interfaces and automated security reporting. Pumudu also prefers Mondays or Tuesdays (per earlier email Jun 16). Coordinate via Zoom — suggest Mon/Tue next week.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week / Next Monday</span>
+      </div>
+    </div>
   </div>
+  <div class="card" style="grid-column: span 1;">
+    <div class="followup-card" data-followup-id="followup-45">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Yenlo — Urgent WAF case stale for 5 days (case 178151462400120)</div>
+      <div class="followup-status">Case Summary Report (Jun 23, 13:05 CEST): Yenlo has 1 urgent unresolved case — case 178151462400120 (WAF, PMA status). Created 8 days ago, last interaction 5 days ago. Owner: lureshen, Resolver: WAF. Check status and follow up with the support team to unblock. Link: https://command-center.support.aws.a2z.com/case-console#/cases/178151462400120</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — urgent case stale</span>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="grid-column: span 1;">
+    <div class="followup-card" data-followup-id="followup-46">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔵 Project Ulduz — Implement strategic customer engagement features in dashboard</div>
+      <div class="followup-status">Action item from today's Ulduz sync (Jun 23, 10:33–11:11 CEST): Team agreed dashboard needs to evolve from logistics management to proactive customer opportunity identification. Add features to surface Security, CFM, and architecture review opportunities per customer. Diego on vacation until Jul 6.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Project Ulduz</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Next Ulduz meeting</span>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="grid-column: span 1;">
+    <div class="followup-card" data-followup-id="followup-47">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Nick 1:1 — catch up tomorrow on summit session feedback</div>
+      <div class="followup-status">Amar messaged Nick at 14:55 CEST (Jun 23) asking for 5 mins — Nick replied "very booked today." Amar deferred: "No problem. We can have a call tomorrow." Eric also asked about Nick's 1:1 feedback this morning. Schedule a quick call with Nick on Wed Jun 24 to discuss summit feedback and any next steps.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Nick Majedi</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Tomorrow, Wed Jun 24</span>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="grid-column: span 1;">
+    <div class="followup-card" data-followup-id="followup-22">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Reply to Eric's DM — he's asking when your next 1:1 with Nick is, and whether Nick gave feedback on your summit session</div>
+      <div class="followup-status">Eric messaged at 9:08 AM today (Jun 23) via Slack DM: "When is your next 1:1 with Nick? Did he already provide feedback on your session?" — Eric also sent his own written feedback to Nick. This is a direct question needing a reply.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Eric Eugene Washington</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-23">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Review DevOps Agent automated setup package from Chetan Suri — test the setup script and quickstart YAML before using with customers</div>
+      <div class="followup-status">Chetan sent a zip package (Jun 14) via email: setup-devops-agent.sh, devops-agent-quickstart.yaml, and README.md. This is the automated incident investigation setup. Especially relevant before the Fabio EBA call on Jun 26. Email is in your Project and ToDo folder.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Chetan Suri</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Before Jun 26 EBA call</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-24">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Schedule Yenlo / Connext deep dive session — Pumudu asked you to set it up, preferably on Mondays or Tuesdays</div>
+      <div class="followup-status">Pumudu Ruhunage replied Jun 16 in the Private Pricing thread: "@Kutwal, Amar, please schedule yenlo/connext deep dive session as discussed preferable on Mondays/Tuesdays. I'll walk you through our setup." Commitment made during the Jun 16 workload overview session.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week (Mon/Tue preferred)</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-25">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Schedule intro call with P&amp;V — invite Bassem and Shailesh Jain (confirmed attendees)</div>
+      <div class="followup-status">You asked Shailesh who to invite to the internal alignment call. He replied Jun 22 on Slack (#aws-p-and-v-account-team): "Hi, it would be Bassem and me." Next step: create the meeting invite for Bassem + Shailesh.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&amp;V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-26">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Schedule AI roadmap follow-up with Pumudu (Bedrock / security reporting)</div>
+      <div class="followup-status">Action item from today's Workload Overview Session (Jun 23). Pumudu wants to explore Amazon Bedrock for automated monitoring queries and periodic security reports for banking customers. Schedule follow-up to discuss AI requirements and roadmap.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-27">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Research AWS services for periodic security reporting</div>
+      <div class="followup-status">Action item from Jun 23 Workload Overview Session. Yenlo serves banking and financial services customers who need regular security compliance reports. Research relevant AWS services (Security Hub, Config, Inspector, Bedrock agents) to propose a solution.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Before next Yenlo call</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-28">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Invite all 6 customers to AWS re:Invent 2026 — early bird registration now open</div>
+      <div class="followup-status">AWS re:Invent 2026 registration is LIVE as of Jun 23. Early bird discounts available. Invite customers: Yenlo, P&amp;V, ReBound, APS, Vopak, BlockTech. Personalize each invite based on their focus areas (AI, EKS, cost optimization, etc.).</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">All Customers</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week (early bird)</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-29">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Reply to Sreekanth Reddy — EKS Operation Reviews request</div>
+      <div class="followup-status">Sreekanth sent a Slack DM at 10:47 AM today: "Hey Amar...Can you do EKS operation reviews?" — direct ask from a colleague, needs a reply. Confirm if you can help and discuss scope/timing.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-30">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 P&V — Schedule intro call with Shailesh & Bassem</div>
+      <div class="followup-status">Shailesh Jain replied in #aws-p-and-v-account-team (Jun 22): "It would be Bassem and me." — Amar asked who to invite; now confirmed. Schedule the internal intro meeting with Shailesh Jain + Bassem to align on the account.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-31">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Invite customers to AWS re:Invent 2026 — registration is LIVE</div>
+      <div class="followup-status">re:Invent 2026 registration opened today (Jun 23). Early bird discounts available. Invite key contacts at Yenlo, BlockTech, Vopak, ReBound, APS, P&V — use this as a strategic touchpoint. Forward the registration link to each customer contact.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">All Customers</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week — early bird pricing</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-32">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔵 Unicorn Gym — Build It, Pitch It, Win It | Jul 2 @ AMS13</div>
+      <div class="followup-status">BeNeLux TAM/SA build-and-pitch event on Wednesday Jul 2 at AMS13 Amsterdam. Good visibility opportunity — consider participating with a project-ulduz or DevOps Agent pitch. Registration needed. Email from Brajendra Singh (Jun 23).</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Register before Jul 2</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-33">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Review meeting summary + recording from today's Workload Overview Session</div>
+      <div class="followup-status">Meeting summary and Zoom recording (55 min) both arrived unread in your Inbox (Jun 23). Session covered Connext platform architecture. Review to capture any additional action items beyond those already logged (Bedrock monitoring, security reports).</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — before next Yenlo action</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-34">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Yenlo — Research AWS services for periodic security reporting (Bedrock AI agents for compliance reports)</div>
+      <div class="followup-status">Action item from Yenlo Workload Overview Session (Jun 23): Amar to research AWS services that support automated periodic security reporting. Yenlo serves banking/financial services customers who need regular compliance reports. Explore: Bedrock for AI-generated reports, Security Hub for findings aggregation, AWS Config for compliance snapshots.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-35">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔵 Project Ulduz — Implement strategic customer engagement features in the dashboard</div>
+      <div class="followup-status">Action item from Project Ulduz sync (Jun 23, 10:30–11:11 AM): Nick and Diego said the dashboard needs to evolve beyond task management toward proactive customer engagement. Goal: identify opportunities (security reviews, cost optimisation, architecture reviews) per customer — not just track comms. Also: integrate with SOPs and AI agents for customer insights. Nick will share notes with Eric.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Project Ulduz</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Next project meeting</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-36">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Sreekanth — EKS Operational Review: confirm scope and schedule (EKS + Karpenter architecture)</div>
+      <div class="followup-status">Sreekanth Reddy asked for an EKS operational review (Slack DM, 10:47 AM). You replied and asked for details. He confirmed at 11:21 AM: customer uses EKS + Karpenter and wants an application architecture review from an Operations perspective. Next step: confirm your availability and schedule the review session.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Colleague</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today or tomorrow</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="followup-37">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🟡 Reply to Eric — confirm availability tomorrow 10:00–10:30 or this afternoon</div>
+      <div class="followup-status">Eric Washington sent a Slack DM at 12:13 CEST: "Are you available 10:00–10:30 tomorrow? I might even be able to catch up this afternoon, but I have to be flexible since my kids are out of school." — He also asked at 09:08 about your next 1:1 with Nick and whether Nick gave feedback on your session. Reply to both.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Eric Washington</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today — reply ASAP</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-38">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <div class="followup-item">🔴 Eric Washington — incoming call expected ~13:10 CEST today + catch-up tomorrow Wed Jun 24 10:00–10:30</div>
+      <div class="followup-status">Eric sent DM at 12:45 CEST (Jun 23): "As soon as my kids leave to go play with friends I will give you a call. I expect them to leave in about 25 minutes." — Call expected around 13:10 CEST. Also confirmed Wed Jun 24 10:00–10:30 still stands. Send meeting invite for tomorrow if not done yet.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Internal / Eric Washington</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today ~13:10 CEST (call incoming) + tomorrow meeting invite</span>
+      </div>
+    </div>
+
   <div class="card" style="grid-column: span 1;">
     <div class="card-label" style="color:#0052CC;font-weight:600;"><i class="fa-solid fa-calendar-check"></i> Upcoming Scheduled Meetings</div>
     <div class="meeting-card" data-meeting-id="meeting-kiro-workshop-jun18" data-meeting-date="2026-06-18" style="position:relative;">
@@ -1486,7 +1811,7 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
     <div class="meeting-card" data-meeting-id="meeting-blocktech-bisync-jun24" data-meeting-date="2026-06-24" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
       <div class="meeting-title">BlockTech / AWS — Bi-Weekly Sync</div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 24 — 14:00–15:00 CEST</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wednesday, Jun 24 — 14:00–14:30 CEST</div>
       <div class="meeting-meta">Purpose: Fargate retirement, Future Capacity Request NRT, DX maintenance</div>
     </div>
     <div class="meeting-card" data-meeting-id="meeting-benelux-weekly-jun22" data-meeting-date="2026-06-22" style="position:relative;">
@@ -1523,10 +1848,10 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 11:00 CEST</div>
       <div class="meeting-meta">Purpose: Bi-weekly EMEA office hours for UNO Agents program. Good visibility opportunity.</div>
     </div>
-    <div class="meeting-card" data-meeting-id="meeting-devops-eba-qa-jun23" data-meeting-date="2026-06-23" style="position:relative;">
+    <div class="meeting-card" data-meeting-id="meeting-devops-eba-qa-jun26" data-meeting-date="2026-06-26" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
       <div class="meeting-title">AWS DevOps Agent EBA Q&A — Fabio Blonda</div>
-      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 11:30–12:00 CEST</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 26 — 15:00–15:30 CEST</div>
       <div class="meeting-details"><i class="fa-solid fa-video"></i> <a href="https://amazon.zoom.us/j/99154145180?pwd=8LS1w32hbSKo0A8vV3HvitbpntwCgI.1&from=addon" target="_blank">Zoom link</a></div>
       <div class="meeting-meta">Purpose: Fabio (IT TAM) saw the ReBound DevOps Agent EBA trip report and wants to learn more + replicate. He invited you and Chetan.</div>
     </div>
@@ -1548,7 +1873,7 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
       <div class="meeting-title">Sync up on Project Ulduz</div>
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Tuesday, Jun 23 — 10:30–11:00 CEST</div>
-      <div class="meeting-meta">Purpose: Project Ulduz internal sync. Prep updates on dashboard progress and next steps.</div>
+      <div class="meeting-meta">Purpose: Project Ulduz internal sync. ⚠️ Olu declined (conflicting customer meeting). Diego + Nick still attending. Decide: proceed with 2 or reschedule?</div>
     </div>
     <div class="meeting-card" data-meeting-id="meeting-devops-office-hours-jun22" data-meeting-date="2026-06-22" style="position:relative;">
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
@@ -1569,6 +1894,12 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-meta">Purpose: Internal cluster sync with Evgeny Kamelyov, Vinotha, Mark Berendse, Muhammad Saeed</div>
     </div>
     <div class="meeting-card" data-meeting-id="meeting-devops-game-day-jun26" data-meeting-date="2026-06-26" style="position:relative;">
+    <div class="meeting-card" data-meeting-id="meeting-taps-dinner-jul08" data-meeting-date="2026-07-08" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">TAPS Team Dinner — Amsterdam 🍽️</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wed, Jul 8 — 17:30 CEST · Fiaschetteria Pistoia, Amsterdam</div>
+      <div class="meeting-meta">Purpose: TAPS team social dinner. Invite from Alessandra Manfredi. RSVP if you haven't yet.</div>
+    </div>
       <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
       <div class="meeting-title">ES GenAI Growth Day — DevOps Agent Game Day EMEA/APJC</div>
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Friday, Jun 26 — 11:00 CEST</div>
@@ -1580,8 +1911,114 @@ Last full sync: Thu 18 Jun 2026, 13:02 CEST
       <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wed, Jun 24 — 14:00–15:00 CEST</div>
       <div class="meeting-meta">Purpose: Monthly virtual review for EMEA North TAMs — share projects, emerging ideas, and opportunities. Conflicts with BlockTech Bi-Weekly (also 14:00).</div>
     </div>
+    <div class="meeting-card" data-meeting-id="meeting-genai-quick-desktop-jun24" data-meeting-date="2026-06-24" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">ES GenAI Program: Amazon Quick Desktop [EMEA]</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wed, Jun 24 — 14:00–15:00 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-video"></i> <a href="https://amazon.zoom.us/j/93713033234?pwd=8jK6O4plN53g36R3JCpDkwbawf4skj.1&from=addon" target="_blank">Zoom link</a></div>
+      <div class="meeting-meta">Purpose: EMEA session on Amazon Quick Desktop — AI productivity tool. Conflicts with BlockTech + Innovation Hub at 14:00. ⚠️ Triple conflict at 2 PM.</div>
+    </div>
+    <div class="meeting-card" data-meeting-id="meeting-cloudops-tfc-jun24" data-meeting-date="2026-06-24" style="position:relative;">
+      <button onclick="markMeetingDone(this)" title="Mark done" style="position:absolute;top:8px;right:8px;background:#36b37e;color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px;">✓</button>
+      <div class="meeting-title">CloudOps TFC Monthly Meeting</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Wed, Jun 24 — 18:00–19:00 CEST</div>
+      <div class="meeting-details"><i class="fa-solid fa-video"></i> <a href="https://amazon.zoom.us/j/96913521742?pwd=ORQaKTk8wU0zFd0BCtNKYHLCNGa193.1&from=addon" target="_blank">Zoom link</a></div>
+      <div class="meeting-meta">Purpose: CloudOps TFC monthly community call — observability, AI ops, cloud operations topics. EMEA timezone.</div>
+    </div>
   </div>
 </div>
+</div>
+</div>
+
+<!-- STRATEGIC ENGAGEMENT OPPORTUNITIES -->
+<div class="section-header" style="margin-top:32px;padding-top:16px;border-top:1px solid var(--color-border-light, #ebecf0);">
+  <div class="collapsible-header" onclick="toggleCollapsible('strategic-opps-content', this)" style="display:flex;align-items:center;gap:8px;">
+    <span class="collapsible-indicator" style="transform:rotate(90deg);">▶</span>
+    <i class="fa-solid fa-crosshairs"></i> Strategic Engagement Opportunities<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Proactive engagement recommendations per customer based on real signals — cases, health events, spend trends, and recent conversations. Helps identify what to offer next rather than just managing tasks.<br><br>📡 Data source: Support case patterns, AWS Health events, Cost Explorer trends, email/Slack conversation analysis, SSP milestone gaps.</span></span>
+  </div>
+</div>
+<div id="strategic-opps-content" class="collapsible-content" style="max-height:2000px; max-width:100%; overflow:hidden;">
+<p style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-bottom:12px;">What to proactively propose to each customer based on their actual signals — not just what needs a reply.</p>
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; max-width:100%; overflow:hidden;">
+
+  <!-- ReBound -->
+  <div class="card" style="border-left:3px solid #36b37e;">
+    <div class="card-label" style="font-weight:600;">ReBound (Cycleon)</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">Expand DevOps Agent to remaining critical apps</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#e3fcef;color:#006644;font-weight:600;">HIGH</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: MTTR reduced 55% after Jun 17 deployment. Currently covers few apps — 20+ more eligible.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-rocket" style="color:#36b37e;"></i> Propose: EBA Phase 2 — expand DevOps Agent to all production workloads. Estimated impact: full automation of incident investigation across entire platform.</div>
+    </div>
+  </div>
+
+  <!-- APS -->
+  <div class="card" style="border-left:3px solid #0052CC;">
+    <div class="card-label" style="font-weight:600;">Allied Publicity (APS)</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">AI-powered SDLC Workshop (Claude Code / Amazon Q Developer)</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#e3fcef;color:#006644;font-weight:600;">HIGH</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: Active email thread with Toon van Benthem about "SDLC improvements with AI for our developers." Customer asked how AWS can help. Workshop scheduled Jun 30.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-code" style="color:#0052CC;"></i> Propose: Hands-on EBA-style workshop — Claude Code + Amazon Q Developer. Show real productivity gains. Spend growing 8%/mo — correlate to developer investment.</div>
+    </div>
+  </div>
+
+  <!-- BlockTech -->
+  <div class="card" style="border-left:3px solid #FF8B00;">
+    <div class="card-label" style="font-weight:600;">BlockTech B.V.</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">Graviton Migration + EKS Upgrade Planning</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#b35c00;font-weight:600;">MEDIUM</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: Fargate retirement pending. EKS-heavy workloads. Spend $108K/mo with latency-sensitive crypto trading. 0/3 SSP milestones started.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-microchip" style="color:#FF8B00;"></i> Propose: Graviton migration assessment (up to 40% price-performance gain) + EKS version currency plan. Position as cost + performance win for HFT workloads.</div>
+    </div>
+  </div>
+
+  <!-- Yenlo -->
+  <div class="card" style="border-left:3px solid #6554C0;">
+    <div class="card-label" style="font-weight:600;">Yenlo</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">Well-Architected Review (Connext Platform) + Security Reporting with Bedrock</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#e3fcef;color:#006644;font-weight:600;">HIGH</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: Workload Overview sessions completed (Jun 16 + Jun 23). Private Pricing engagement active. Pumudu asked about AI-driven periodic security reports. Government customers (MDC) need compliance visibility.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-shield-halved" style="color:#6554C0;"></i> Propose: (1) Well-Architected Review for Connext platform based on workload data collected. (2) Bedrock-powered security reporting prototype for their government clients. Both align to Private Pricing value demonstration.</div>
+    </div>
+  </div>
+
+  <!-- P&V -->
+  <div class="card" style="border-left:3px solid #00B8D9;">
+    <div class="card-label" style="font-weight:600;">P&amp;V Assurances</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">VPN Redundancy Fix + Windows End-of-Support Migration Plan</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#b35c00;font-weight:600;">MEDIUM</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: New customer (Jun 2026). VPN health alerts active. Windows EOS flagged. CHI score 69/100 — lowest in portfolio. Internal intro call being scheduled with Shailesh + Bassem.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-network-wired" style="color:#00B8D9;"></i> Propose: (1) VPN resilience assessment — move to dual-tunnel or Transit Gateway. (2) Windows Server EOS migration roadmap. Position as quick-win reliability improvement for a new relationship.</div>
+    </div>
+  </div>
+
+  <!-- Vopak -->
+  <div class="card" style="border-left:3px solid #97A0AF;">
+    <div class="card-label" style="font-weight:600;">Vopak</div>
+    <div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;font-weight:500;color:var(--color-text, #1a1a1a);">Savings Plan Renewal + Security Posture Baseline</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#b35c00;font-weight:600;">MEDIUM</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary, #44546f);margin-top:4px;">Signal: Savings Plan expired — ~$20K/mo potential waste flagged in cost section. Partner-managed (InQdo) but TAM still owns strategic relationship. VPN lapses in health data. 0/2 SSP milestones behind schedule.</div>
+      <div style="font-size:11px;color:var(--color-text-muted, #8993a4);margin-top:6px;"><i class="fa-solid fa-piggy-bank" style="color:#97A0AF;"></i> Propose: (1) Coordinate with InQdo on Savings Plan renewal — $240K/yr savings at stake. (2) Security posture baseline via SHIP. Frame as TAM adding value even through partner model.</div>
+    </div>
+  </div>
+
 </div>
 </div>
 
