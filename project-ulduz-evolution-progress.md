@@ -1,5 +1,5 @@
 # TAM Dashboard Evolution — Progress & Next Steps
-> Updated: Wed Jun 24, 2026 — 16:52 CEST
+> Updated: Wed Jun 24, 2026 — 17:44 CEST
 
 ## What We Built Today
 
@@ -35,6 +35,13 @@ Each file has: Active Signals table, Strategic Opportunities (prioritized), SSP 
 ### ✅ 5. Dashboard Strategic Section (Already existed)
 - "Strategic Engagement Opportunities" section with per-customer cards
 - Now linked to intelligence files — refresh agent + weekly agent both update it
+
+### ✅ 6. Dante/K2 MCP Server Connected & Tested (DONE)
+- `aws-support-troubleshooting-mcp` installed via toolbox and added to Quick Desktop
+- Tested live: pulled ReBound EC2 instances (34) + VPN status (Tunnel 2 DOWN confirmed)
+- Weekly research agent tool policy updated to include Dante MCP
+- ReBound strategic intelligence file updated with live infra data
+- **This is exactly what Nick does with Kiro + Dante → we now have it in Quick Desktop**
 
 ---
 
