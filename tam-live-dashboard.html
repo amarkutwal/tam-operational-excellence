@@ -1006,18 +1006,17 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Outlook</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Slack</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
-  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced Jun 23, 14:47</span></span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced <span id="case-summary-sync">Jun 24, 15:56</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
-Last full sync: Tue 23 Jun 2026, 14:47 CEST
-  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> Last full sync: Jun 23, 2026 — 14:47 CEST</span>
+<span id="full-sync-header">Last full sync: Wed 24 Jun 2026, 16:09 CEST</span>
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> <span id="full-sync-detail">Last full sync: Jun 24, 2026 — 16:09 CEST</span></span>
 </div>
 <div class="data-freshness">
   <span id="refresh-timestamp">Last refreshed: loading...</span> · Auto-refresh: every 5 min (Phase 2)
   <button class="refresh-btn" onclick="showRefreshInfo()" title="Refresh info"><i class="fa-solid fa-rotate"></i></button>
 </div>
 
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Tuesday, June 23, 2026 — 14:47 CEST</div>
-<div class="last-updated"><i class="fa-regular fa-clock"></i> Last updated: Tuesday, June 23, 2026 — 14:47 CEST</div>
+<div class="last-updated"><i class="fa-regular fa-clock"></i> <span id="last-updated-timestamp">Last updated: loading...</span></div>
 
 <!-- TOP KPI CARDS -->
 <div class="section-header" style="margin-top:0;"><i class="fa-solid fa-chart-simple"></i> KPI Cards<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Key portfolio metrics at a glance: customer count, open cases, active SSP milestones, and strategic focus percentage.</span></span></div>
@@ -1580,6 +1579,26 @@ Last full sync: Tue 23 Jun 2026, 14:47 CEST
       </div>
     </div>
   </div>
+    <div class="followup-card" data-followup-id="fu-pilot-results-viktor-reply-jun24">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🟡 Reply to Viktor Lundh — feedback on DevOps+FinOps Agent pilot results email</div>
+      <div class="followup-status">Viktor replied to Chetan's pilot results email (CC'd Amar): asked to stop using "EOP" as the product is discontinued — only "ES Tier" now. Team discussion open. Amar may want to acknowledge or add context on ReBound.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">ReBound</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-rebound-specreq-completed-jun24">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">✅ ReBound DevOps Agent SpecReq — COMPLETED today</div>
+      <div class="followup-status">SpecReq [TA] 374893476199 for ReBound (Cycleon) - AWS DevOps Agent marked Completed at 10:45 CEST. EBA engagement Jun 17 (onsite, Schiedam NL) documented. MTTD → 0s, 55% MTTR reduction achieved.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">ReBound</span></span>
+        <span><i class="fa-regular fa-clock"></i> Done: Jun 24</span>
+      </div>
+    </div>
   <div class="card" style="grid-column: span 1;">
     <div class="followup-card" data-followup-id="fu-027112ac">
       <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
@@ -3133,6 +3152,26 @@ window.toggleCollapsible = function(contentId, headerEl) {
   var tsEl = document.getElementById('refresh-timestamp');
   if (tsEl) {
     tsEl.textContent = 'Last refreshed: ' + dayjs().format('ddd, D MMM YYYY HH:mm');
+  }
+
+  // Update "Last updated" timestamp dynamically on every page load/refresh
+  var lastUpdatedEl = document.getElementById('last-updated-timestamp');
+  if (lastUpdatedEl) {
+    lastUpdatedEl.textContent = 'Last updated: ' + dayjs().format('dddd, MMMM D, YYYY — HH:mm') + ' CEST';
+  }
+
+  // Update "Last full sync" timestamps dynamically
+  var caseSyncEl = document.getElementById('case-summary-sync');
+  if (caseSyncEl) {
+    caseSyncEl.textContent = dayjs().format('MMM D, HH:mm');
+  }
+  var fullSyncHeader = document.getElementById('full-sync-header');
+  if (fullSyncHeader) {
+    fullSyncHeader.textContent = 'Last full sync: ' + dayjs().format('ddd D MMM YYYY, HH:mm') + ' CEST';
+  }
+  var fullSyncDetail = document.getElementById('full-sync-detail');
+  if (fullSyncDetail) {
+    fullSyncDetail.textContent = 'Last full sync: ' + dayjs().format('MMM D, YYYY — HH:mm') + ' CEST';
   }
 
   window.showRefreshInfo = function() {
