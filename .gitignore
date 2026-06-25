@@ -8,20 +8,38 @@ Thumbs.db
 *.swo
 
 # Customer data (CONFIDENTIAL - do not push to shared repo)
+# All per-customer folders contain personal customer information
 customers/rebound-cycleon/
 customers/blocktech-bv/
 customers/vopak/
 customers/allied-publicity/
+customers/p-and-v/
+customers/yenlo/
 customers/_daily-briefings/
 customers/_weekly-reviews/
+customers/_email-scan-results.md
+customers/TAM-Customers/
 
-# Keep templates visible (they're generic)
+# Keep templates visible (they're generic — others can use them)
 !customers/_template/
 !customers/README.md
+
+# Live dashboard (YOUR personal data — not shareable)
+# The TEMPLATE dashboard stays in repo — that's what others get
+tam-live-dashboard.html
+
+# Old versions / backups (not needed in repo)
+tam-portfolio-dashboard-v1-backup.html
+
+# Progress tracker (personal project tracking)
+project-ulduz-evolution-progress.md
+
+# Large media files
+*.mp4
+*.mov
 
 # MCP settings (may contain tokens)
 # .kiro/settings/mcp.json
 
 # Steering files with personal info
 .kiro/steering/tam-context.md
-customers/yenlo/infrastructure/*.mp4
