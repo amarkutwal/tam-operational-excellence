@@ -49,6 +49,11 @@
 
 ## Research Notes
 <!-- Auto-populated by weekly research agent -->
+- **Dante data pulled Jun 25, 2026 (K2):**
+  - AWS Account: 090323100873
+  - EC2: 0 instances in eu-west-1
+  - CloudWatch Cross-Account migration pending (notifications received)
+  - SpringClean warnings received for this account
+  - Likely running serverless/container workloads (Connext Platform)
 - Claude Enterprise seats inquiry from Geert/Pumudu (Jun 1)
 - Connext Platform architecture mapped during workload sessions
-- Dante data pending first pull

@@ -56,6 +56,12 @@
 
 ## Research Notes
 <!-- Auto-populated by weekly research agent -->
+- **Dante data pulled Jun 25, 2026 (K2):**
+  - AWS Account: 391312048067
+  - EC2: 0 instances in eu-west-1, eu-central-1
+  - VPN: 0 connections in eu-west-1, eu-central-1
+  - **Account appears to be org/management account — workloads likely in linked accounts**
+  - VPN health alerts came from a different linked account (need to identify via Organizations)
 - Command Centre access pending (Nick requested from Russell)
-- Infrastructure discovery needed (no Dante data yet)
 - Regulatory requirements TBD (insurance = heavy compliance)
+- Next: Use Organizations API to list linked accounts and find the workload accounts

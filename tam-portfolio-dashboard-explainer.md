@@ -2,7 +2,7 @@
 ## What Each Section Does & Why It Matters
 
 **Purpose:** Quick reference for presenting the dashboard to Nick (and later at TAM Summit)
-**Last Updated:** June 19, 2026
+**Last Updated:** June 25, 2026
 
 ---
 
@@ -64,7 +64,7 @@
 | Strategic Focus Areas | Top 1-2 priorities from their SSP (e.g., "Cost Opt", "Security Posture") |
 | Spend | Monthly recurring cost trend indicator |
 
-**Why it matters for Nick:** This is the core of the dashboard. It shows tiered engagement in action — not all customers get the same treatment. The CHI score was added based on Garry Sollis's feedback — it replaces raw case count with a more meaningful composite metric.
+**Why it matters for Nick:** This is the core of the dashboard. It shows tiered engagement in action — not all customers get the same treatment. The CHI score replaces raw case count with a more meaningful composite metric.
 
 ---
 
@@ -84,7 +84,7 @@
 
 ## 6. Pending Follow-ups & Commitments (Purple-Bordered Cards)
 
-**What it is:** Cards tracking open commitments made to customers — things the TAM promised to deliver or follow up on.
+**What it is:** Cards tracking open commitments made to customers — things the TAM committed to deliver or follow up on.
 
 **Each card shows:**
 - Customer name
@@ -144,9 +144,49 @@
 
 ---
 
+## 11. Strategic Engagement Opportunities (Collapsible Section)
+
+**What it is:** Per-customer cards showing proactive engagement recommendations. Each card has:
+- Customer name
+- Top recommended engagement (e.g., "Graviton Migration + EKS Upgrade Planning")
+- Priority badge (HIGH / MEDIUM / LOW)
+- Signal that triggered the recommendation (e.g., "Fargate retirement pending, $108K/mo spend")
+- Proposed AWS program (SHIP, WAR, EBA, CFM)
+
+**How it works:** The weekly research agent (every Monday) and the refresh agent (every 15 min) scan customer communications and Dante infrastructure data for signals:
+- Spend anomaly → Cost optimization (CFM)
+- Health event → Resilience planning (SHIP)
+- New service adoption → Well-Architected Review (WAR)
+- Old-gen instances → Graviton migration
+- EOS/EOL items → Migration planning (MAP/SHIP)
+- Security findings → Security posture review
+
+**Customers covered:** ReBound, APS, BlockTech, Yenlo, P&V, Vopak
+
+**Why it matters for Nick:** This is the "proactive TAM" section. It shows the TAM isn't waiting for customers to ask for help — they're analyzing signals and proposing value-add engagements before problems happen. Each recommendation is backed by real data (not guesswork).
+
+---
+
+## 12. Customer Strategic Intelligence Files (Backend)
+
+**What it is:** Per-customer markdown files at `customers/<name>/strategic-intelligence.md` that serve as the "research brain" behind the dashboard.
+
+**Each file contains:**
+- Active Signals table (with priority, category, date)
+- Strategic Opportunities (ranked, with signal justification and proposed engagement)
+- SSP Alignment checklist
+- Communication Patterns (frequency, channels, last contact)
+- Research Notes (Dante/K2 infrastructure data, account details)
+
+**Auto-updated by:** `tam-weekly-research` agent (Monday 06:00) + `tam-dashboard-refresh` agent (every 15 min for new signals)
+
+**Why it matters for Nick:** This is what makes it dynamic. The intelligence grows over time — Dante pulls add infrastructure data, email patterns reveal relationship health, case patterns surface systemic issues. The dashboard just renders what these files contain.
+
+---
+
 ## Summary: The Story the Dashboard Tells
 
-> "I manage X customers, tiered by complexity. I know their health (CHI), I track my commitments, I action items daily, I monitor security trends across the portfolio, and I deliberately allocate my time between customer delivery and strategic initiatives. When something escalates, it's visible immediately. Nothing falls through the cracks."
+> "I manage X customers, tiered by complexity. I know their health (CHI), I track my commitments, I action items daily, I monitor security trends across the portfolio, and I deliberately allocate my time between customer delivery and strategic initiatives. When something escalates, it's visible immediately. Nothing falls through the cracks. I proactively research each customer's infrastructure and propose value-add engagements before they ask."
 
 This is what we present to Nick → then show the Min Engagement Framework as the *engine* behind it.
 
@@ -169,13 +209,38 @@ Three separate systems using the same pattern:
 Original bug: marking a future meeting "done" hid it permanently. Fixed Jun 19 2026.
 Now: future meetings get a green left-border ("prepped" state) but remain in the upcoming list until their date passes.
 
+### Dynamic Timestamps (all sync indicators)
+All "Last updated" / "Last full sync" timestamps now use JavaScript `dayjs()`. They show the current browser time on every page load or refresh. No more stale dates even if the monitoring agent hasn't run recently. Added Jun 24 2026.
+
 ### Live Monitoring Agent (every 15 min)
 A scheduled task (`tam-dashboard-refresh`) runs every 15 minutes and:
 1. Checks all 6 customer email folders + Project and ToDo folder + main inbox
 2. Checks Slack customer channels for messages directed at the TAM
 3. Checks calendar for upcoming meetings (next 48h)
-4. **Writes new action items directly into the HTML** using targeted `file_edit` diffs
-5. Posts to activity feed (importance="important" for urgent, "fyi" for routine)
+4. Scans for strategic signals (cost, health, security, modernization keywords)
+5. **Writes new action items directly into the HTML** using targeted `file_edit` diffs
+6. Updates customer strategic-intelligence.md files when new signals found
+7. Posts to activity feed (importance="important" for urgent, "fyi" for routine)
+
+### Strategic Signal Quick-Scan (refresh agent)
+On every 15-minute cycle, the monitoring agent also scans emails and Slack for strategic keywords (cost, health, security, modernization, EOS/EOL, case). When detected → updates the relevant customer's strategic-intelligence.md file. This is lightweight — adds less than 30 seconds per cycle.
+
+### Weekly Deep Research Agent (tam-weekly-research)
+Runs Monday 06:00. Does comprehensive per-customer research:
+- Scans all 6 customer email folders (past 7 days)
+- Checks Slack channels
+- Pulls live infrastructure data via Dante/K2 (EC2, VPN, EKS, Lambda, RDS, Savings Plans)
+- Updates strategic-intelligence.md files
+- Refreshes dashboard Strategic Engagement section
+- Posts summary to activity feed
+
+### Dante/K2 Infrastructure Research
+Live AWS API calls into customer accounts via the `aws-support-troubleshooting-mcp` MCP server. Currently pulls:
+- EC2 instances (instance types, state, platform — detects old-gen for Graviton opportunities)
+- VPN connections (tunnel UP/DOWN status — detects resilience gaps)
+- Savings Plans (active/retired, commitment amounts — detects cost waste)
+- EKS clusters, Lambda functions, RDS instances
+- Organizations (linked account discovery)
 
 ### Slack Action Detection Rules
 The agent determines a Slack message needs action if:
