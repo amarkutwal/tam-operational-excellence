@@ -1,5 +1,5 @@
 # Strategic Intelligence: P&V Assurances
-> Auto-updated by tam-weekly-research agent | Last refresh: 2026-06-24
+> Auto-updated by tam-weekly-research agent | Last refresh: 2026-06-25
 
 ## Customer Context
 - **Industry:** Insurance / Financial Services
@@ -14,6 +14,8 @@
 |--------|----------|---------------|----------|
 | New customer — just onboarded Jun 2026 | Onboarding | 2026-06 | HIGH |
 | VPN health alerts active | Resilience | 2026-06 | HIGH |
+| TAM Introduction meeting TODAY (Jun 25, 4 PM) | Onboarding | 2026-06-25 | HIGH |
+| Security/CFM/AI Ops baselines MISSING — Nick escalated | Compliance | 2026-06-25 | HIGH |
 | Windows End-of-Support flagged | EOS/EOL | 2026-06 | MEDIUM |
 | CHI score needs baseline | Risk | 2026-06 | MEDIUM |
 
@@ -50,18 +52,36 @@
 
 ## Communication Patterns
 - Slack channel active (#aws-p-and-v-account-team)
+- Shailesh Jain welcomed Amar (Jun 19) — asked about internal intro call
+- Internal alignment call set up — Shailesh + Bassem attending
+- TAM Introduction meeting: Jun 25 at 4:00 PM (Amar organizing)
 - Handover from Vedanth in progress
-- Nick involved in account setup
+- Vedanth shared P&V folder (Jun 5) and sent May cadence call follow-up (Jun 3)
 - Cadence call to be established
 
 ## Research Notes
 <!-- Auto-populated by weekly research agent -->
-- **Dante data pulled Jun 25, 2026 (K2):**
-  - AWS Account: 391312048067
-  - EC2: 0 instances in eu-west-1, eu-central-1
-  - VPN: 0 connections in eu-west-1, eu-central-1
-  - **Account appears to be org/management account — workloads likely in linked accounts**
-  - VPN health alerts came from a different linked account (need to identify via Organizations)
+- **Dante data pulled Jun 25, 2026 (K2 — full org discovery):**
+  - AWS Organization: 20 accounts! Payer = 391312048067 (P&V group prod environment)
+  - Key accounts: prod (810309093869), network (380407513324), drp (773801495808), iam, soc, audit
+  - Partner systems: comarch-prod/accp/cab, nrb-prod/cab/accp
+  - **PRODUCTION (810309093869, eu-central-1):** 24 running EC2 instances
+    - Types: t3.large (4), t3.medium (3), r7i.xlarge (3), r6i.large (3), r5.xlarge (3), m5.2xlarge (3), r7i.large (2), m6a.2xlarge (2), t3.small (1)
+    - ⚠️ **2 WINDOWS instances** → EOS migration opportunity CONFIRMED
+    - Fleet is mostly current-gen (r7i, r6i, m6a) — good modernization posture
+  - **NETWORK (380407513324, eu-central-1):** 5 VPN connections, ALL 10 tunnels UP ✅
+    - Previous VPN health alerts may be resolved or from a different timeframe
+  - **DRP account exists** (773801495808) → DR capability built in
+  - Region: eu-central-1 (Frankfurt) — makes sense for Belgian insurance company
 - Command Centre access pending (Nick requested from Russell)
 - Regulatory requirements TBD (insurance = heavy compliance)
-- Next: Use Organizations API to list linked accounts and find the workload accounts
+- **Updated strategic priorities based on Dante:**
+  - Windows EOS migration → CONFIRMED (2 instances in prod)
+  - VPN resilience → RESOLVED (all 10 tunnels UP as of Jun 24)
+  - Onboarding excellence → still top priority (new customer)
+- **Week of Jun 25 update:**
+  - TAM Introduction meeting TODAY at 4:00–4:30 PM (Zoom)
+  - Internal team: Shailesh Jain + Bassem confirmed for alignment call
+  - Vedanth's May cadence call included Trusted Advisor report (attached Jun 3)
+  - No direct customer contact yet — first meeting is today
+  - ⚠️ Nick Majedi flagged: Security, CFM, AI Ops baselines ALL MISSING — due this week
