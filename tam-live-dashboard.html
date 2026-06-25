@@ -1006,11 +1006,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Outlook</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Slack</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
-  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced <span id="case-summary-sync">Jun 25, 09:42</span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced <span id="case-summary-sync">Jun 25, 12:30</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
-  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced <span id="case-summary-sync">Jun 25, 09:42</span>
-<span id="full-sync-header">Last full sync: Thu 25 Jun 2026, 10:07 CEST</span>
-  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> <span id="full-sync-detail">Last full sync: Jun 25, 2026 — 10:07 CEST</span></span>
+  <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary <span style="font-weight:400;">— synced <span id="case-summary-sync2">Jun 25, 12:30</span>
+<span id="full-sync-header">Last full sync: Thu 25 Jun 2026, 12:46 CEST</span>
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> <span id="full-sync-detail">Last full sync: Jun 25, 2026 — 12:46 CEST</span></span>
 </div>
 <div class="data-freshness">
   <span id="refresh-timestamp">Last refreshed: loading...</span> · Auto-refresh: every 5 min (Phase 2)
@@ -1228,6 +1228,14 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
         <div class="action-content">
           <div class="action-title">🔴 [Action Required] Amazon EKS 1.30 end of extended support — account #090323100873</div>
           <div class="action-meta"><span class="action-customer">AWS Health</span> · Arrived today Jun 22 · EKS Kubernetes 1.30 extended support is ending — upgrade clusters before deadline to avoid additional charges</div>
+        </div>
+        <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
+      </li>
+      <li class="action-item" data-action-id="mustdo-6">
+        <div class="action-priority priority-red"></div>
+        <div class="action-content">
+          <div class="action-title">🚨 Vopak — Storage Gateway VM deprecation JUNE 30 (5 days!) — coordinate with inQdo partner</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · Deadline: Jun 30, 2026 · Partner-led support — check handover docs for inQdo contact</div>
         </div>
         <button class="action-dismiss" onclick="dismissAction(this)" title="Dismiss">×</button>
       </li>
@@ -1922,6 +1930,46 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       <div class="followup-meta">
         <span><span class="action-customer">ReBound</span></span>
         <span><i class="fa-regular fa-clock"></i> Due: This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-nick-baselines-jun25">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔴 Complete Security, CFM & AI Ops baselines for all 6 customers</div>
+      <div class="followup-status">Nick Majedi flagged this morning (9:55 AM) — all 6 customers (APS, BlockTech, P&V, ReBound, Vopak, Yenlo) are missing baselines in all 3 areas. Nick asked if you can complete this week. Chetan can guide you on initial baseline entry.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">All Customers</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: This week (asked by Nick)</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-chetan-finops-template-jun25">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔵 Send Chetan's FinOps Agent Deep Dive email template to customers</div>
+      <div class="followup-status">Chetan Suri shared a ready-to-send 1-hour FinOps Agent session invite. You confirmed this morning you'll combine DevOps Agent + FinOps Agent into one email. Template covers: deep dive, account enablement, and billing dashboard walkthrough.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">All Customers</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Today / This week</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-yenlo-connext-deep-dive-jun25">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🟡 Schedule Yenlo/Connext deep dive session (Mon or Tue preferred)</div>
+      <div class="followup-status">Pumudu Ruhunage (Yenlo) asked on Jun 16: "@Amar, please schedule yenlo/connext deep dive session as discussed — preferably on Mondays/Tuesdays. I'll walk you through our setup." Workload overview session already done Jun 23.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: Schedule ASAP</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-pv-intro-meeting-jun25">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">📅 TODAY 4:00 PM — P&V Account Team TAM Introduction</div>
+      <div class="followup-status">You are the organizer. Zoom: https://amazon.zoom.us/j/91745872731 ⚠️ Conflict: AWSentral Office Hours run 3:30–4:15 PM — leave early. First intro meeting with P&V team.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Today 16:00–16:30 CEST</span>
       </div>
     </div>
   <div class="card" style="grid-column: span 1;">

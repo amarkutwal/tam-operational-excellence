@@ -24,3 +24,4 @@ customers/_weekly-reviews/
 
 # Steering files with personal info
 .kiro/steering/tam-context.md
+customers/yenlo/infrastructure/*.mp4
