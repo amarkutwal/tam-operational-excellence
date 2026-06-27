@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TAM Portfolio Dashboard — Amar Kutwal</title>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ============================================================
+   TAM PORTFOLIO DASHBOARD — TEAL/AMBER DARK STYLE
+   Amar Kutwal · Benelux/EMEA North
+   Font: Calibri
+   Palette: dark teal bg, #F0F4F8 titles, #F5A623 amber accents,
+            #5CBDAA/#8FAAB3 body text
+   ============================================================ */
+:root {
+  --bg: #0D2B35;
+  --bg-card: #122F3A;
+  --bg-card-hover: #173545;
+  --bg-card-alt: #0F2830;
+  --teal: #5CBDAA;
+  --teal-light: #7ED3C1;
+  --amber: #F5A623;
+  --amber-light: #FABD51;
+  --muted: #8FAAB3;
+  --title: #F0F4F8;
+  --border: rgba(92, 189, 170, 0.18);
+  --border-strong: rgba(92, 189, 170, 0.35);
+  --red: #E05C5C;
+  --green: #4DBD8A;
+  --yellow: #F5A623;
+  --blue: #5BA8E0;
+  --radius: 8px;
+  --font: 'Calibri', 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--title);
+  padding: 24px 28px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ---- HEADER ---- */
+.header { margin-bottom: 20px; }
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--title);
+  letter-spacing: 0.01em;
+  margin-bottom: 2px;
+}
+.header h1 i { color: var(--teal); margin-right: 8px; }
+.header-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.header-sub strong { color: var(--amber); }
+
+/* ---- DATA SOURCE STATUS BAR ---- */
+.data-source-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  font-size: 11px;
+}
+.ds-label { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.ds-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid;
+}
+.ds-pill.ok   { background: rgba(77,189,138,0.15); color: var(--green); border-color: rgba(77,189,138,0.35); }
+.ds-pill.warn { background: rgba(245,166,35,0.15);  color: var(--amber); border-color: rgba(245,166,35,0.35); }
+.ds-pill.err  { background: rgba(224,92,92,0.15);   color: var(--red);   border-color: rgba(224,92,92,0.35); }
+.ds-sync {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--muted);
+}
+.last-updated {
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ---- SECTION HEADER ---- */
+.section-header {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal);
+  margin: 28px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.section-header i { color: var(--amber); font-size: 13px; }
+
+/* ---- KPI CARDS ---- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.kpi-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--title);
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kpi-delta { font-size: 11px; color: var(--muted); }
+.kpi-delta.pos { color: var(--green); }
+.kpi-delta.neg { color: var(--red); }
+.kpi-delta.warn { color: var(--amber); }
+
+/* ---- CARDS ---- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.card-full  { margin-bottom: 14px; }
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+/* ---- BADGES ---- */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.badge-red    { background: rgba(224,92,92,0.18);  color: var(--red); }
+.badge-amber  { background: rgba(245,166,35,0.18); color: var(--amber); }
+.badge-green  { background: rgba(77,189,138,0.18); color: var(--green); }
+.badge-blue   { background: rgba(91,168,224,0.18); color: var(--blue); }
+.badge-muted  { background: rgba(143,170,179,0.18); color: var(--muted); }
+
+/* ---- HEALTH SCORECARD TABLE ---- */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border-strong);
+}
+td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--title); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg-card-hover); }
+
+/* ---- ESCALATION CARD ---- */
+.escalation-card {
+  background: rgba(224,92,92,0.08);
+  border: 1px solid rgba(224,92,92,0.35);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.esc-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(224,92,92,0.2);
+  color: var(--red);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.esc-title { font-size: 13px; font-weight: 700; color: var(--title); }
+.esc-meta  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ---- PRIORITY ACTIONS ---- */
+.action-list { list-style: none; }
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease;
+}
+.action-item:last-child { border-bottom: none; }
+.action-item.dismissed { opacity: 0; max-height: 0; padding: 0; overflow: hidden; border-bottom: none; }
+.action-dot { min-width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; }
+.action-content { flex: 1; }
+.action-title { font-size: 12px; font-weight: 600; color: var(--title); }
+.action-title a { color: var(--teal); text-decoration: none; }
+.action-title a:hover { color: var(--teal-light); }
+.action-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.action-customer {
+  display: inline-block;
+  padding: 1px 6px;
+  background: rgba(92,189,170,0.12);
+  border: 1px solid rgba(92,189,170,0.25);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--teal);
+}
+.action-done {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.action-item:hover .action-done { opacity: 1; }
+.action-done:hover { background: var(--border); color: var(--green); }
+
+/* ---- FOLLOW-UP CARDS ---- */
+.followup-card {
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.followup-item   { font-size: 12px; font-weight: 600; color: var(--title); }
+.followup-status { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.followup-meta   { font-size: 10px; color: var(--muted); margin-top: 5px; display: flex; gap: 12px; align-items: center; }
+.button-done {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+  padding: 2px 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.followup-card:hover .button-done { opacity: 1; }
+.button-done:hover { background: rgba(77,189,138,0.15); color: var(--green); border-color: var(--green); }
+
+/* ---- MEETING CARDS ---- */
+.meeting-card {
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+.meeting-title   { font-size: 12px; font-weight: 600; color: var(--title); }
+.meeting-details { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.meeting-meta    { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+/* ---- COMMS ITEMS ---- */
+.comms-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.comms-item:last-child { border-bottom: none; }
+.comms-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+.comms-icon.email { background: var(--teal); }
+.comms-icon.slack { background: #7B5EA7; }
+.comms-content { flex: 1; min-width: 0; }
+.comms-subject { font-size: 12px; font-weight: 600; color: var(--title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comms-meta    { font-size: 10px; color: var(--muted); }
+
+/* ---- CASE SUMMARY ---- */
+.case-summary-bar {
+  background: rgba(245,166,35,0.08);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+.case-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 6px; }
+.case-metric { display: flex; flex-direction: column; align-items: center; }
+.case-metric-val { font-size: 20px; font-weight: 700; font-family: 'Courier New', monospace; }
+.case-metric-lbl { font-size: 10px; color: var(--muted); }
+.case-metric.critical .case-metric-val { color: var(--red); }
+.case-metric.total    .case-metric-val { color: var(--amber); }
+
+/* ---- RISK TABLE ---- */
+.risk-table th { font-size: 10px; }
+.risk-table td { font-size: 11px; }
+
+/* ---- CHART CONTAINERS ---- */
+.chart-container { height: 200px; }
+
+/* ---- SHOW-DISMISSED TOGGLE ---- */
+.show-dismissed-toggle {
+  font-size: 10px;
+  color: var(--teal);
+  cursor: pointer;
+  padding: 4px 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+  display: none;
+}
+.show-dismissed-toggle:hover { color: var(--teal-light); }
+
+/* ---- FOOTER ---- */
+.footer {
+  margin-top: 32px;
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+.footer strong { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ HEADER -->
+<div class="header">
+  <h1><i class="fa-solid fa-gauge-high"></i> TAM Portfolio Dashboard</h1>
+  <div class="header-sub">
+    Amar Kutwal &mdash; Benelux / EMEA North &mdash;
+    <strong>6 Active Customers</strong> &mdash;
+    Fri 26 Jun 2026
+  </div>
+</div>
+
+<!-- DATA SOURCE STATUS -->
+<div class="data-source-bar">
+  <span class="ds-label"><i class="fa-solid fa-plug"></i> Data Sources:</span>
+  <span class="ds-pill ok"><i class="fa-solid fa-circle-check"></i> Outlook</span>
+  <span class="ds-pill ok"><i class="fa-solid fa-circle-check"></i> Slack</span>
+  <span class="ds-pill ok"><i class="fa-solid fa-circle-check"></i> Calendar</span>
+  <span class="ds-pill ok"><i class="fa-solid fa-circle-check"></i> Case Summary</span>
+  <span class="ds-pill warn"><i class="fa-solid fa-triangle-exclamation"></i> EZTAMOS <span style="font-weight:400"> — Apple Silicon fix pending</span></span>
+  <span class="ds-sync" data-source-sync><i class="fa-regular fa-clock"></i> Last full sync: Jun 26, 2026 — 16:45 CEST</span>
+</div>
+
+<div class="last-updated"><i class="fa-regular fa-clock"></i> Last full sync: Fri 26 Jun 2026, 16:45 CEST &mdash; synced Jun 26, 16:45</div>
+
+<!-- ============================================================ KPI CARDS -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Active Customers</div>
+    <div class="kpi-value">6</div>
+    <div class="kpi-delta">APS, ReBound, Vopak, BlockTech, Yenlo, P&amp;V</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Open Cases (Portfolio)</div>
+    <div class="kpi-value" style="color:var(--amber)">11</div>
+    <div class="kpi-delta neg">1 Critical (PostNL) · 2 Missed First Response</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Actions Pending</div>
+    <div class="kpi-value" style="color:var(--red)">4</div>
+    <div class="kpi-delta warn">Yenlo reply · Chetan DM · EZTAMOS fix · Vedanth huddle</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Today's Meetings</div>
+    <div class="kpi-value" style="color:var(--teal)">4</div>
+    <div class="kpi-delta pos">SSA Townhall · Cluster 3 · DevOps EBA · P&amp;V Cadence · EBA Q&amp;A ✓ done</div>
+  </div>
+</div>
+
+<!-- ============================================================ CASE SUMMARY -->
+<div class="section-header"><i class="fa-solid fa-ticket"></i> Case Summary Report — 26 Jun 2026, 15:05 CEST</div>
+<div class="case-summary-bar card-full">
+  <div style="font-size:11px;color:var(--muted);">Auto-generated report · Last 6 months · 3 customers with open cases</div>
+  <div class="case-row">
+    <div class="case-metric total"><div class="case-metric-val">11</div><div class="case-metric-lbl">Total Open</div></div>
+    <div class="case-metric critical"><div class="case-metric-val">1</div><div class="case-metric-lbl">Critical</div></div>
+    <div class="case-metric"><div class="case-metric-val" style="color:var(--muted)">0</div><div class="case-metric-lbl">Urgent</div></div>
+    <div class="case-metric"><div class="case-metric-val" style="color:var(--muted)">0</div><div class="case-metric-lbl">Reopened</div></div>
+    <div class="case-metric"><div class="case-metric-val" style="color:var(--muted)">0</div><div class="case-metric-lbl">Aging</div></div>
+    <div class="case-metric"><div class="case-metric-val" style="color:var(--amber)">2</div><div class="case-metric-lbl">Missed 1st Response</div></div>
+    <div class="case-metric"><div class="case-metric-val" style="color:var(--muted)">0</div><div class="case-metric-lbl">Last 24h</div></div>
+  </div>
+  <div style="margin-top:10px;font-size:11px;color:var(--muted);">
+    Customers with cases: <strong style="color:var(--title)">APS (eop.theapsgroup.com)</strong> — 1 case (Low) ·
+    <strong style="color:var(--title)">PostNL (postnl.nl)</strong> — 6 cases (1 Critical, 3 Low, 2 High) ·
+    <strong style="color:var(--title)">Qualcomm EMEA</strong> — 4 cases (3 High, 1 Low)
+  </div>
+  <div style="margin-top:6px;padding:6px 10px;background:rgba(224,92,92,0.1);border-radius:4px;font-size:11px;color:var(--red);">
+    <strong>⚠ Critical:</strong> PostNL case #178246561500494 — EC2 Windows (Critical) — opened 3h 43m ago — needs TAM awareness
+  </div>
+</div>
+
+<!-- ============================================================ ACTIVE ESCALATIONS -->
+<div class="section-header"><i class="fa-solid fa-fire"></i> Active Escalations</div>
+<div class="escalation-card">
+  <div style="flex-shrink:0;"><span class="esc-badge">Critical</span></div>
+  <div style="flex:1;">
+    <div class="esc-title">EZTAMOS — Checksum Mismatch on Apple Silicon (M3)</div>
+    <div class="esc-meta">Versions 2.9.9 and 2.9.10 fail on macOS M3. Tim Harter (EZTAM support) provided folder guidance — pending verification. P&amp;V TA report impacted.</div>
+  </div>
+  <div style="text-align:right;flex-shrink:0;">
+    <div style="font-size:11px;color:var(--muted);">Raised: Fri 26 Jun 2026</div>
+    <div style="font-size:11px;color:var(--muted);">Owner: <strong style="color:var(--title)">Amar</strong></div>
+  </div>
+</div>
+<div class="escalation-card">
+  <div style="flex-shrink:0;"><span class="esc-badge">High</span></div>
+  <div style="flex:1;">
+    <div class="esc-title">BlockTech — Root MFA enforcement (3 production accounts)</div>
+    <div class="esc-meta">Root account has no MFA across 3 prod accounts. Security team escalation pending customer acknowledgment.</div>
+  </div>
+  <div style="text-align:right;flex-shrink:0;">
+    <div style="font-size:11px;color:var(--muted);">Opened: May 28, 2026</div>
+    <div style="font-size:11px;color:var(--muted);">Owner: <strong style="color:var(--title)">Amar</strong></div>
+  </div>
+</div>
+
+<!-- ============================================================ CUSTOMER HEALTH SCORECARD -->
+<div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Customer Health Scorecard</div>
+<div class="card card-full">
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Priority</th>
+        <th>CHI</th>
+        <th>Engagement</th>
+        <th>SSP</th>
+        <th>Open Cases</th>
+        <th>Strategic Focus</th>
+        <th>Recent Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Allied Publicity (APS)</strong><br><span style="font-size:10px;color:var(--muted);">49 accounts · EKS/SDLC heavy</span></td>
+        <td><span class="badge badge-amber">🟡 Medium</span></td>
+        <td><span class="badge badge-amber">68/100</span></td>
+        <td><span class="badge badge-green">🟢 Active</span></td>
+        <td><span class="badge badge-amber">🟡 In progress</span></td>
+        <td><span class="badge badge-amber">1 (Low)</span></td>
+        <td style="font-size:11px;color:var(--muted);">Kiro Phase 1 · SDLC AI</td>
+        <td style="font-size:10px;color:var(--muted);">Toon van Benthem RE: Kiro/GitLab Jun 15</td>
+      </tr>
+      <tr>
+        <td><strong>ReBound (Cycleon)</strong><br><span style="font-size:10px;color:var(--muted);">27 accounts · Logistics/Returns</span></td>
+        <td><span class="badge badge-green">🟢 Low</span></td>
+        <td><span class="badge badge-green">78/100</span></td>
+        <td><span class="badge badge-green">🟢 Active</span></td>
+        <td><span class="badge badge-green">🟢 On track</span></td>
+        <td><span class="badge badge-muted">0</span></td>
+        <td style="font-size:11px;color:var(--muted);">DevOps Agent EBA completed</td>
+        <td style="font-size:10px;color:var(--muted);">Trip report sent Jun 18</td>
+      </tr>
+      <tr>
+        <td><strong>Vopak</strong><br><span style="font-size:10px;color:var(--muted);">31 accounts · IoT/Industrial · InQdo</span></td>
+        <td><span class="badge badge-amber">🟡 Medium</span></td>
+        <td><span class="badge badge-amber">71/100</span></td>
+        <td><span class="badge badge-amber">🟡 Sporadic</span></td>
+        <td><span class="badge badge-red">🔴 SP expired</span></td>
+        <td><span class="badge badge-muted">0</span></td>
+        <td style="font-size:11px;color:var(--muted);">SP renewal · Security posture</td>
+        <td style="font-size:10px;color:var(--muted);">Specialist sessions email sent Jun 26</td>
+      </tr>
+      <tr>
+        <td><strong>BlockTech B.V.</strong><br><span style="font-size:10px;color:var(--muted);">9 accounts · HFT Crypto</span></td>
+        <td><span class="badge badge-green">🟢 Low</span></td>
+        <td><span class="badge badge-green">85/100</span></td>
+        <td><span class="badge badge-green">🟢 Active</span></td>
+        <td><span class="badge badge-blue">⏳ New</span></td>
+        <td><span class="badge badge-muted">0</span></td>
+        <td style="font-size:11px;color:var(--muted);">Graviton · PTP investigation</td>
+        <td style="font-size:10px;color:var(--muted);">Specialist sessions sent Jun 25</td>
+      </tr>
+      <tr>
+        <td><strong>Yenlo (Cloud Services)</strong><br><span style="font-size:10px;color:var(--muted);">Multi-account · WSO2 Connext</span></td>
+        <td><span class="badge badge-red">🔴 High</span></td>
+        <td><span class="badge badge-amber">72/100</span></td>
+        <td><span class="badge badge-green">🟢 Active</span></td>
+        <td><span class="badge badge-blue">⏳ In setup</span></td>
+        <td><span class="badge badge-muted">0</span></td>
+        <td style="font-size:11px;color:var(--muted);">CID/CUDOS · FinOps Agent · Connext deep dive</td>
+        <td style="font-size:10px;color:var(--muted);">Workload Overview done Jun 23 · reply pending</td>
+      </tr>
+      <tr>
+        <td><strong>P&amp;V Assurances</strong><br><span style="font-size:10px;color:var(--muted);">Insurance · guidewire · Handover</span></td>
+        <td><span class="badge badge-amber">🟡 Medium</span></td>
+        <td><span class="badge badge-blue">TBD</span></td>
+        <td><span class="badge badge-green">🟢 Active</span></td>
+        <td><span class="badge badge-blue">⏳ New TAM</span></td>
+        <td><span class="badge badge-muted">0</span></td>
+        <td style="font-size:11px;color:var(--muted);">Trusted Advisor · EZTAMOS reporting</td>
+        <td style="font-size:10px;color:var(--muted);">Cadence call done today Jun 26 · intro done</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================ PRIORITY ACTIONS -->
+<div class="section-header"><i class="fa-solid fa-rocket"></i> Priority Actions</div>
+<div class="card-grid-3">
+
+  <!-- STRATEGIC -->
+  <div class="card" style="border-top: 3px solid var(--blue);">
+    <div class="card-label" style="color:var(--blue);">🔵 Strategic / Proactive</div>
+    <ul class="action-list" id="actions-strategic">
+      <li class="action-item" data-action-id="s-1">
+        <div class="action-dot" style="background:var(--blue)"></div>
+        <div class="action-content">
+          <div class="action-title">Schedule Connext/Yenlo Deep Dive (Mon/Tue preference)</div>
+          <div class="action-meta"><span class="action-customer">Yenlo</span> · Pumudu asked Jun 16 · still pending</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="s-2">
+        <div class="action-dot" style="background:var(--blue)"></div>
+        <div class="action-content">
+          <div class="action-title">Run CID/CUDOS session for Yenlo — confirmed by Pumudu ✅</div>
+          <div class="action-meta"><span class="action-customer">Yenlo</span> · Schedule with FinOps specialist</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="s-3">
+        <div class="action-dot" style="background:var(--blue)"></div>
+        <div class="action-content">
+          <div class="action-title">Schedule P&amp;V cadence going forward (own calendar invite)</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · Shailesh: Amar to schedule from his calendar now</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="s-4">
+        <div class="action-dot" style="background:var(--blue)"></div>
+        <div class="action-content">
+          <div class="action-title">Review Kiro Phase 1 adoption progress with Amer &amp; Alessandra</div>
+          <div class="action-meta"><span class="action-customer">APS</span> · EU region availability key blocker</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="s-5">
+        <div class="action-dot" style="background:var(--blue)"></div>
+        <div class="action-content">
+          <div class="action-title">Share DevOps Agent EBA trip report with EMEA TAM community</div>
+          <div class="action-meta"><span class="action-customer">ReBound</span> · Sent Jun 18 — ensure cross-team visibility</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-strategic" onclick="toggleDismissed('actions-strategic','toggle-strategic')"></button>
+  </div>
+
+  <!-- MUST DO -->
+  <div class="card" style="border-top: 3px solid var(--red);">
+    <div class="card-label" style="color:var(--red);">🔴 Must Do (Reactive)</div>
+    <ul class="action-list" id="actions-mustdo">
+      <li class="action-item" data-action-id="m-1">
+        <div class="action-dot" style="background:var(--red)"></div>
+        <div class="action-content">
+          <div class="action-title">Reply to Pumudu Ruhunage — workload session follow-up</div>
+          <div class="action-meta"><span class="action-customer">Yenlo</span> · Email in Inbox · pending since Jun 23 · ⚠️ overdue</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="m-2">
+        <div class="action-dot" style="background:var(--red)"></div>
+        <div class="action-content">
+          <div class="action-title">Reply to Chetan Suri DM — "bhai call" (3:38 PM)</div>
+          <div class="action-meta"><span class="action-customer">DevOps Agent</span> · Slack DM · needs response</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="m-3">
+        <div class="action-dot" style="background:var(--red)"></div>
+        <div class="action-content">
+          <div class="action-title">Fix EZTAMOS checksum issue — run from correct version folder</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · Tim Harter fix: must run from extracted folder of same version — verify</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="m-4">
+        <div class="action-dot" style="background:var(--red)"></div>
+        <div class="action-content">
+          <div class="action-title" style="text-decoration:line-through;opacity:0.5">Reply to Oluwakorede Awobade DM — Cluster 3 Slack channel question</div>
+          <div class="action-meta"><span class="action-customer">Team</span> · Slack DM today at 10:05 — ✅ replied 16:30</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="m-5">
+        <div class="action-dot" style="background:var(--red)"></div>
+        <div class="action-content">
+          <div class="action-title">Send P&amp;V June Trusted Advisor report to customer</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · EZTAMOS blocked — follow up via Vedanth or alternative method</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-mustdo" onclick="toggleDismissed('actions-mustdo','toggle-mustdo')"></button>
+  </div>
+
+  <!-- SHOULD DO -->
+  <div class="card" style="border-top: 3px solid var(--amber);">
+    <div class="card-label" style="color:var(--amber);">🟡 Should Do</div>
+    <ul class="action-list" id="actions-shoulddo">
+      <li class="action-item" data-action-id="sh-1">
+        <div class="action-dot" style="background:var(--amber)"></div>
+        <div class="action-content">
+          <div class="action-title">Respond to Vedanth huddle request — confirm availability</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · Slack DM 14:36 — quick sync post-cadence call</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="sh-2">
+        <div class="action-dot" style="background:var(--amber)"></div>
+        <div class="action-content">
+          <div class="action-title">Prepare Trusted Advisor report for P&amp;V (backup method)</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · EZTAMOS broken — ask Vedanth or use console directly</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="sh-3">
+        <div class="action-dot" style="background:var(--amber)"></div>
+        <div class="action-content">
+          <div class="action-title">Engage Vopak — SP renewal follow-up via InQdo</div>
+          <div class="action-meta"><span class="action-customer">Vopak</span> · Savings Plan expired · ~$20K/mo waste risk</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="sh-4">
+        <div class="action-dot" style="background:var(--amber)"></div>
+        <div class="action-content">
+          <div class="action-title">Follow up Yenlo FinOps Agent session booking</div>
+          <div class="action-meta"><span class="action-customer">Yenlo</span> · Pumudu confirmed interest — schedule with specialist</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+      <li class="action-item" data-action-id="sh-5">
+        <div class="action-dot" style="background:var(--amber)"></div>
+        <div class="action-content">
+          <div class="action-title">Read P&amp;V engagement notes shared by Shailesh (Quip)</div>
+          <div class="action-meta"><span class="action-customer">P&amp;V</span> · Added to Quip Jun 25 — review before next cadence</div>
+        </div>
+        <button class="action-done" onclick="markActionDone(this)" title="Done">✓</button>
+      </li>
+    </ul>
+    <button class="show-dismissed-toggle" id="toggle-shoulddo" onclick="toggleDismissed('actions-shoulddo','toggle-shoulddo')"></button>
+  </div>
+
+</div>
+
+<!-- ============================================================ COMMITMENTS -->
+<div class="section-header"><i class="fa-solid fa-handshake-angle"></i> Commitments &amp; Follow-ups</div>
+<div class="card-grid-2">
+  <div class="card">
+    <div class="card-label">📋 Open Commitments</div>
+
+    <div class="followup-card" data-followup-id="followup-1">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Schedule Yenlo/Connext Deep Dive session (Mon/Tue)</div>
+      <div class="followup-status">Pumudu requested Jun 16 — committed to schedule it</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Overdue — this week</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-2">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Send P&amp;V June Trusted Advisor report to customer</div>
+      <div class="followup-status">Committed during today's cadence call — blocked by EZTAMOS issue</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&amp;V</span></span>
+        <span><i class="fa-regular fa-clock"></i> ASAP — today</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-3">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Book P&amp;V future cadence calls from own calendar</div>
+      <div class="followup-status">Shailesh: Amar should schedule using his calendar going forward</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&amp;V</span></span>
+        <span><i class="fa-regular fa-clock"></i> This week</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-4">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Book CID/CUDOS session for Yenlo with FinOps specialist</div>
+      <div class="followup-status">Pumudu confirmed interest during Workload Overview Jun 23</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Next 2 weeks</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-5">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Book FinOps Agent session for Yenlo</div>
+      <div class="followup-status">Confirmed by Pumudu — coordinate with FinOps specialist team</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Yenlo</span></span>
+        <span><i class="fa-regular fa-clock"></i> Next 2 weeks</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-6">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Confirm P&amp;V Workload Overview session date</div>
+      <div class="followup-status">Time proposal sent Jun 26 — awaiting response from Herbert/Niels/Waseem · Note: Shailesh (AM) is OOO / limited hours recovering from injury</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">P&amp;V</span></span>
+        <span><i class="fa-regular fa-clock"></i> Early next week</span>
+      </div>
+    </div>
+
+    <div class="followup-card" data-followup-id="followup-7">
+      <button class="button-done" onclick="markFollowupDone(this)" title="Mark done">✓ Done</button>
+      <div class="followup-item">Follow up with Vopak on Specialist Sessions email</div>
+      <div class="followup-status">Raymond van den Houwen OOO — returns Jun 30 · Pascal Valentin is backup contact · sent Jun 26</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Vopak</span></span>
+        <span><i class="fa-regular fa-clock"></i> Jun 30 (Raymond back)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPCOMING MEETINGS -->
+  <div class="card">
+    <div class="card-label" style="color:var(--teal)"><i class="fa-solid fa-calendar-check"></i> Upcoming Meetings (next 48h)</div>
+
+    <div class="meeting-card" style="border-left-color:var(--muted)">
+      <div class="meeting-title" style="color:var(--muted)">✅ DevOps Agent EBA Q&amp;A — DONE</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Fri 26 Jun — 15:00–15:30 CEST</div>
+      <div class="meeting-meta">Fabio Blonda · Chetan Suri · completed</div>
+    </div>
+
+    <div class="meeting-card" style="border-left-color:var(--muted)">
+      <div class="meeting-title" style="color:var(--muted)">✅ P&amp;V Monthly Cadence Call — DONE</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Fri 26 Jun — 14:00–15:00 CEST</div>
+      <div class="meeting-meta">First cadence as TAM for P&amp;V · introduced today</div>
+    </div>
+
+    <div class="meeting-card">
+      <div class="meeting-title">No meetings scheduled for Saturday 27 Jun</div>
+      <div class="meeting-details"><i class="fa-regular fa-calendar"></i> Sat 27 Jun — clear</div>
+      <div class="meeting-meta">Use for async catch-up / commitments</div>
+    </div>
+
+    <div style="margin-top:10px;padding:8px 10px;background:rgba(92,189,170,0.08);border-radius:6px;font-size:11px;color:var(--teal);">
+      <strong>Next week to watch:</strong> Schedule Yenlo Connext Deep Dive (Mon/Tue preferred by Pumudu) · Schedule P&amp;V next cadence
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ COMMUNICATIONS -->
+<div class="section-header"><i class="fa-solid fa-envelope-open-text"></i> Communications Requiring Action</div>
+<div class="card-grid-2">
+  <div class="card">
+    <div class="card-label"><i class="fa-solid fa-envelope"></i> Emails — Needing Action</div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">RE: AWS &amp; Yenlo — PPA review · Connext deep dive reply</div>
+        <div class="comms-meta">From: Pumudu Ruhunage · Jun 16 · ⚠️ Reply pending</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email" style="background:var(--amber)"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Customer Case Summary Report — 11 open cases, 1 Critical</div>
+        <div class="comms-meta">System · Jun 26 15:05 CEST · Unread · Review recommended</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Shailesh added you to P&amp;V engagement notes &amp; Account Summary (Quip)</div>
+        <div class="comms-meta">From: Quip · Jun 25 · Read · Review before next cadence</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">RE: SDLC improvements with AI — APS Kiro/GitLab update</div>
+        <div class="comms-meta">From: Toon van Benthem · Jun 15 · Read · No action needed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label"><i class="fa-brands fa-slack"></i> Slack — Needing Response</div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Chetan Suri — "bhai call" (DM 15:38)</div>
+        <div class="comms-meta">DM · Fri 26 Jun · ⚠️ Needs response</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack" style="background:var(--teal);color:var(--bg)"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Vedanth — "up for a quick huddle?" (DM 14:36)</div>
+        <div class="comms-meta">DM · Fri 26 Jun · ⚠️ Needs response</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Oluwakorede — "do we have a Cluster 3 Slack channel?" (DM 10:05)</div>
+        <div class="comms-meta">DM · Fri 26 Jun · ⚠️ Needs response</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack" style="background:var(--muted)"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Tim Harter — EZTAMOS folder fix in #eztam-interest</div>
+        <div class="comms-meta">#eztam-interest · Jun 26 15:02 · ⚠️ Apply fix &amp; confirm</div>
+      </div>
+    </div>
+    <div class="comms-item">
+      <div class="comms-icon slack" style="background:var(--bg-card-hover)"><i class="fa-brands fa-slack"></i></div>
+      <div class="comms-content">
+        <div class="comms-subject">Bassem Taher — P&amp;V stakeholder mapping doc shared</div>
+        <div class="comms-meta">#aws-p-and-v-account-team · Jun 26 11:22 · FYI — review</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ UPCOMING CADENCES TABLE -->
+<div class="section-header"><i class="fa-solid fa-calendar-days"></i> Upcoming Cadence Calls</div>
+<div class="card card-full">
+  <table>
+    <thead><tr><th>Customer</th><th>Date / Time</th><th>Prep Status</th><th>Key Topics</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>P&amp;V Assurances</strong></td>
+        <td>✅ Done — Fri 26 Jun 14:00</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td>Intro as new TAM · TA report follow-up pending · EZTAMOS fix needed</td>
+      </tr>
+      <tr>
+        <td><strong>Yenlo</strong></td>
+        <td>TBD (Jul)</td>
+        <td><span class="badge badge-red">Not scheduled</span></td>
+        <td>Connext deep dive · CID/CUDOS · FinOps Agent · PPA status</td>
+      </tr>
+      <tr>
+        <td><strong>Allied Publicity (APS)</strong></td>
+        <td>TBD</td>
+        <td><span class="badge badge-amber">Schedule needed</span></td>
+        <td>Kiro Phase 1 · SDLC AI · EKS upgrade status</td>
+      </tr>
+      <tr>
+        <td><strong>ReBound (Cycleon)</strong></td>
+        <td>TBD</td>
+        <td><span class="badge badge-amber">Schedule needed</span></td>
+        <td>Post-EBA follow-up · DR review · Observability next steps</td>
+      </tr>
+      <tr>
+        <td><strong>BlockTech B.V.</strong></td>
+        <td>TBD</td>
+        <td><span class="badge badge-amber">Schedule needed</span></td>
+        <td>PTP investigation · Graviton · MFA remediation</td>
+      </tr>
+      <tr>
+        <td><strong>Vopak</strong></td>
+        <td>TBD</td>
+        <td><span class="badge badge-amber">Schedule needed</span></td>
+        <td>SP renewal (via InQdo) · Security posture · Specialist sessions</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================ SECURITY & RISK -->
+<div class="section-header"><i class="fa-solid fa-shield-halved"></i> Security &amp; Resilience Risk</div>
+<div class="card card-full">
+  <table class="risk-table">
+    <thead>
+      <tr><th>Customer</th><th>Risk Item</th><th>Status</th><th>Priority</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>BlockTech</strong></td><td>Root MFA missing (3 prod accounts)</td><td><span class="badge badge-red">Urgent</span></td><td><span class="badge badge-red">High</span></td><td style="font-size:10px;color:var(--muted)">Security team escalation</td></tr>
+      <tr><td><strong>Vopak</strong></td><td>Savings Plan expired</td><td><span class="badge badge-red">Active</span></td><td><span class="badge badge-red">High</span></td><td style="font-size:10px;color:var(--muted)">~$20K/mo waste · Via InQdo</td></tr>
+      <tr><td><strong>APS</strong></td><td>EKS upgrade needed (Kiro SDLC)</td><td><span class="badge badge-amber">In progress</span></td><td><span class="badge badge-amber">Medium</span></td><td style="font-size:10px;color:var(--muted)">Kiro GitLab support adds complexity</td></tr>
+      <tr><td><strong>P&amp;V</strong></td><td>EZTAMOS reporting blocked</td><td><span class="badge badge-amber">Blocked</span></td><td><span class="badge badge-amber">Medium</span></td><td style="font-size:10px;color:var(--muted)">Tim Harter fix to test</td></tr>
+      <tr><td><strong>Yenlo</strong></td><td>No Savings Plan coverage confirmed</td><td><span class="badge badge-blue">Investigating</span></td><td><span class="badge badge-amber">Medium</span></td><td style="font-size:10px;color:var(--muted)">CID/CUDOS session will surface</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================ PROJECT ULDUZ / STRATEGIC PROGRAMS -->
+<div class="section-header"><i class="fa-solid fa-star"></i> Strategic Programs</div>
+<div class="card-grid-3">
+  <div class="card" style="border-top:3px solid var(--amber)">
+    <div class="card-label" style="color:var(--amber)">🌟 Project Ulduz</div>
+    <div style="font-size:12px;color:var(--title);margin-bottom:6px;">TAM Portfolio Dashboard — AI-powered automation</div>
+    <div style="font-size:11px;color:var(--muted);">Phase: Live · Auto-refresh every 15 min · Kiro workspace active</div>
+    <div style="margin-top:8px;font-size:11px;">
+      <div style="color:var(--muted)">Last Ulduz sync: <strong style="color:var(--title)">Tue 23 Jun 2026</strong></div>
+      <div style="color:var(--muted)">Status: <span class="badge badge-green">On track</span></div>
+    </div>
+  </div>
+  <div class="card" style="border-top:3px solid var(--teal)">
+    <div class="card-label" style="color:var(--teal)">🤖 DevOps Agent Ambassador</div>
+    <div style="font-size:12px;color:var(--title);margin-bottom:6px;">EBA with ReBound ✅ · P&amp;V interest · Yenlo next</div>
+    <div style="font-size:11px;color:var(--muted);">EBA Overview (today) · Q&amp;A done · Game Day tentative</div>
+    <div style="margin-top:8px;font-size:11px;">
+      <div style="color:var(--muted)">EBA Q&amp;A: <strong style="color:var(--title)">Done 15:00–15:30 today</strong></div>
+      <div style="color:var(--muted)">Status: <span class="badge badge-green">Active</span></div>
+    </div>
+  </div>
+  <div class="card" style="border-top:3px solid var(--blue)">
+    <div class="card-label" style="color:var(--blue)">🔬 APS Kiro Adoption Phase 1</div>
+    <div style="font-size:12px;color:var(--title);margin-bottom:6px;">GitLab support confirmed · EU region pending</div>
+    <div style="font-size:11px;color:var(--muted);">Amer Grgic (SA) · Toon van Benthem · Stefan Prisca</div>
+    <div style="margin-top:8px;font-size:11px;">
+      <div style="color:var(--muted)">Blocker: <strong style="color:var(--amber)">EU region availability</strong></div>
+      <div style="color:var(--muted)">Status: <span class="badge badge-amber">Tracking</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ FOOTER -->
+<div class="footer">
+  <strong>Project Ulduz</strong> — Powered by Amazon Quick Desktop · Auto-refresh every 15 min<br>
+  Data sources: Outlook · Slack · AWS Calendar · Case Summary Reports · Kiro IDE workspace<br>
+  <span style="color:var(--muted);font-size:10px;">Dashboard rebuilt Fri 26 Jun 2026 — teal/amber style v2</span>
+</div>
+
+<!-- ============================================================ JAVASCRIPT -->
+<script>
+(function() {
+  const STORAGE_KEY_ACTIONS = 'tam-dashboard-dismissed-actions-v2';
+  const STORAGE_KEY_FOLLOWUPS = 'tam-dashboard-done-followups-v2';
+
+  function getDismissed() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY_ACTIONS) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveDismissed(list) { localStorage.setItem(STORAGE_KEY_ACTIONS, JSON.stringify(list)); }
+
+  function getDoneFollowups() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY_FOLLOWUPS) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveDoneFollowups(list) { localStorage.setItem(STORAGE_KEY_FOLLOWUPS, JSON.stringify(list)); }
+
+  // Apply saved states on load
+  function applyStates() {
+    const dismissed = getDismissed();
+    dismissed.forEach(function(id) {
+      const el = document.querySelector('[data-action-id="' + id + '"]');
+      if (el) { el.classList.add('dismissed'); el.style.display = 'none'; }
+    });
+    const done = getDoneFollowups();
+    done.forEach(function(id) {
+      const el = document.querySelector('[data-followup-id="' + id + '"]');
+      if (el) { el.style.display = 'none'; }
+    });
+    updateToggles();
+  }
+
+  function updateToggles() {
+    const dismissed = getDismissed();
+    ['actions-strategic','actions-mustdo','actions-shoulddo'].forEach(function(listId) {
+      const list = document.getElementById(listId);
+      const toggleId = 'toggle-' + listId.replace('actions-','');
+      const toggle = document.getElementById(toggleId);
+      if (!list || !toggle) return;
+      let count = 0;
+      list.querySelectorAll('.action-item').forEach(function(item) {
+        if (dismissed.includes(item.getAttribute('data-action-id'))) count++;
+      });
+      if (count > 0) {
+        toggle.style.display = 'block';
+        toggle.textContent = 'Show done (' + count + ')';
+        toggle.setAttribute('data-showing','false');
+      } else { toggle.style.display = 'none'; }
+    });
+  }
+
+  window.markActionDone = function(btn) {
+    const item = btn.closest('.action-item');
+    if (!item) return;
+    const id = item.getAttribute('data-action-id');
+    item.classList.add('dismissed');
+    setTimeout(function() { item.style.display = 'none'; updateToggles(); }, 300);
+    const list = getDismissed();
+    if (!list.includes(id)) { list.push(id); saveDismissed(list); }
+  };
+
+  window.markFollowupDone = function(btn) {
+    const card = btn.closest('.followup-card');
+    if (!card) return;
+    const id = card.getAttribute('data-followup-id');
+    card.style.opacity = '0';
+    card.style.transition = 'opacity 0.3s';
+    setTimeout(function() { card.style.display = 'none'; }, 300);
+    const list = getDoneFollowups();
+    if (!list.includes(id)) { list.push(id); saveDoneFollowups(list); }
+  };
+
+  window.toggleDismissed = function(listId, toggleId) {
+    const list = document.getElementById(listId);
+    const toggle = document.getElementById(toggleId);
+    if (!list || !toggle) return;
+    const showing = toggle.getAttribute('data-showing') === 'true';
+    const dismissed = getDismissed();
+    list.querySelectorAll('.action-item').forEach(function(item) {
+      if (dismissed.includes(item.getAttribute('data-action-id'))) {
+        item.style.display = showing ? 'none' : 'flex';
+      }
+    });
+    toggle.setAttribute('data-showing', !showing);
+    toggle.textContent = showing ? 'Show done (' + dismissed.filter(function(id) {
+      return list.querySelector('[data-action-id="' + id + '"]');
+    }).length + ')' : 'Hide done';
+  };
+
+  applyStates();
+})();
+</script>
+</body>
+</html>
