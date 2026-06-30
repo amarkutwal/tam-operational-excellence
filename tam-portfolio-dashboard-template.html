@@ -1008,7 +1008,11 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Health</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> Case Summary</span>
   <span class="data-source-pill connected"><i class="fa-solid fa-circle-check"></i> AWS Cost Explorer</span>
-  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> <span id="full-sync-detail">Last full sync: Sat, 27 Jun 2026 — 13:22 CEST</span></span>
+Last full sync: Sun, 28 Jun 2026 — 08:55 CEST
+Last full sync: Sun, 28 Jun 2026 — 09:10 CEST
+<span id="full-sync-detail">Last full sync: Mon, 29 Jun 2026 — 08:28 CEST</span>
+<span id="full-sync-detail">Last full sync: Mon, 29 Jun 2026 — 08:28 CEST</span>
+  <span class="data-source-sync"><i class="fa-regular fa-clock"></i> <span id="full-sync-detail">Last full sync: Mon, 29 Jun 2026 — 08:40 CEST</span></span>
 </div>
 <div class="data-freshness">
   <span id="refresh-timestamp">Last refreshed: loading...</span> · Auto-refresh: every 5 min (Phase 2)
@@ -1383,6 +1387,80 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
   </div>
 
 </div>
+</div>
+
+
+<!-- SPECIALIST SESSION ENGAGEMENT TRACKER -->
+<div class="card card-full" style="margin-bottom: 24px;">
+  <div class="collapsible-header" onclick="toggleCollapsible('specialist-tracker-content', this)">
+    <span class="collapsible-indicator">▼</span>
+    <div class="card-label" style="margin-bottom:0;">Specialist Session Engagement<span class="info-icon-wrap"><i class="fa-solid fa-circle-info"></i><span class="info-tooltip">Tracks specialist sessions proposed to each customer. Sessions are led by Chetan's team — all included in Enterprise Support. Update status as customers respond.<br><br>📡 Data source: Manual tracking + Outlook responses</span></span></div>
+    <span class="section-count" style="margin-left:auto;font-size:11px;color:var(--color-text-muted,#8993a4);">6 customers · All sent</span>
+  </div>
+  <div class="collapsible-content" id="specialist-tracker-content" style="max-height:2000px;padding:16px 0 0 0;overflow:visible;border-bottom:1px solid var(--color-border-light,#ebecf0);">
+    <table style="width:100%;font-size:12px;border-collapse:collapse;">
+      <thead>
+        <tr style="text-align:left;border-bottom:2px solid var(--color-border-light,#ebecf0);">
+          <th style="padding:6px 8px;">Customer</th>
+          <th style="padding:6px 8px;">Sessions Proposed</th>
+          <th style="padding:6px 8px;">Recommended Start</th>
+          <th style="padding:6px 8px;">Sent</th>
+          <th style="padding:6px 8px;">Response</th>
+          <th style="padding:6px 8px;">Next Step</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--color-border-light,#ebecf0);">
+          <td style="padding:8px;font-weight:600;">Customer A</td>
+          <td style="padding:8px;">CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">FinOps Agent</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 25 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 2 Jul</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--color-border-light,#ebecf0);">
+          <td style="padding:8px;font-weight:600;">Customer B</td>
+          <td style="padding:8px;">DevOps Agent, CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">DevOps + FinOps</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 25 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 2 Jul</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--color-border-light,#ebecf0);">
+          <td style="padding:8px;font-weight:600;">Customer C</td>
+          <td style="padding:8px;">DevOps Agent, CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">DevOps + FinOps</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 25 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 2 Jul</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--color-border-light,#ebecf0);">
+          <td style="padding:8px;font-weight:600;">Customer D</td>
+          <td style="padding:8px;">DevOps Agent, CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">CID/CUDOS + FinOps</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 25 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 2 Jul</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--color-border-light,#ebecf0);">
+          <td style="padding:8px;font-weight:600;">Customer E</td>
+          <td style="padding:8px;">DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">DevOps + FinOps</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 26 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 3 Jul</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;font-weight:600;">Customer F</td>
+          <td style="padding:8px;">DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent</td>
+          <td style="padding:8px;"><span class="badge badge-blue">CFM Assessment</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-success,#36b37e);">✅ 26 Jun</span></td>
+          <td style="padding:8px;"><span style="color:var(--color-warning,#ff991f);">⏳ Awaiting</span></td>
+          <td style="padding:8px;font-size:11px;">Follow up by 3 Jul</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- PENDING FOLLOW-UPS & COMMITMENTS -->
@@ -1972,6 +2050,56 @@ th .info-tooltip { min-width: 180px; max-width: 260px; }
       <div class="followup-meta">
         <span><span class="action-customer">Customer E</span></span>
         <span><i class="fa-regular fa-clock"></i> Today 16:00–16:30 CEST</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-pv-workload-overview-reply-jun27">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">📧 Customer E — Awaiting reply on Workload Overview time proposal</div>
+      <div class="followup-status">Sent Jun 26 after cadence call: proposed two time slots for a 1-hour Workload Overview session. No reply yet from Customer E team (Bassem, Herbert, Niels, Waseem). Shailesh is on limited hours (injury). Follow up early next week if no response by Mon 30 Jun.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Customer E</span></span>
+        <span><i class="fa-regular fa-clock"></i> Follow up: Mon 30 Jun</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-case-2critical-jun27">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔴 Case Summary — 2 Critical Unresolved cases (up from 1)</div>
+      <div class="followup-status">Today's Case Summary Report (15:05 CEST, 27 Jun) shows 2 critical unresolved cases across your portfolio (was 1 yesterday). Also: 3 missed first response SLAs. Review Command Center to identify which customers are impacted and confirm engagement.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Portfolio</span></span>
+        <span><i class="fa-regular fa-clock"></i> Check today</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-eks-131-eol-jun28">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔴 [Action Required] Amazon EKS 1.31 end of extended support — Account #090323100873 (US-EAST-1)</div>
+      <div class="followup-status">AWS Health alert received 00:45 CEST today (28 Jun). EKS 1.31 extended support ending — upgrade required. Check Command Center for deadline and plan upgrade path for affected workloads.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Portfolio</span></span>
+        <span><i class="fa-regular fa-clock"></i> Action required — check deadline</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-eb-al2-eol-jun29">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔴 [Action Required] AWS Elastic Beanstalk Amazon Linux 2 — End of Life — Account #090323100873 (US-EAST-1)</div>
+      <div class="followup-status">AWS Health alert received 03:20 CEST today (29 Jun). Elastic Beanstalk AL2 platform branches reaching end of life. Any AL2-based Beanstalk environments must be migrated to AL2023 or containerised before the EOL date. Review affected environments and plan migration.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Portfolio</span></span>
+        <span><i class="fa-regular fa-clock"></i> Action required — check EOL deadline</span>
+      </div>
+    </div>
+    <div class="followup-card" data-followup-id="fu-vopak-storagegw-vm-jun30">
+      <button class="action-done" onclick="markFollowupDone(this)" title="Mark done">✓</button>
+      <button class="followup-dismiss" onclick="dismissFollowup(this)" title="Not relevant">×</button>
+      <div class="followup-item">🔴 [URGENT] Customer F — Storage Gateway VM Deprecation TOMORROW (Jun 30)</div>
+      <div class="followup-status">AWS Storage Gateway VM is reaching deprecation on 30 Jun 2026. Customer F has 31 accounts and active IoT/Storage workloads. Contact Customer F today to confirm they are aware and have a migration/upgrade plan. Cadence call is 7+ weeks overdue — use this as a reason to reconnect urgently.</div>
+      <div class="followup-meta">
+        <span><span class="action-customer">Customer F</span></span>
+        <span><i class="fa-regular fa-clock"></i> Due: TODAY — action before Jun 30</span>
       </div>
     </div>
   <div class="card" style="grid-column: span 1;">

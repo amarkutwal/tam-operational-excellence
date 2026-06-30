@@ -468,12 +468,19 @@ Best regards, Amar
 
 ## Engagement Tracker
 
-| Customer | Sessions Offered | Recommended Start | Status | Date Sent | Response |
-| --- | --- | --- | --- | --- | --- |
-| ReBound | CID/CUDOS, CFM, FinOps Agent | FinOps Agent | ✅ Sent | 25 Jun 2026 | — |
-| APS | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 25 Jun 2026 | — |
-| BlockTech | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 25 Jun 2026 | — |
-| Yenlo | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | CID/CUDOS + FinOps Agent | ✅ Sent | 25 Jun 2026 | — |
-| P&V | All 5 (DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 26 Jun 2026 | — |
-| Vopak | All 5 (DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent) | CFM Assessment | ✅ Sent | 26 Jun 2026 | — |
+| Customer | Sessions Offered | Recommended Start | Status | Date Sent | Response | Next Step |
+| --- | --- | --- | --- | --- | --- | --- |
+| ReBound | CID/CUDOS, CFM, FinOps Agent | FinOps Agent | ✅ Sent | 25 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 2 Jul |
+| APS | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 25 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 2 Jul |
+| BlockTech | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 25 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 2 Jul |
+| Yenlo | All 4 (DevOps Agent, CID/CUDOS, CFM, FinOps Agent) | CID/CUDOS + FinOps Agent | ✅ Sent | 25 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 2 Jul |
+| P&V | All 5 (DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent) | DevOps Agent + FinOps Agent | ✅ Sent | 26 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 3 Jul |
+| Vopak | All 5 (DevOps Agent, Security Agent, CID/CUDOS, CFM, FinOps Agent) | CFM Assessment | ✅ Sent | 26 Jun 2026 | ⏳ Awaiting reply | Follow up if no response by 3 Jul |
 
+### Status Legend
+- ✅ Sent — email delivered
+- ⏳ Awaiting reply — no response yet
+- 📩 Responded — customer replied (update with date)
+- 📅 Booked — session date confirmed
+- ✔️ Delivered — session completed
+- ❌ Declined — customer not interested
